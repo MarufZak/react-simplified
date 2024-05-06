@@ -1,4 +1,4 @@
-function createElement(tagName, attributes, ...rest) {
+export function createElement(tagName, attributes, ...rest) {
   const children = rest.length > 0 ? [].concat(rest) : null;
 
   return {
@@ -8,7 +8,7 @@ function createElement(tagName, attributes, ...rest) {
   };
 }
 
-function render(virtualDom) {
+export function render(virtualDom) {
   if (typeof virtualDom === "string") {
     return document.createTextNode(virtualDom);
   }
@@ -29,6 +29,6 @@ function render(virtualDom) {
   return element;
 }
 
-function createRoot(id, virtualDom) {
+export function createRoot(id, virtualDom) {
   document.getElementById(id).appendChild(render(virtualDom));
 }

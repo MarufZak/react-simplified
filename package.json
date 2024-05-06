@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "babel": "babel src --out-dir lib"
+    "babel": "babel src --out-dir lib",
+    "build": "rollup -c"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "@babel/preset-env": "^7.24.5",
     "@babel/preset-react": "^7.24.1",
     "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "rollup": "^4.17.2"
   }
 }
