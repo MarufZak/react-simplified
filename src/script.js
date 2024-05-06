@@ -1,4 +1,5 @@
 import React from "./react";
+import ReactDOM from "./react-dom";
 
 const element = (
   <div>
@@ -10,4 +11,5 @@ const element = (
   </div>
 );
 
-React.createRoot("root", element);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(element);
