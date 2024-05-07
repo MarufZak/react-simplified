@@ -1,22 +1,33 @@
 function renderRecursively(virtualDom) {
   if (typeof virtualDom === "string") {
     return document.createTextNode(virtualDom);
+  } else if (Array.isArray(virtualDom)) {
+    for (let i = 0; i < virtualDom.length; i++) {
+      return renderRecursively(virtualDom[i]);
+    }
+  } else if (typeof virtualDom === "object") {
+    const element = document.createElement(virtualDom.tagName);
+
+    const attributes = virtualDom.attributes || {};
+    for (const key in attributes) {
+      element.setAttribute(key, attributes[key]);
+    }
+
+    const children = virtualDom.children;
+    for (let i = 0; i < children?.length; i++) {
+      renderChildrenRecursively(element, children[i]);
+    }
+
+    return element;
   }
+}
 
-  const element = document.createElement(virtualDom.tagName);
-
-  const attributes = virtualDom.attributes || {};
-  for (const key in attributes) {
-    element.setAttribute(key, attributes[key]);
-  }
-
-  const children = virtualDom.children;
+function renderChildrenRecursively(parent, children) {
   for (let i = 0; i < children.length; i++) {
-    const child = children[i];
-    element.appendChild(renderRecursively(child));
-  }
+    const child = renderRecursively(children[i]);
 
-  return element;
+    parent.appendChild(child);
+  }
 }
 
 export function createRoot(element) {

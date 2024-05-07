@@ -1,15 +1,21 @@
 import React from "./react";
 import ReactDOM from "./react-dom";
 
-const element = (
-  <div>
-    just a test
-    <a href="/">Link</a>
-    <p style="color:red;">hello</p>
-    <h1>Good work!</h1>
-    <h2>It is working!!!</h2>
-  </div>
-);
+const Button = ({ children, ...props }) => {
+  return <button {...props}>{children}</button>;
+};
+
+const App = () => {
+  return (
+    <Button style="color: red;">
+      hello
+      <Button style="color: green;">
+        bye
+        <Button style="color: yellow;">yellow</Button>
+      </Button>
+    </Button>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(element);
+root.render(<App />);
