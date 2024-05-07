@@ -1,20 +1,8 @@
 import React from "./react";
 import ReactDOM from "./react-dom";
 
-const Button = ({ children, ...props }) => {
-  return <button {...props}>{children}</button>;
-};
-
 const App = () => {
-  return (
-    <Button style="color: red;">
-      hello
-      <Button style="color: green;">
-        bye
-        <Button style="color: yellow;">yellow</Button>
-      </Button>
-    </Button>
-  );
+  return [1, 2, 3];
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

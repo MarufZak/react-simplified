@@ -1,5 +1,7 @@
+const staticTypes = ["string", "number"];
+
 function renderRecursively(virtualDom) {
-  if (typeof virtualDom === "string") {
+  if (staticTypes.includes(typeof virtualDom)) {
     return document.createTextNode(virtualDom);
   } else if (Array.isArray(virtualDom)) {
     for (let i = 0; i < virtualDom.length; i++) {
