@@ -1,8 +1,8 @@
 const resolve = require("@rollup/plugin-node-resolve");
 const babel = require("@rollup/plugin-babel");
-
+/** @type {import('rollup').RollupOptions[]} */
 module.exports = {
-  input: "./src/script.js",
+  input: {},
   output: {
     file: "./lib/script.js",
     format: "umd",
