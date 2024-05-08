@@ -1,12 +1,22 @@
 import type { REACT_ELEMENT_TYPES } from "./element-types";
 
-// TODO: consider unknown values
-export type VDOMType = string | number | ReactElementType;
+export type VDOMType =
+  | string
+  | number
+  | null
+  | undefined
+  | boolean
+  | ReactElementType;
 
 export type HTMLTagElementType = keyof JSX.IntrinsicElements;
+
+export interface ReactElementPropsType {
+  children: VDOMType[];
+  [key: string]: any;
+}
 
 export interface ReactElementType {
   $$typeof: REACT_ELEMENT_TYPES;
   type: HTMLTagElementType;
-  props: Record<string, VDOMType[]>;
+  props: ReactElementPropsType;
 }

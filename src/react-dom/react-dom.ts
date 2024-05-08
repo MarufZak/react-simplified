@@ -1,34 +1,47 @@
-import { ReactElementType, VDOMType } from "../shared/types";
+import type { ReactElementType, VDOMType } from "../shared/types";
 
 const staticTypes = ["string", "number"] as const;
+type StaticType = (typeof staticTypes)[number];
 
 function renderChildrenRecursively(
   virtualDom: (string | number | ReactElementType)[],
   parent: HTMLElement
 ) {
   for (let i = 0; i < virtualDom.length; i++) {
-    const renderedNode = renderRecursively(virtualDom[i]);
+    const child = virtualDom[i];
+    if (Array.isArray(child)) {
+      return renderChildrenRecursively(child, parent);
+    }
+
+    const renderedNode = renderRecursively(child);
     parent.appendChild(renderedNode);
   }
 }
 
 function renderRecursively(virtualDom: VDOMType) {
-  if (staticTypes.includes(typeof virtualDom as (typeof staticTypes)[number])) {
+  if (virtualDom === null || virtualDom === undefined) {
+    return document.createTextNode("");
+  } else if (staticTypes.includes(typeof virtualDom as StaticType)) {
     return document.createTextNode(virtualDom.toString());
   } else if (typeof virtualDom === "object") {
+    console.log(virtualDom);
+
     const element = document.createElement(virtualDom.type);
 
     const props = virtualDom.props;
     for (const key in props) {
-      if (key === "children") {
+      if (
+        key === "children" ||
+        props[key] === undefined ||
+        props[key] === null
+      ) {
         continue;
       }
 
-      // TODO: check if html element attribute and not component specific prop
-      element.setAttribute(key, props[key].toString());
+      element.setAttribute(key, props[key]);
     }
 
-    const children = props.children;
+    const children = props?.children;
     for (let i = 0; i < children?.length; i++) {
       const child = children[i];
       if (Array.isArray(child)) {

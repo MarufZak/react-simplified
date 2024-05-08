@@ -6,7 +6,9 @@ const Button = ({ children, ...props }: any) => {
 };
 
 const App = () => {
-  return <Button style="font-size: 36px; color: orange;">123</Button>;
+  return [1, 2, 3, 4, 5].map((item) => {
+    return <Button style="font-size: 36px; color: orange;">{item}</Button>;
+  });
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
