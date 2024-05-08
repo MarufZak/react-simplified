@@ -1,4 +1,3 @@
-import { REACT_ELEMENT_TYPE } from "../shared/element-types";
 import type {
   HTMLTagElementType,
   ReactElementPropsType,
@@ -6,7 +5,6 @@ import type {
   VDOMType,
 } from "../shared/types";
 
-// TODO: dynamic element type
 export function createElement(
   type: HTMLTagElementType | Function,
   attributes: ReactElementType["props"],
@@ -23,7 +21,6 @@ export function createElement(
   }
 
   return {
-    $$typeof: REACT_ELEMENT_TYPE,
     type,
     props: {
       ...attributes,

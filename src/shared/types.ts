@@ -1,5 +1,3 @@
-import type { REACT_ELEMENT_TYPES } from "./element-types";
-
 export type VDOMType =
   | string
   | number
@@ -16,7 +14,6 @@ export interface ReactElementPropsType {
 }
 
 export interface ReactElementType {
-  $$typeof: REACT_ELEMENT_TYPES;
   type: HTMLTagElementType;
   props: ReactElementPropsType;
 }

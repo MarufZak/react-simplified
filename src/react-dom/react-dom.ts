@@ -1,10 +1,10 @@
-import type { ReactElementType, VDOMType } from "../shared/types";
+import type { VDOMType } from "../shared/types";
 
 const staticTypes = ["string", "number"] as const;
 type StaticType = (typeof staticTypes)[number];
 
 function renderChildrenRecursively(
-  virtualDom: (string | number | ReactElementType)[],
+  virtualDom: VDOMType[],
   parent: HTMLElement
 ) {
   for (let i = 0; i < virtualDom.length; i++) {
@@ -15,6 +15,12 @@ function renderChildrenRecursively(
 
     const renderedNode = renderRecursively(child);
     parent.appendChild(renderedNode);
+  }
+}
+
+function attachStyles(element: HTMLElement, styles: Record<string, string>) {
+  for (const key in styles) {
+    element.style.setProperty(key, styles[key]);
   }
 }
 
@@ -35,6 +41,9 @@ function renderRecursively(virtualDom: VDOMType) {
         props[key] === undefined ||
         props[key] === null
       ) {
+        continue;
+      } else if (key === "style") {
+        attachStyles(element, props[key]);
         continue;
       }
 

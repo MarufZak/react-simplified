@@ -1,5 +1,5 @@
-import React from "./react/index";
-import ReactDOM from "./react-dom/index";
+import React from "./react";
+import ReactDOM from "./react-dom";
 
 const Button = ({ children, ...props }: any) => {
   return <button {...props}>{children}</button>;
@@ -7,7 +7,7 @@ const Button = ({ children, ...props }: any) => {
 
 const App = () => {
   return [1, 2, 3, 4, 5].map((item) => {
-    return <Button style="font-size: 36px; color: orange;">{item}</Button>;
+    return <Button>{item}</Button>;
   });
 };
 
