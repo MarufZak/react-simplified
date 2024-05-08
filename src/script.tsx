@@ -6,7 +6,7 @@ const Button = ({ children, ...props }: any) => {
 };
 
 const App = () => {
-  return <Button style="font-size: 36px; color: red;">123</Button>;
+  return <Button style="font-size: 36px; color: orange;">123</Button>;
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

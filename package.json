@@ -4,7 +4,7 @@
   "description": "",
   "main": "./src/script.js",
   "scripts": {
-    "build": "rollup -c"
+    "build": "tsc && rollup -c && rm -rf ts"
   },
   "keywords": [],
   "author": "",
@@ -14,10 +14,8 @@
     "@babel/preset-react": "^7.24.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "rollup": "^4.17.2",
     "@types/node": "^20.12.10",
-    "@types/react": "^18.3.1"
-  },
-  "dependencies": {
+    "@types/react": "^18.3.1",
+    "rollup": "^4.17.2"
   }
 }
