@@ -5,7 +5,7 @@
   "main": "./src/script.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && rollup -c && rm -rf ts"
+    "build": "tsc && rollup -c && rm -rf public/ts"
   },
   "keywords": [],
   "author": "",
