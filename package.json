@@ -5,7 +5,9 @@
   "main": "./src/script.js",
   "type": "module",
   "scripts": {
-    "build": "tsc && rollup -c && rm -rf public/ts"
+    "build": "tsc && rollup -c && rm -rf public/ts",
+    "check": "prettier . --check",
+    "format": "prettier . --write"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@types/node": "^20.12.10",
     "@types/react": "^18.3.1",
+    "prettier": "^3.2.5",
     "rollup": "^4.17.2"
   }
 }

@@ -1,10 +1,11 @@
 # React-simplified
 
-This project serves as a minimalistic implementation of the React library, originally created and maintained by Facebook. It's designed to offer a streamlined and focused version of React.
+This project serves as a minimalistic implementation of the React library, originally created and maintained by Facebook.
 
 ## Features
 
 - **JSX-Runtime**: Custom JSX runtime for creating React elements.
+- **Event Handlers**: Support for dom-attachable event handlers.
 
 ### Installation
 

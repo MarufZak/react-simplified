@@ -1,12 +1,11 @@
 import type { VDOMType } from "../shared/types";
+import eventHandlers from "./eventRegistry";
+import { attachStyles, transformJSXEvent } from "./utils";
 
 const staticTypes = ["string", "number"] as const;
 type StaticType = (typeof staticTypes)[number];
 
-function renderChildrenRecursively(
-  virtualDom: VDOMType[],
-  parent: HTMLElement
-) {
+function renderChildrenRecursively(virtualDom: VDOMType[], parent: HTMLElement) {
   for (let i = 0; i < virtualDom.length; i++) {
     const child = virtualDom[i];
     if (Array.isArray(child)) {
@@ -18,32 +17,24 @@ function renderChildrenRecursively(
   }
 }
 
-function attachStyles(element: HTMLElement, styles: Record<string, string>) {
-  for (const key in styles) {
-    element.style.setProperty(key, styles[key]);
-  }
-}
-
 function renderRecursively(virtualDom: VDOMType) {
   if (virtualDom === null || virtualDom === undefined) {
     return document.createTextNode("");
   } else if (staticTypes.includes(typeof virtualDom as StaticType)) {
     return document.createTextNode(virtualDom.toString());
   } else if (typeof virtualDom === "object") {
-    console.log(virtualDom);
-
     const element = document.createElement(virtualDom.type);
 
     const props = virtualDom.props;
     for (const key in props) {
-      if (
-        key === "children" ||
-        props[key] === undefined ||
-        props[key] === null
-      ) {
+      if (key === "children" || props[key] === undefined || props[key] === null) {
         continue;
       } else if (key === "style") {
         attachStyles(element, props[key]);
+        continue;
+      } else if (key.startsWith("on")) {
+        const event = transformJSXEvent(key);
+        eventHandlers.setEvent(event, element, props[key]);
         continue;
       }
 
@@ -72,12 +63,10 @@ export function createRoot(rootElement: HTMLElement | null) {
   }
 
   return {
-    // pitfall. need to create own JSX namespace if should be fixed
+    // pitfall. need to create own JSX namespace if double assertion should be fixed
     render: (virtualDom: JSX.Element) =>
       Array.isArray(virtualDom)
         ? renderChildrenRecursively(virtualDom, rootElement)
-        : rootElement.appendChild(
-            renderRecursively(virtualDom as unknown as VDOMType)
-          ),
+        : rootElement.appendChild(renderRecursively(virtualDom as unknown as VDOMType)),
   };
 }
