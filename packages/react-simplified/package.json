@@ -1,0 +1,21 @@
+{
+  "name": "react-simplified",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc && rollup -c && rm -rf ./public/ts",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-react": "^7.24.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@types/node": "^20.12.10",
+    "@types/react": "^18.3.1",
+    "prettier": "^3.2.5",
+    "rollup": "^4.17.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
