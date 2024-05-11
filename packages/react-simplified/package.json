@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
-    "build": "tsc && rollup -c && rm -rf ./public/ts",
+    "build": "tsc && rollup -c && rm -rf ./ts"
+  },
+  "devDependencies": {
     "@babel/preset-env": "^7.24.5",
     "@babel/preset-react": "^7.24.1",
     "@rollup/plugin-babel": "^6.0.4",

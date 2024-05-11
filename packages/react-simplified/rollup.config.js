@@ -4,9 +4,9 @@ import babel from "@rollup/plugin-babel";
 // rollup has no good integration with typescript, and @rollup/plugin-typescript works confusing when bundling tsx modules, and has 3-4 deps. For now i first compile to js with typescript compiler, then use rollup to bundle js files.
 
 export default {
-  input: "./public/ts/src/script.js",
+  input: "./ts/src/script.js",
   output: {
-    file: "./public/script.js",
+    file: "./index.js",
     format: "umd",
   },
   plugins: [resolve(), babel({ babelHelpers: "bundled" })],
