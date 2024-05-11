@@ -1,0 +1,27 @@
+{
+  "name": "lite-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.24.5",
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-react": "^7.24.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "rollup": "^4.17.2",
+    "tailwindcss": "^3.4.3"
+  },
+  "type": "module",
+  "dependencies": {
+    "rollup-plugin-postcss": "^4.0.2"
+  }
+}

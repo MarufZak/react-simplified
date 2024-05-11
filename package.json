@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/react-simplified"
+    "packages/react-simplified",
+    "packages/lite-ui"
   ]
 }
