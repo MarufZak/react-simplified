@@ -36,6 +36,9 @@ function renderRecursively(virtualDom: VDOMType) {
         const event = transformJSXEvent(key);
         eventHandlers.setEvent(event, element, props[key]);
         continue;
+      } else if (key === "className") {
+        element.className = props[key];
+        continue;
       }
 
       element.setAttribute(key, props[key]);
