@@ -1,8 +1,7 @@
 import React from "react-simplified/src/core";
-import Badge from "./components/badge";
 
 const App = () => {
-  return <Badge>Badge</Badge>;
+  return "hello";
 };
 
 export default App;

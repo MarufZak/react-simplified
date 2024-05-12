@@ -1,4 +1,4 @@
-import resolve from "@rollup/plugin-node-resolve";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import babel from "@rollup/plugin-babel";
 import serve from "rollup-plugin-serve";
 import postcss from "rollup-plugin-postcss";
@@ -11,10 +11,9 @@ export default {
   input: "./src/index.tsx",
   output: {
     file: "./public/script.js",
-    format: "esm",
   },
   plugins: [
-    resolve(),
+    nodeResolve(),
     babel({ babelHelpers: "bundled" }),
     typescript(),
     postcss({
@@ -22,7 +21,6 @@ export default {
       extract: false,
     }),
     serve({
-      open: true,
       contentBase: "./public",
       port: 3000,
     }),
