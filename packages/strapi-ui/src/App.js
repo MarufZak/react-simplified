@@ -1,11 +1,12 @@
 import React from "react-simplified/react";
-
-const Button = () => {
-  return <button className="text-primary-700">Hello</button>;
-};
+import Badge from "./components/badge/badge";
 
 const App = () => {
-  return <Button></Button>;
+  return (
+    <Badge size={"md"} variant={"default"}>
+      Badge
+    </Badge>
+  );
 };
 
 export default App;

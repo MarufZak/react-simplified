@@ -4,7 +4,7 @@ import serve from "rollup-plugin-serve";
 import postcss from "rollup-plugin-postcss";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
-import livereload from 'rollup-plugin-livereload'
+import livereload from "rollup-plugin-livereload";
 
 export default {
   input: "./src/index.js",
@@ -22,10 +22,10 @@ export default {
     serve({
       open: true,
       contentBase: "./public",
-      port: 3000
+      port: 3000,
     }),
     livereload({
-      watch: "./public"
-    })
+      watch: "./public",
+    }),
   ],
 };
