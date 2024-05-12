@@ -14,5 +14,8 @@
   "workspaces": [
     "packages/react-simplified",
     "packages/strapi-ui"
-  ]
+  ],
+  "devDependencies": {
+    "rollup-plugin-livereload": "^2.0.5"
+  }
 }
