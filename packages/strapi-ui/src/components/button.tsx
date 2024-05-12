@@ -1,5 +1,5 @@
-import React from "react-simplified/src/core";
-import type ReactTypes from "react-simplified/src/types";
+import React from "react-simplified/core";
+import type ReactTypes from "react-simplified/types";
 import { cn } from "../utils";
 
 const variants = {

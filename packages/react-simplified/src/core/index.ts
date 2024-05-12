@@ -1,4 +1,4 @@
-import { createElement } from "./jsx-runtime.js";
+import { createElement } from "./jsx-runtime";
 
 const React = {
   createElement,

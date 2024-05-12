@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rm -rf core dom shared types && rollup -c"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.24.5",
@@ -18,7 +18,7 @@
     "rollup": "^4.17.2",
     "tslib": "^2.6.2"
   },
-  "author": "",
+  "author": "marufzak",
   "license": "ISC",
   "type": "module"
 }

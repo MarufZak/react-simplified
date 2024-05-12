@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "rollup -c -w"
   },
-  "author": "",
+  "author": "marufzak",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.24.5",
