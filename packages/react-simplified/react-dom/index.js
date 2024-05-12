@@ -37,7 +37,7 @@ function attachStyles(element, styles) {
   }
 }
 const specialEventCases = {
-  onDoubleClick: "dblclick",
+  onDoubleClick: "dblclick"
 };
 function transformJSXEvent(event) {
   if (Object.keys(specialEventCases).includes(event)) {
@@ -83,11 +83,7 @@ function renderRecursively(virtualDom) {
       element.setAttribute(key, props[key]);
     }
     const children = props === null || props === void 0 ? void 0 : props.children;
-    for (
-      let i = 0;
-      i < (children === null || children === void 0 ? void 0 : children.length);
-      i++
-    ) {
+    for (let i = 0; i < (children === null || children === void 0 ? void 0 : children.length); i++) {
       const child = children[i];
       if (Array.isArray(child)) {
         renderChildrenRecursively(child, element);
@@ -105,15 +101,12 @@ function createRoot(rootElement) {
   }
   return {
     // pitfall. need to create own JSX namespace if double assertion should be fixed
-    render: (virtualDom) =>
-      Array.isArray(virtualDom)
-        ? renderChildrenRecursively(virtualDom, rootElement)
-        : rootElement.appendChild(renderRecursively(virtualDom)),
+    render: virtualDom => Array.isArray(virtualDom) ? renderChildrenRecursively(virtualDom, rootElement) : rootElement.appendChild(renderRecursively(virtualDom))
   };
 }
 
 const ReactDOM = {
-  createRoot,
+  createRoot
 };
 
 export { ReactDOM as default };
