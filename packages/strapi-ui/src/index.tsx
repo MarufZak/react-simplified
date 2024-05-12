@@ -1,5 +1,5 @@
-import React from "react-simplified/react";
-import ReactDOM from "react-simplified/react-dom";
+import React from "react-simplified/src/core";
+import ReactDOM from "react-simplified/src/dom";
 import App from "./App";
 import "./globals.css";
 

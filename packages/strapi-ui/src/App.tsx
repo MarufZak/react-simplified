@@ -1,4 +1,4 @@
-import React from "react-simplified/react";
+import React from "react-simplified/src/core";
 import Badge from "./components/badge";
 
 const App = () => {
