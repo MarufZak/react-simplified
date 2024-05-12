@@ -13,6 +13,6 @@
   "license": "ISC",
   "workspaces": [
     "packages/react-simplified",
-    "packages/lite-ui"
+    "packages/strapi-ui"
   ]
 }

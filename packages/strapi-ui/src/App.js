@@ -1,7 +1,7 @@
 import React from "react-simplified/react";
 
 const Button = () => {
-  return <button className="text-white bg-red-600">Hello</button>;
+  return <button className="text-primary-100">Hello</button>;
 };
 
 const App = () => {
