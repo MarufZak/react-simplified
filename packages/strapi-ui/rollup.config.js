@@ -5,9 +5,10 @@ import postcss from "rollup-plugin-postcss";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import livereload from "rollup-plugin-livereload";
+import typescript from "@rollup/plugin-typescript";
 
 export default {
-  input: "./src/index.js",
+  input: "./src/index.tsx",
   output: {
     file: "./public/script.js",
     format: "esm",
@@ -15,6 +16,7 @@ export default {
   plugins: [
     resolve(),
     babel({ babelHelpers: "bundled" }),
+    typescript(),
     postcss({
       plugins: [tailwindcss(), autoprefixer()],
       extract: false,
