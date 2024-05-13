@@ -5,45 +5,45 @@ import { cn } from "../utils";
 const themes = {
   default: {
     primary:
-      "font-bold text-neutral-0 bg-primary-600 outline-none hover:bg-primary-500 focus-visible:ring-2 ring-offset-2 ring-primary-600 disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border disabled:border-neutral-200",
+      "text-neutral-0 bg-primary-600 hover:bg-primary-500 active:bg-primary-700",
     secondary:
-      "font-bold text-primary-600 bg-primary-100 outline-none hover:bg-neutral-0 focus-visible:ring-2 ring-offset-2 ring-primary-600 border border-primary-200 focus:border-transparent disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border-neutral-200",
+      "text-primary-600 bg-primary-100 hover:bg-neutral-0 border border-primary-200 active:border-primary-700",
     tertiary:
-      "font-bold text-primary-800 bg-neutral-0 outline-none hover:bg-neutral-100 focus-visible:ring-2 ring-primary-600 border border-primary-200 disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border-neutral-200",
+      "text-primary-800 bg-neutral-0 hover:bg-neutral-100 border border-neutral-200 active:bg-neutral-150",
   },
   success: {
     primary:
-      "font-bold text-neutral-0 bg-success-600 outline-none hover:bg-success-500 focus-visible:ring-2 ring-offset-2 ring-primary-600 disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border disabled:border-neutral-200",
+      "text-neutral-0 bg-success-600 hover:bg-success-500 active:bg-success-700",
     secondary:
-      "font-bold text-success-600 bg-success-100 outline-none border border-success-200 focus-visible:border-transparent hover:bg-neutral-0 focus-visible:ring-2 ring-offset-2 ring-primary-600 disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border disabled:border-neutral-200",
+      "text-success-600 bg-success-100 border border-success-200 hover:bg-neutral-0 active:border-success-700",
   },
   danger: {
     primary:
-      "font-bold text-neutral-0 bg-danger-600 outline-none hover:bg-danger-500 focus-visible:ring-2 ring-offset-2 ring-primary-600 disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border disabled:border-neutral-200",
+      "text-neutral-0 bg-danger-600 hover:bg-danger-500 active:bg-danger-700",
     secondary:
-      "font-bold text-danger-600 bg-danger-100 outline-none border border-danger-200 focus-visible:border-transparent hover:bg-neutral-0 focus-visible:ring-2 ring-offset-2 ring-primary-600 disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border disabled:border-neutral-200",
+      "text-danger-600 bg-danger-100 border border-danger-200 hover:bg-neutral-0 active:border-danger-700",
   },
   text: {
     primary:
-      "text-primary-600 hover:text-primary-500 outline-none focus-visible:ring-2 ring-offset-2 ring-primary-600 py-0 px-2 disabled:text-neutral-500",
+      "text-regular text-primary-600 hover:text-primary-500 py-0 px-2 disabled:text-neutral-500",
   },
 };
-type Theme = keyof typeof themes;
 
 const sizes = {
   sm: "rounded-[4px] px-4 py-2 text-xs",
   md: "rounded-[4px] px-4 py-2.5 text-sm",
   lg: "rounded-[4px] px-4 py-3 text-sm",
+  icon: "rounded-[4px] w-8 h-8 grid place-items-center text-sm",
 };
 
-interface Props<T extends Theme = "default">
+interface Props<T extends keyof typeof themes>
   extends ReactTypes.ComponentProps<"button"> {
   theme: T;
   variant: keyof (typeof themes)[T];
   size?: keyof typeof sizes;
 }
 
-const Button = <T extends Theme>({
+const Button = <T extends keyof typeof themes>({
   size = "sm",
   theme,
   variant,
@@ -53,7 +53,12 @@ const Button = <T extends Theme>({
 }: Props<T>) => {
   return (
     <button
-      className={cn(sizes[size], themes[theme][variant] as string, className)}
+      className={cn(
+        "font-bold focus-visible:outline-none focus-visible:ring-2 ring-offset-2 ring-primary-600 disabled:bg-neutral-150 disabled:text-neutral-600 disabled:border disabled:border-neutral-200 focus-visible:border-transparent",
+        sizes[size],
+        themes[theme][variant] as string,
+        className,
+      )}
       {...props}
     >
       {children}
