@@ -5,7 +5,19 @@ import { attachStyles, transformJSXEvent } from "./utils";
 const staticTypes = ["string", "number"] as const;
 type StaticType = (typeof staticTypes)[number];
 
-function renderChildrenRecursively(virtualDom: VDOMType[], parent: HTMLElement) {
+const conditionalAttributes = [
+  "disabled",
+  "checked",
+  "selected",
+  "required",
+  "hidden",
+] as const;
+type ConditionalAttributeType = (typeof conditionalAttributes)[number];
+
+function renderChildrenRecursively(
+  virtualDom: VDOMType[],
+  parent: HTMLElement,
+) {
   for (let i = 0; i < virtualDom.length; i++) {
     const child = virtualDom[i];
     if (Array.isArray(child)) {
@@ -27,7 +39,11 @@ function renderRecursively(virtualDom: VDOMType) {
 
     const props = virtualDom.props;
     for (const key in props) {
-      if (key === "children" || props[key] === undefined || props[key] === null) {
+      if (
+        key === "children" ||
+        props[key] === undefined ||
+        props[key] === null
+      ) {
         continue;
       } else if (key === "style") {
         attachStyles(element, props[key]);
@@ -38,6 +54,11 @@ function renderRecursively(virtualDom: VDOMType) {
         continue;
       } else if (key === "className") {
         element.className = props[key];
+        continue;
+      } else if (
+        conditionalAttributes.includes(key as ConditionalAttributeType) &&
+        !props[key]
+      ) {
         continue;
       }
 
@@ -70,6 +91,8 @@ export function createRoot(rootElement: HTMLElement | null) {
     render: (virtualDom: JSX.Element) =>
       Array.isArray(virtualDom)
         ? renderChildrenRecursively(virtualDom, rootElement)
-        : rootElement.appendChild(renderRecursively(virtualDom as unknown as VDOMType)),
+        : rootElement.appendChild(
+            renderRecursively(virtualDom as unknown as VDOMType),
+          ),
   };
 }
