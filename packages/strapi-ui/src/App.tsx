@@ -1,13 +1,28 @@
 import React from "react-simplified/core";
-import Button from "./components/button";
+import {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "./components/breadcrumb";
 
 const App = () => {
   return (
-    <div className="grid grid-cols-3 grid-rows-4 w-max p-5 gap-4">
-      <Button theme="success" variant="secondary" size="icon">
-        a
-      </Button>
-    </div>
+    <Breadcrumb>
+      <BreadcrumbList className="p-3">
+        <BreadcrumbItem>
+          <BreadcrumbLink>Item 1</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbEllipsis />
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink isActive={true}>Item 3</BreadcrumbLink>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 };
 
