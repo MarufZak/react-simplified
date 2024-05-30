@@ -1,4 +1,4 @@
-import React from "react-simplified/core";
+import React from "react-simplified";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,

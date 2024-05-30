@@ -2,7 +2,7 @@
   "name": "react-simplified",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/core/index.js",
   "scripts": {
     "build": "rm -rf core dom shared types && rollup -c"
   },
@@ -20,5 +20,29 @@
   },
   "author": "marufzak",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./dist/core/index.js",
+      "types": "./dist/core/index.d.ts"
+    },
+    "./types": {
+      "default": "./dist/types/index.d.ts",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./dom": {
+      "default": "./dist/dom/index.js",
+      "types": "./dist/dom/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "types": [
+        "./dist/types/index.d.ts"
+      ],
+      "dom": [
+        "./dist/dom/index.d.ts"
+      ]
+    }
+  }
 }

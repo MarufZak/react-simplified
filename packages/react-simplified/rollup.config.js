@@ -8,7 +8,7 @@ export default {
     dom: "./src/dom/index.ts",
   },
   output: {
-    dir: "./",
+    dir: "./dist",
     format: "esm",
     entryFileNames: "[name]/index.js",
   },
