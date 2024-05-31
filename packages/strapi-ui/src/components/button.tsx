@@ -1,4 +1,4 @@
-import React from "react-simplified/core/";
+import React from "react-simplified";
 import type ReactTypes from "react-simplified/types";
 import { cn } from "../utils";
 

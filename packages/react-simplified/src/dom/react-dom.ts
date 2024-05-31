@@ -1,18 +1,11 @@
 import type { VDOMType } from "../shared/types";
-import eventHandlers from "./eventRegistry";
-import { attachStyles, transformJSXEvent } from "./utils";
-
-const staticTypes = ["string", "number"] as const;
-type StaticType = (typeof staticTypes)[number];
-
-const conditionalAttributes = [
-  "disabled",
-  "checked",
-  "selected",
-  "required",
-  "hidden",
-] as const;
-type ConditionalAttributeType = (typeof conditionalAttributes)[number];
+import eventRegistry from "./eventRegistry";
+import {
+  attachStyles,
+  isConditionalAttribute,
+  isStaticType,
+  transformJSXEvent,
+} from "./utils";
 
 function renderChildrenRecursively(
   virtualDom: VDOMType[],
@@ -32,7 +25,7 @@ function renderChildrenRecursively(
 function renderRecursively(virtualDom: VDOMType) {
   if (virtualDom === null || virtualDom === undefined) {
     return document.createTextNode("");
-  } else if (staticTypes.includes(typeof virtualDom as StaticType)) {
+  } else if (isStaticType(virtualDom)) {
     return document.createTextNode(virtualDom.toString());
   } else if (typeof virtualDom === "object") {
     const element = document.createElement(virtualDom.type);
@@ -50,22 +43,19 @@ function renderRecursively(virtualDom: VDOMType) {
         continue;
       } else if (key.startsWith("on")) {
         const event = transformJSXEvent(key);
-        eventHandlers.setEvent(event, element, props[key]);
+        eventRegistry.setEvent(event, element, props[key]);
         continue;
       } else if (key === "className") {
         element.className = props[key];
         continue;
-      } else if (
-        conditionalAttributes.includes(key as ConditionalAttributeType) &&
-        !props[key]
-      ) {
+      } else if (isConditionalAttribute(key) && !props[key]) {
         continue;
       }
 
       element.setAttribute(key, props[key]);
     }
 
-    const children = props?.children;
+    const children = props.children;
     for (let i = 0; i < children?.length; i++) {
       const child = children[i];
       if (Array.isArray(child)) {
@@ -87,12 +77,13 @@ export function createRoot(rootElement: HTMLElement | null) {
   }
 
   return {
-    // pitfall. need to create own JSX namespace if double assertion should be fixed
-    render: (virtualDom: JSX.Element) =>
-      Array.isArray(virtualDom)
-        ? renderChildrenRecursively(virtualDom, rootElement)
-        : rootElement.appendChild(
-            renderRecursively(virtualDom as unknown as VDOMType),
-          ),
+    render: (virtualDom: JSX.Element) => {
+      if (Array.isArray(virtualDom)) {
+        return renderChildrenRecursively(virtualDom, rootElement);
+      }
+      // pitfall. need to create own JSX namespace if double assertion should be fixed
+      const root = renderRecursively(virtualDom as unknown as VDOMType);
+      return rootElement.appendChild(root);
+    },
   };
 }
