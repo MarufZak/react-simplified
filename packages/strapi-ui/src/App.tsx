@@ -1,28 +1,22 @@
 import React from "react-simplified";
-import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "./components/breadcrumb";
+import Button from "./components/button";
 
 const App = () => {
+  const [count, setCount] = React.useState(0);
+
   return (
-    <Breadcrumb>
-      <BreadcrumbList className="p-3">
-        <BreadcrumbItem>
-          <BreadcrumbLink>Item 1</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbEllipsis />
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink isActive={true}>Item 3</BreadcrumbLink>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
+    <div>
+      <Button
+        onClick={() => setCount(count + 1)}
+        theme="danger"
+        variant="primary"
+      >
+        First {count}
+      </Button>
+      <Button theme="success" variant="primary">
+        Second
+      </Button>
+    </div>
   );
 };
 

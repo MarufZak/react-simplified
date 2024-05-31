@@ -22,7 +22,7 @@ function renderChildrenRecursively(
   }
 }
 
-function renderRecursively(virtualDom: VDOMType) {
+export function renderRecursively(virtualDom: VDOMType) {
   if (virtualDom === null || virtualDom === undefined) {
     return document.createTextNode("");
   } else if (isStaticType(virtualDom)) {
@@ -86,4 +86,10 @@ export function createRoot(rootElement: HTMLElement | null) {
       return rootElement.appendChild(root);
     },
   };
+}
+
+export let rootComponent = () => {};
+
+export function registerRootComponent(component: () => void) {
+  rootComponent = component;
 }

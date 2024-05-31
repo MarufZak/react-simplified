@@ -4,4 +4,6 @@ import App from "./App";
 import "./globals.css";
 
 const root = document.getElementById("root");
+
+ReactDOM.registerRootComponent(App);
 ReactDOM.createRoot(root).render(<App />);
