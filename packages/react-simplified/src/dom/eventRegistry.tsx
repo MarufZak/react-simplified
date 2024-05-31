@@ -1,7 +1,10 @@
 type EventType = string;
 type EventTargetType = HTMLElement;
-type EventHandlerType = (...args: unknown[]) => void;
-type EventRegistryType = Record<EventType, Map<EventTargetType, EventHandlerType>>;
+type EventHandlerType = (event: Event) => void;
+type EventRegistryType = Record<
+  EventType,
+  Map<EventTargetType, EventHandlerType>
+>;
 
 class EventRegistry {
   private eventRegistry: EventRegistryType = {};
@@ -14,20 +17,32 @@ class EventRegistry {
     return this.eventRegistry[event].has(eventTarget);
   }
 
-  setEvent(event: EventType, eventTarget: EventTargetType, eventHandler: EventHandlerType) {
+  setEvent(
+    event: EventType,
+    eventTarget: EventTargetType,
+    eventHandler: EventHandlerType,
+  ) {
+    const eventHandlerWrapper = (e: Event) => {
+      if (e.target !== eventTarget) {
+        return;
+      }
+
+      eventHandler(e);
+    };
+
     if (this.hasEvent(event)) {
       if (this.hasEventTarget(event, eventTarget)) {
         return;
       }
 
-      document.body.addEventListener(event, eventHandler);
-      this.eventRegistry[event].set(eventTarget, eventHandler);
+      document.body.addEventListener(event, eventHandlerWrapper);
+      this.eventRegistry[event].set(eventTarget, eventHandlerWrapper);
       return;
     }
 
-    document.body.addEventListener(event, eventHandler);
+    document.body.addEventListener(event, eventHandlerWrapper);
     const map = new Map();
-    map.set(eventTarget, eventHandler);
+    map.set(eventTarget, eventHandlerWrapper);
     this.eventRegistry[event] = map;
   }
 
