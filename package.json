@@ -1,8 +1,7 @@
 {
   "name": "react",
-  "version": "1.0.0",
-  "description": "",
-  "main": "./src/script.js",
+  "version": "0.5.0",
+  "description": "A monorepo containing react-simplified and strapi-ui packages",
   "type": "module",
   "scripts": {
     "check": "prettier . --check",
