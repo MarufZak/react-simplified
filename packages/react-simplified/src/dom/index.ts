@@ -1,8 +1,3 @@
-import { createRoot, registerRootComponent } from "./react-dom";
-
-const ReactDOM = {
-  createRoot,
-  registerRootComponent,
-};
+import ReactDOM from "./react-dom";
 
 export default ReactDOM;

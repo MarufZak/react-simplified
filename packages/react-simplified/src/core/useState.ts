@@ -1,4 +1,4 @@
-import { renderRecursively, rootComponent } from "../dom/react-dom";
+import ReactDOM from "../dom/react-dom";
 
 const states: any[] = [];
 
@@ -11,10 +11,9 @@ function useState<T = any>(initialValue: T) {
   const performUpdate = (newValue: T) => {
     states[0] = newValue;
 
-    const newVDOM = rootComponent();
-    const root = renderRecursively(newVDOM as any);
+    const root = ReactDOM.render();
     document.querySelector("#root")!.innerHTML = "";
-    document.querySelector("#root")!.appendChild(root);
+    document.querySelector("#root")!.appendChild(root!);
   };
 
   return [states[0], performUpdate] as const;

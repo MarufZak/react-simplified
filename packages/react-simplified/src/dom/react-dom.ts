@@ -1,4 +1,4 @@
-import type { VDOMType } from "../shared/types";
+import type { ReactElementType, VDOMType } from "../shared/types";
 import eventRegistry from "./eventRegistry";
 import {
   attachStyles,
@@ -7,89 +7,104 @@ import {
   transformJSXEvent,
 } from "./utils";
 
-function renderChildrenRecursively(
-  virtualDom: VDOMType[],
-  parent: HTMLElement,
-) {
-  for (let i = 0; i < virtualDom.length; i++) {
-    const child = virtualDom[i];
-    if (Array.isArray(child)) {
-      return renderChildrenRecursively(child, parent);
-    }
+type RootComponentType = (() => ReactElementType) | null;
+type RootElementType = HTMLElement | null;
 
-    const renderedNode = renderRecursively(child);
-    parent.appendChild(renderedNode);
-  }
-}
+class ReactDOM {
+  private rootComponent: RootComponentType = null;
+  private rootElement: RootElementType = null;
 
-export function renderRecursively(virtualDom: VDOMType) {
-  if (virtualDom === null || virtualDom === undefined) {
-    return document.createTextNode("");
-  } else if (isStaticType(virtualDom)) {
-    return document.createTextNode(virtualDom.toString());
-  } else if (typeof virtualDom === "object") {
-    const element = document.createElement(virtualDom.type);
-
-    const props = virtualDom.props;
-    for (const key in props) {
-      if (
-        key === "children" ||
-        props[key] === undefined ||
-        props[key] === null
-      ) {
-        continue;
-      } else if (key === "style") {
-        attachStyles(element, props[key]);
-        continue;
-      } else if (key.startsWith("on")) {
-        const event = transformJSXEvent(key);
-        eventRegistry.setEvent(event, element, props[key]);
-        continue;
-      } else if (key === "className") {
-        element.className = props[key];
-        continue;
-      } else if (isConditionalAttribute(key) && !props[key]) {
-        continue;
-      }
-
-      element.setAttribute(key, props[key]);
-    }
-
-    const children = props.children;
-    for (let i = 0; i < children?.length; i++) {
-      const child = children[i];
+  private renderChildrenRecursively(
+    virtualDom: VDOMType[],
+    parent: HTMLElement,
+  ): void {
+    for (let i = 0; i < virtualDom.length; i++) {
+      const child = virtualDom[i];
       if (Array.isArray(child)) {
-        renderChildrenRecursively(child, element);
-      } else {
-        element.appendChild(renderRecursively(child));
+        return this.renderChildrenRecursively(child, parent);
       }
+
+      const renderedNode = this.renderRecursively(child);
+      parent.appendChild(renderedNode);
+    }
+  }
+
+  private renderRecursively(virtualDom: VDOMType) {
+    if (virtualDom === null || virtualDom === undefined) {
+      return document.createTextNode("");
+    } else if (isStaticType(virtualDom)) {
+      return document.createTextNode(virtualDom.toString());
+    } else if (typeof virtualDom === "object") {
+      const element = document.createElement(virtualDom.type);
+
+      const props = virtualDom.props;
+      for (const key in props) {
+        if (
+          key === "children" ||
+          props[key] === undefined ||
+          props[key] === null
+        ) {
+          continue;
+        } else if (key === "style") {
+          attachStyles(element, props[key]);
+          continue;
+        } else if (key.startsWith("on")) {
+          const event = transformJSXEvent(key);
+          eventRegistry.setEvent(event, element, props[key]);
+          continue;
+        } else if (key === "className") {
+          element.className = props[key];
+          continue;
+        } else if (isConditionalAttribute(key) && !props[key]) {
+          continue;
+        }
+
+        element.setAttribute(key, props[key]);
+      }
+
+      const children = props.children;
+      for (let i = 0; i < children?.length; i++) {
+        const child = children[i];
+        if (Array.isArray(child)) {
+          this.renderChildrenRecursively(child, element);
+        } else {
+          element.appendChild(this.renderRecursively(child));
+        }
+      }
+
+      return element;
     }
 
-    return element;
+    throw new Error("unknown vdom type");
   }
 
-  throw new Error("unknown vdom type");
-}
+  registerRootElement(rootElement: RootElementType) {
+    if (!rootElement) {
+      throw new Error("root element not found");
+    }
 
-export function createRoot(rootElement: HTMLElement | null) {
-  if (!rootElement) {
-    throw new Error("root element not found");
+    this.rootElement = rootElement;
   }
 
-  return {
-    render: (virtualDom: JSX.Element) => {
-      if (Array.isArray(virtualDom)) {
-        return renderChildrenRecursively(virtualDom, rootElement);
-      }
-      // pitfall. need to create own JSX namespace if double assertion should be fixed
-      const root = renderRecursively(virtualDom as unknown as VDOMType);
-      return rootElement.appendChild(root);
-    },
-  };
+  registerRootComponent(component: RootComponentType) {
+    this.rootComponent = component;
+  }
+
+  render() {
+    if (!this.rootElement || !this.rootComponent) {
+      throw new Error("root element or root component is not registered");
+    }
+
+    const virtualDom = this.rootComponent();
+
+    // handle situation when root component returns array of values
+    if (Array.isArray(virtualDom)) {
+      return this.renderChildrenRecursively(virtualDom, this.rootElement);
+    }
+
+    const root = this.renderRecursively(virtualDom);
+    return this.rootElement.appendChild(root);
+  }
 }
 
-export let rootComponent = () => {};
-
-export function registerRootComponent(component: () => void) {
-  rootComponent = component;
-}
+export default new ReactDOM();
