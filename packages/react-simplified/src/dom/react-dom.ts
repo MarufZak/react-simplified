@@ -4,6 +4,7 @@ import {
   attachStyles,
   isConditionalAttribute,
   isStaticType,
+  isSvgElement,
   transformJSXEvent,
 } from "./utils";
 
@@ -16,7 +17,7 @@ class ReactDOM {
 
   private renderChildrenRecursively(
     virtualDom: VDOMType[],
-    parent: HTMLElement,
+    parent: HTMLElement | SVGElement,
   ): void {
     for (let i = 0; i < virtualDom.length; i++) {
       const child = virtualDom[i];
@@ -35,7 +36,12 @@ class ReactDOM {
     } else if (isStaticType(virtualDom)) {
       return document.createTextNode(virtualDom.toString());
     } else if (typeof virtualDom === "object") {
-      const element = document.createElement(virtualDom.type);
+      const element = isSvgElement(virtualDom.type)
+        ? document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            virtualDom.type,
+          )
+        : document.createElement(virtualDom.type);
 
       const props = virtualDom.props;
       for (const key in props) {
@@ -53,7 +59,7 @@ class ReactDOM {
           eventRegistry.setEvent(event, element, props[key]);
           continue;
         } else if (key === "className") {
-          element.className = props[key];
+          (element as any).className = props[key];
           continue;
         } else if (isConditionalAttribute(key) && !props[key]) {
           continue;

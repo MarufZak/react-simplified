@@ -1,5 +1,5 @@
 export function attachStyles(
-  element: HTMLElement,
+  element: HTMLElement | SVGElement,
   styles: Record<string, string>,
 ) {
   for (const key in styles) {
@@ -35,4 +35,19 @@ export function isConditionalAttribute(attribute: string) {
 const staticTypes = ["string", "number"];
 export function isStaticType(element: unknown) {
   return staticTypes.includes(typeof element);
+}
+
+const svgElements = [
+  "svg",
+  "path",
+  "circle",
+  "rect",
+  "line",
+  "polyline",
+  "polygon",
+  "ellipse",
+  "g",
+];
+export function isSvgElement(element: string) {
+  return svgElements.includes(element);
 }

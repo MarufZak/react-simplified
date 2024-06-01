@@ -1,5 +1,5 @@
 type EventType = string;
-type EventTargetType = HTMLElement;
+type EventTargetType = HTMLElement | SVGElement;
 type EventHandlerType = (event: Event) => void;
 type EventRegistryType = Record<
   EventType,
