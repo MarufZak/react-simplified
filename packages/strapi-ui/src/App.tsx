@@ -3,6 +3,7 @@ import Button from "./components/button";
 
 const App = () => {
   const [count, setCount] = React.useState(0);
+  const [count2, setCount2] = React.useState(0);
 
   return (
     <div>
@@ -13,8 +14,12 @@ const App = () => {
       >
         First {count}
       </Button>
-      <Button theme="success" variant="primary">
-        Second
+      <Button
+        onClick={() => setCount2(count2 + 1)}
+        theme="success"
+        variant="primary"
+      >
+        Second {count2}
       </Button>
     </div>
   );

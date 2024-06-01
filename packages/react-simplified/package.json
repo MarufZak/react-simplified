@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/core/index.js",
   "scripts": {
-    "build": "rollup -c"
+    "watch": "rollup -c -w"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.24.5",

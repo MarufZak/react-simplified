@@ -105,6 +105,15 @@ class ReactDOM {
     const root = this.renderRecursively(virtualDom);
     return this.rootElement.appendChild(root);
   }
+
+  commit(newDOM: HTMLElement | Text) {
+    if (!this.rootElement || !this.rootComponent) {
+      throw new Error("root element or root component is not registered");
+    }
+
+    this.rootElement.innerHTML = "";
+    this.rootElement.appendChild(newDOM);
+  }
 }
 
 export default new ReactDOM();

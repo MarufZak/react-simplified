@@ -1,22 +1,31 @@
 import ReactDOM from "../dom/react-dom";
 
 const states: any[] = [];
+let cursor = 0;
 
 function useState<T = any>(initialValue: T) {
-  if (states[0] === undefined) {
+  const currentCursor = cursor;
+
+  if (states[currentCursor] === undefined) {
     // initial render
-    states[0] = initialValue;
+    states[currentCursor] = initialValue;
   }
 
   const performUpdate = (newValue: T) => {
-    states[0] = newValue;
+    // all functions are re-executed, and since hooks are not in conditional statement, the order of executing the hooks is the same
+    cursor = 0;
+
+    states[currentCursor] = newValue;
 
     const root = ReactDOM.render();
-    document.querySelector("#root")!.innerHTML = "";
-    document.querySelector("#root")!.appendChild(root!);
+    if (root) {
+      ReactDOM.commit(root);
+    }
   };
 
-  return [states[0], performUpdate] as const;
+  cursor++;
+
+  return [states[currentCursor], performUpdate] as const;
 }
 
 export default useState;
