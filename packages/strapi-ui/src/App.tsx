@@ -1,28 +1,15 @@
 import React from "react-simplified";
-import Button from "./components/button";
-import Divider from "./components/divider";
+import Alert from "./components/alert";
 
 const App = () => {
-  const [count, setCount] = React.useState(0);
-  const [count2, setCount2] = React.useState(0);
-
   return (
-    <div>
-      <Button
-        onClick={() => setCount(count + 1)}
+    <div className="p-8">
+      <Alert
         theme="danger"
-        variant="primary"
-      >
-        First {count}
-      </Button>
-      <Divider />
-      <Button
-        onClick={() => setCount2(count2 + 1)}
-        theme="success"
-        variant="primary"
-      >
-        Second {count2}
-      </Button>
+        title="Information alert"
+        description="Alert with title and longer description, lorem ipsum dolor sit amet constrectum adipisicng lorem ipsum dolor sit amet consrectumis adipisingus."
+        size="lg"
+      />
     </div>
   );
 };

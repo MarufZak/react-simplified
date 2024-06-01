@@ -52,6 +52,8 @@
     --warning-500: #f29d41;
     --warning-200: #fae7b9;
     --warning-100: #fdf4dc;
+
+    --shadow-popup: 0px 2px 15px 0px #2121341a;
   }
 
   .dark {

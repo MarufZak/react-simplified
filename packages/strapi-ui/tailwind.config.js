@@ -54,6 +54,9 @@ module.exports = {
         "warning-200": "var(--warning-200)",
         "warning-100": "var(--warning-100)",
       },
+      boxShadow: {
+        popup: "var(--shadow-popup)",
+      },
     },
   },
 };
