@@ -1,5 +1,6 @@
 import React from "react-simplified";
 import Button from "./components/button";
+import Divider from "./components/divider";
 
 const App = () => {
   const [count, setCount] = React.useState(0);
@@ -14,6 +15,7 @@ const App = () => {
       >
         First {count}
       </Button>
+      <Divider />
       <Button
         onClick={() => setCount2(count2 + 1)}
         theme="success"
