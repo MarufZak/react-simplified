@@ -6,6 +6,8 @@ type EventRegistryType = Record<
   Map<EventTargetType, EventHandlerType>
 >;
 
+const elementAttachableEvents = ["load", "error"];
+
 class EventRegistry {
   private eventRegistry: EventRegistryType = {};
 
@@ -23,6 +25,11 @@ class EventRegistry {
     eventHandler: EventHandlerType,
   ) {
     const eventHandlerWrapper = (e: Event) => {
+      if (elementAttachableEvents.includes(event)) {
+        eventHandler(e);
+        return;
+      }
+
       if (e.target !== eventTarget && !eventTarget.contains(e.target as Node)) {
         return;
       }
@@ -40,7 +47,12 @@ class EventRegistry {
       return;
     }
 
-    document.body.addEventListener(event, eventHandlerWrapper);
+    if (elementAttachableEvents.includes(event)) {
+      eventTarget.addEventListener(event.toLowerCase(), eventHandlerWrapper);
+    } else {
+      document.body.addEventListener(event, eventHandlerWrapper);
+    }
+
     const map = new Map();
     map.set(eventTarget, eventHandlerWrapper);
     this.eventRegistry[event] = map;

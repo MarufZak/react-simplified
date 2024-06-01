@@ -32,7 +32,7 @@ export function isConditionalAttribute(attribute: string) {
   return conditionalAttributes.includes(attribute);
 }
 
-const staticTypes = ["string", "number"];
+const staticTypes = ["string", "number", "boolean"];
 export function isStaticType(element: unknown) {
   return staticTypes.includes(typeof element);
 }
