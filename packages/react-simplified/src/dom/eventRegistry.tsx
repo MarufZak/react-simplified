@@ -23,7 +23,7 @@ class EventRegistry {
     eventHandler: EventHandlerType,
   ) {
     const eventHandlerWrapper = (e: Event) => {
-      if (e.target !== eventTarget) {
+      if (e.target !== eventTarget && !eventTarget.contains(e.target as Node)) {
         return;
       }
 

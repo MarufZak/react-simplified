@@ -59,7 +59,7 @@ class ReactDOM {
           eventRegistry.setEvent(event, element, props[key]);
           continue;
         } else if (key === "className") {
-          (element as any).className = props[key];
+          element.setAttribute("class", props[key]);
           continue;
         } else if (isConditionalAttribute(key) && !props[key]) {
           continue;
@@ -112,7 +112,7 @@ class ReactDOM {
     return this.rootElement.appendChild(root);
   }
 
-  commit(newDOM: HTMLElement | Text) {
+  commit(newDOM: HTMLElement | Text | SVGElement) {
     if (!this.rootElement || !this.rootComponent) {
       throw new Error("root element or root component is not registered");
     }
