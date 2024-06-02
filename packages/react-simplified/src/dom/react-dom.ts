@@ -1,6 +1,7 @@
 import type { ReactElementType, VDOMType } from "../shared/types";
 import eventRegistry from "./eventRegistry";
 import {
+  attachAttribute,
   attachStyles,
   isConditionalAttribute,
   isStaticType,
@@ -58,14 +59,11 @@ class ReactDOM {
           const event = transformJSXEvent(key);
           eventRegistry.setEvent(event, element, props[key]);
           continue;
-        } else if (key === "className") {
-          element.setAttribute("class", props[key]);
-          continue;
         } else if (isConditionalAttribute(key) && !props[key]) {
           continue;
         }
 
-        element.setAttribute(key, props[key]);
+        attachAttribute(element, key, props[key]);
       }
 
       const children = props.children;

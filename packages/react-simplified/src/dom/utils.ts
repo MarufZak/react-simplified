@@ -7,6 +7,27 @@ export function attachStyles(
   }
 }
 
+const specialAttributes = {
+  className: "class",
+  htmlFor: "for",
+};
+
+export function attachAttribute(
+  element: HTMLElement | SVGElement,
+  attribute: string,
+  value: string,
+) {
+  if (Object.keys(specialAttributes).includes(attribute)) {
+    element.setAttribute(
+      specialAttributes[attribute as keyof typeof specialAttributes],
+      value,
+    );
+    return;
+  }
+
+  element.setAttribute(attribute, value);
+}
+
 const specialEventCases = {
   onDoubleClick: "dblclick",
 };
