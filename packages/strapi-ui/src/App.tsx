@@ -1,11 +1,13 @@
 import React from "react-simplified";
-import Checkbox from "./components/checkbox";
+import Radio from "./components/radio";
 
 const App = () => {
   return (
-    <div className="p-10">
-      <Checkbox />
-    </div>
+    <form className="p-10">
+      <Radio id="1" name="hi" />
+      <Radio id="2" name="hi" />
+      <Radio disabled id="3" name="hi" />
+    </form>
   );
 };
 
