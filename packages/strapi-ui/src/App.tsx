@@ -1,10 +1,10 @@
 import React from "react-simplified";
-import Avatar from "./components/avatar";
+import Checkbox from "./components/checkbox";
 
 const App = () => {
   return (
-    <div className="p-8">
-      <Avatar fallback="Ma'ruf" src="./avatar.png" />
+    <div className="p-10">
+      <Checkbox />
     </div>
   );
 };
