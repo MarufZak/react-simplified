@@ -1,12 +1,15 @@
 import React from "react-simplified";
-import Radio from "./components/radio";
+import { PasswordInput, TextInput } from "./components/input";
 
 const App = () => {
   return (
     <form className="p-10">
-      <Radio id="1" name="hi" />
-      <Radio id="2" name="hi" />
-      <Radio disabled id="3" name="hi" />
+      <PasswordInput
+        disabled
+        placeholder="Hello"
+        label="My label"
+        description="My description"
+      />
     </form>
   );
 };
