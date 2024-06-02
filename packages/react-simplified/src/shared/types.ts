@@ -1,4 +1,10 @@
-export type VDOMType = string | number | null | undefined | boolean | ReactElementType;
+export type VDOMType =
+  | string
+  | number
+  | null
+  | undefined
+  | boolean
+  | ReactElementType;
 
 export type HTMLTagElementType = keyof JSX.IntrinsicElements;
 

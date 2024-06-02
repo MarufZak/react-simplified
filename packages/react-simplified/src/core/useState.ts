@@ -1,4 +1,5 @@
 import ReactDOM from "../dom/react-dom";
+import { resetUseIdCursor } from "./useId";
 
 const states: any[] = [];
 let cursor = 0;
@@ -14,6 +15,8 @@ function useState<T = any>(initialValue: T) {
   const performUpdate = (newValue: T) => {
     // all functions are re-executed, and since hooks are not in conditional statement, the order of executing the hooks is the same
     cursor = 0;
+
+    resetUseIdCursor();
 
     states[currentCursor] = newValue;
 
