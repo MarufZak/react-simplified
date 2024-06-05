@@ -1,12 +1,10 @@
 import React from "react-simplified";
-import Status from "./components/status";
+import SearchBar from "./components/search-bar";
 
 const App = () => {
   return (
     <div className="p-6 flex gap-3">
-      <Status type="published">Published</Status>
-      <Status type="draft">Draft</Status>
-      <Status type="modified">Modified</Status>
+      <SearchBar placeholder="Search for an entry" />
     </div>
   );
 };
