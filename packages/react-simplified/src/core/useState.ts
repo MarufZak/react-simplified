@@ -1,12 +1,13 @@
 import ReactDOM from "../dom/react-dom";
-import { resetUseIdCursor } from "./useId";
 import { getCallerStack } from "./utils";
 
 type StateType = {
   cursor: number;
   values: any[];
 };
+type StateSubscriberType = () => void;
 
+const stateSubscribers: StateSubscriberType[] = [];
 const states: Record<string, StateType> = {};
 
 function useState<T = any>(initialValue: T) {
@@ -31,9 +32,15 @@ function useState<T = any>(initialValue: T) {
   }
 
   const performUpdate = (newValue: T) => {
-    states[stringCallerStack].cursor = 0;
+    // clears all cursors, remove when diffing algorithm is made
+    for (const state of Object.values(states)) {
+      state.cursor = 0;
+    }
 
-    resetUseIdCursor();
+    for (let i = 0; i < stateSubscribers.length; i++) {
+      const subscriber = stateSubscribers[i];
+      subscriber();
+    }
 
     currentValues[currentCursor] = newValue;
 
@@ -46,6 +53,10 @@ function useState<T = any>(initialValue: T) {
   states[stringCallerStack].cursor++;
 
   return [currentValues[currentCursor], performUpdate] as const;
+}
+
+export function subscribeToStateChange(callback: StateSubscriberType) {
+  stateSubscribers.push(callback);
 }
 
 export default useState;
