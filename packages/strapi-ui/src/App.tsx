@@ -1,16 +1,11 @@
 import React from "react-simplified";
-import { PasswordInput, TextInput } from "./components/input";
+import ProgressBar from "./components/progress-bar";
 
 const App = () => {
   return (
-    <form className="p-10">
-      <PasswordInput
-        disabled
-        placeholder="Hello"
-        label="My label"
-        description="My description"
-      />
-    </form>
+    <div className="p-6 bg-red-50">
+      <ProgressBar value={30} size="lg" />
+    </div>
   );
 };
 
