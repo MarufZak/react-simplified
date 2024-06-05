@@ -1,10 +1,12 @@
 import React from "react-simplified";
-import ProgressBar from "./components/progress-bar";
+import Status from "./components/status";
 
 const App = () => {
   return (
-    <div className="p-6 bg-red-50">
-      <ProgressBar value={30} size="lg" />
+    <div className="p-6 flex gap-3">
+      <Status type="published">Published</Status>
+      <Status type="draft">Draft</Status>
+      <Status type="modified">Modified</Status>
     </div>
   );
 };
