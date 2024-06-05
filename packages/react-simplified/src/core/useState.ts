@@ -1,24 +1,41 @@
 import ReactDOM from "../dom/react-dom";
 import { resetUseIdCursor } from "./useId";
+import { getCallerStack } from "./utils";
 
-const states: any[] = [];
-let cursor = 0;
+type StateType = {
+  cursor: number;
+  values: any[];
+};
+
+const states: Record<string, StateType> = {};
 
 function useState<T = any>(initialValue: T) {
-  const currentCursor = cursor;
+  const stringCallerStack = getCallerStack()
+    // makes states stale on first update if exists in stack
+    .filter((item) => item !== "performUpdate")
+    .join(".");
 
-  if (states[currentCursor] === undefined) {
+  if (states[stringCallerStack] === undefined) {
     // initial render
-    states[currentCursor] = initialValue;
+    states[stringCallerStack] = {
+      cursor: 0,
+      values: [initialValue],
+    };
+  }
+
+  const currentCursor = states[stringCallerStack].cursor;
+  const currentValues = states[stringCallerStack].values;
+
+  if (currentValues[currentCursor] === undefined) {
+    currentValues[currentCursor] = initialValue;
   }
 
   const performUpdate = (newValue: T) => {
-    // all functions are re-executed, and since hooks are not in conditional statement, the order of executing the hooks is the same
-    cursor = 0;
+    states[stringCallerStack].cursor = 0;
 
     resetUseIdCursor();
 
-    states[currentCursor] = newValue;
+    currentValues[currentCursor] = newValue;
 
     const root = ReactDOM.render();
     if (root) {
@@ -26,9 +43,9 @@ function useState<T = any>(initialValue: T) {
     }
   };
 
-  cursor++;
+  states[stringCallerStack].cursor++;
 
-  return [states[currentCursor], performUpdate] as const;
+  return [currentValues[currentCursor], performUpdate] as const;
 }
 
 export default useState;
