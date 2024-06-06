@@ -1,6 +1,7 @@
 import React from "react-simplified";
 import type ReactTypes from "react-simplified/types";
 import { EyeCloseIcon, EyeOpenIcon } from "./icons";
+import { cn } from "../utils";
 
 interface TextInputProps
   extends Omit<ReactTypes.ComponentProps<"input">, "id"> {
@@ -19,7 +20,7 @@ export const TextInput = ({
   const id = React.useId();
 
   return (
-    <div className="flex flex-col">
+    <div className={cn("flex flex-col", className)}>
       <label className="text-xs text-neutral-800 mb-1 font-bold" htmlFor={id}>
         {label}
       </label>
@@ -44,13 +45,14 @@ export const PasswordInput = ({
   label,
   description,
   disabled,
+  className,
   ...props
 }: PasswordInputProps) => {
   const id = React.useId();
   const [showPassword, setShowPassword] = React.useState(false);
 
   return (
-    <div className="flex flex-col">
+    <div className={cn("flex flex-col", className)}>
       <label className="text-xs text-neutral-800 mb-1 font-bold" htmlFor={id}>
         {label}
       </label>
