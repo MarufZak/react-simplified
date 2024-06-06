@@ -8,7 +8,8 @@ type CollectionType = {
 
 const collections: Record<string, CollectionType> = {};
 
-const useId = () => {
+type ReturnType = { current: any };
+const useRef = (): ReturnType => {
   const stringCallerStack = getCallerStack()
     .filter((item) => item !== "performUpdate")
     .join(".");
@@ -16,7 +17,7 @@ const useId = () => {
   if (collections[stringCallerStack] === undefined) {
     collections[stringCallerStack] = {
       cursor: 0,
-      values: [crypto.randomUUID()],
+      values: [],
     };
   }
 
@@ -24,17 +25,26 @@ const useId = () => {
   const currentValues = collections[stringCallerStack].values;
 
   if (currentValues[currentCursor] === undefined) {
-    currentValues[currentCursor] = crypto.randomUUID();
+    currentValues[currentCursor] = {
+      current: null,
+    };
   }
+
+  collections[stringCallerStack].cursor++;
 
   return currentValues[currentCursor];
 };
 
-// reset cursors so there are properly reset on rerender
+export function registerRef(element: HTMLElement | SVGElement, target: any) {
+  if (typeof target === "object" && Object.keys(target).includes("current")) {
+    target.current = element;
+  }
+}
+
 subscribeToStateChange(() => {
   for (const collection of Object.values(collections)) {
     collection.cursor = 0;
   }
 });
 
-export default useId;
+export default useRef;

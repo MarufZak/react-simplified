@@ -1,3 +1,4 @@
+import { registerRef } from "../core/useRef";
 import type { ReactElementType, VDOMType } from "../shared/types";
 import eventRegistry from "./eventRegistry";
 import {
@@ -58,6 +59,9 @@ class ReactDOM {
         } else if (key.startsWith("on")) {
           const event = transformJSXEvent(key);
           eventRegistry.setEvent(event, element, props[key]);
+          continue;
+        } else if (key === "ref") {
+          registerRef(element, props[key]);
           continue;
         } else if (isConditionalAttribute(key) && !props[key]) {
           continue;
