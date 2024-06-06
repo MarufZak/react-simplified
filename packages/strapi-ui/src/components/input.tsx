@@ -11,6 +11,7 @@ interface TextInputProps
 
 // user-invalid pseudo-class is not supported in tailwindcss yet https://github.com/tailwindlabs/tailwindcss/pull/12370
 
+// TODO: content shift on focus for both inputs
 export const TextInput = ({
   label,
   description,

@@ -53,7 +53,8 @@
     --warning-200: #fae7b9;
     --warning-100: #fdf4dc;
 
-    --shadow-popup: 0px 2px 15px 0px #2121341a;
+    --shadow-sm: 0px 1px 4px 0px #2121341a;
+    --shadow-lg: 0px 2px 15px 0px #2121341a;
   }
 
   .dark {

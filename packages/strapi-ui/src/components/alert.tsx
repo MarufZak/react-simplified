@@ -71,7 +71,7 @@ const Alert = ({
   return (
     <div
       className={cn(
-        "p-5 rounded-[4px] border shadow-popup gap-3.5",
+        "p-5 rounded-[4px] border shadow-lg gap-3.5",
         themes[theme].wrapper,
         isOpened ? "flex" : "hidden",
         className,
