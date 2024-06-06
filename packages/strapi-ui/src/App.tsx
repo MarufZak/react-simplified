@@ -1,8 +1,12 @@
 import React from "react-simplified";
-import Login from "./pages/login";
+import SearchBar from "./components/search-bar";
 
 const App = () => {
-  return <Login />;
+  return (
+    <div className="p-6">
+      <SearchBar placeholder="Your query" />
+    </div>
+  );
 };
 
 export default App;

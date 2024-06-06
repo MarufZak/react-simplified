@@ -8,10 +8,10 @@ interface Props extends Omit<ReactTypes.ComponentProps<"input">, "type"> {}
 const SearchBar = ({ className, disabled, ...props }: Props) => {
   return (
     // prevent shift on focus because of 2px border on focus and 1px on idle
-    <div className="relative border border-neutral-150 rounded-[4px] overflow-hidden focus-within:border-transparent has-[:disabled]:border-none">
+    <div className="relative">
       <input
         className={cn(
-          "py-[9px] pr-3 pl-[30px] rounded-[4px] border-2 border-transparent bg-neutral-0 placeholder:text-neutral-500 text-xs text-neutral-800 outline-none focus-visible:border-2 focus-visible:border-primary-600 disabled:bg-neutral-150 disabled:border-1 disabled:border-neutral-200 [&:focus-visible+svg]:fill-primary-600",
+          "py-[9px] pr-3 pl-[30px] rounded-[4px] border-1 border-neutral-150 bg-neutral-0 placeholder:text-neutral-500 text-xs text-neutral-800 outline-none focus-visible:border-2 focus-visible:border-primary-600 focus-visible:py-2 focus-visible:pl-[29px] disabled:bg-neutral-150 disabled:border-1 disabled:border-neutral-200 [&:focus-visible+svg]:fill-primary-600",
           className,
         )}
         type="search"
