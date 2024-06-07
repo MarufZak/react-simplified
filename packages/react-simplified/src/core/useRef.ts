@@ -35,12 +35,6 @@ const useRef = (): ReturnType => {
   return currentValues[currentCursor];
 };
 
-export function registerRef(element: HTMLElement | SVGElement, target: any) {
-  if (typeof target === "object" && Object.keys(target).includes("current")) {
-    target.current = element;
-  }
-}
-
 subscribeToStateChange(() => {
   for (const collection of Object.values(collections)) {
     collection.cursor = 0;
