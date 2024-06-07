@@ -32,12 +32,19 @@
     ".": {
       "default": "./dist/components/index.js",
       "types": "./dist/components/index.d.ts"
+    },
+    "./icons": {
+      "default": "./dist/icons/index.js",
+      "types": "./dist/icons/index.d.ts"
     }
   },
   "typesVersions": {
     "*": {
       "*": [
         "./dist/components/index.d.ts"
+      ],
+      "icons": [
+        "./dist/icons/index.d.ts"
       ]
     }
   }

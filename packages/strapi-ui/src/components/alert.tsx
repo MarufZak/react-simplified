@@ -1,7 +1,7 @@
 import React from "react-simplified";
 import type ReactTypes from "react-simplified/types";
 import { cn } from "../utils";
-import { InfoIcon, CloseIcon, CheckIcon, WarningIcon } from "./icons";
+import { InfoIcon, CloseIcon, CheckIcon, WarningIcon } from "../icons";
 
 const sizes = {
   sm: {

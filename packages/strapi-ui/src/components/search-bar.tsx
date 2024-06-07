@@ -1,7 +1,7 @@
 import React from "react-simplified";
 import type ReactTypes from "react-simplified/types";
 import { cn } from "../utils";
-import MagnifierIcon from "./icons/magnifier";
+import MagnifierIcon from "../icons/magnifier";
 
 interface Props extends Omit<ReactTypes.ComponentProps<"input">, "type"> {}
 

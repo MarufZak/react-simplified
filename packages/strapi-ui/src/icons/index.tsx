@@ -4,7 +4,8 @@ import CloseIcon from "./close";
 import WarningIcon from "./warning";
 import EyeCloseIcon from "./eye-close";
 import EyeOpenIcon from "./eye-open";
-import LogoIcon from "./logo";
+import LogoBigIcon from "./logo-big";
+import LogoSmallIcon from "./logo-small";
 
 export {
   InfoIcon,
@@ -13,5 +14,6 @@ export {
   WarningIcon,
   EyeCloseIcon,
   EyeOpenIcon,
-  LogoIcon,
+  LogoBigIcon,
+  LogoSmallIcon,
 };

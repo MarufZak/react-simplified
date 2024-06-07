@@ -1,6 +1,6 @@
 import React from "react-simplified";
 import type ReactTypes from "react-simplified/types";
-import { EyeCloseIcon, EyeOpenIcon } from "./icons";
+import { EyeCloseIcon, EyeOpenIcon } from "../icons";
 import { cn } from "../utils";
 
 interface TextInputProps

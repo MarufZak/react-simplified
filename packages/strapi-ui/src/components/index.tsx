@@ -1,5 +1,4 @@
 import "../globals.css";
-export * from "./icons";
 export * from "./breadcrumb";
 export * from "./input";
 
