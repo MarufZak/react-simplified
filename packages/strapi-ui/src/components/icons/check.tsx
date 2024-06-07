@@ -1,8 +1,6 @@
 import React from "react-simplified";
 
-interface Props extends React.ComponentProps<"svg"> {}
-
-const CheckIcon = (props: Props) => {
+const CheckIcon = (props: React.ComponentProps<"svg">) => {
   return (
     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path

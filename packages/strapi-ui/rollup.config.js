@@ -1,16 +1,29 @@
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import babel from "@rollup/plugin-babel";
-import serve from "rollup-plugin-serve";
 import postcss from "rollup-plugin-postcss";
 import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
-import livereload from "rollup-plugin-livereload";
 import typescript from "@rollup/plugin-typescript";
+import { globSync } from "glob";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 export default {
-  input: "./src/index.tsx",
+  input: Object.fromEntries(
+    globSync("./src/components/*.tsx").map((file) => [
+      // This remove `src/` as well as the file extension from each file, so e.g. src/nested/foo.js becomes nested/foo
+      path.relative(
+        "src",
+        file.slice(0, file.length - path.extname(file).length),
+      ),
+      // This expands the relative paths to absolute paths, so e.g. src/nested/foo becomes /project/src/nested/foo.js
+      fileURLToPath(new URL(file, import.meta.url)),
+    ]),
+  ),
   output: {
-    file: "./public/script.js",
+    format: "esm",
+    dir: "./dist",
+    name: "[name].js",
   },
   plugins: [
     nodeResolve(),
@@ -19,13 +32,6 @@ export default {
     postcss({
       plugins: [tailwindcss(), autoprefixer()],
       extract: false,
-    }),
-    serve({
-      contentBase: "./public",
-      port: 3000,
-    }),
-    livereload({
-      watch: "./public",
     }),
   ],
 };
