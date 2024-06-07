@@ -34,6 +34,6 @@ export default {
       plugins: [tailwindcss(), autoprefixer()],
       extract: false,
     }),
-    terser()
+    terser(),
   ],
 };

@@ -6,7 +6,7 @@ import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
 import livereload from "rollup-plugin-livereload";
 import typescript from "@rollup/plugin-typescript";
-import terser from "@rollup/plugin-terser"
+import terser from "@rollup/plugin-terser";
 
 export default {
   input: "./src/index.tsx",
@@ -28,6 +28,6 @@ export default {
     livereload({
       watch: "./public",
     }),
-    terser()
+    terser(),
   ],
 };

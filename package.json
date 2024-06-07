@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "check": "prettier . --check",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +15,8 @@
     "packages/react-simplified",
     "packages/strapi-ui",
     "apps/dashboard"
-  ]
+  ],
+  "devDependencies": {
+    "husky": "^9.0.11"
+  }
 }
