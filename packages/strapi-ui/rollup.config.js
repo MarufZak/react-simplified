@@ -7,6 +7,7 @@ import typescript from "@rollup/plugin-typescript";
 import { globSync } from "glob";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import terser from "@rollup/plugin-terser";
 
 export default {
   input: Object.fromEntries(
@@ -33,5 +34,6 @@ export default {
       plugins: [tailwindcss(), autoprefixer()],
       extract: false,
     }),
+    terser()
   ],
 };

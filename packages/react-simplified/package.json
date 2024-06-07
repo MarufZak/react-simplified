@@ -4,6 +4,7 @@
   "description": "",
   "main": "./dist/core/index.js",
   "scripts": {
+    "build": "rollup -c",
     "watch": "rollup -c -w"
   },
   "devDependencies": {
@@ -12,6 +13,7 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/plugin-terser": "^0.4.4",
     "@types/node": "^20.12.10",
     "@types/react": "^18.3.1",
     "prettier": "^3.2.5",
