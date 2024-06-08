@@ -9,8 +9,11 @@ import {
   PuzzleIcon,
   ShoppingCartIcon,
   GearIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "strapi-ui/icons";
 import { StrapiIcon } from "strapi-ui/icons/logos";
+import { cn } from "strapi-ui/utils";
 
 const plugins = [
   {
@@ -54,14 +57,33 @@ const general = [
   },
 ];
 
-const Sidebar = () => {
+interface SidebarProps {
+  isCollapsed: boolean;
+  handleCollapseChange: (value: boolean) => void;
+}
+
+const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
   return (
-    <nav className="px-3 border-r border-neutral-150 min-h-screen max-w-[225px] flex flex-col">
+    <nav
+      className={cn(
+        "px-3 border-r border-neutral-150 min-h-screen flex flex-col",
+        isCollapsed ? "w-16" : "w-[225px]",
+      )}
+    >
       <header className="py-5 flex items-center gap-2">
-        <div className="w-8 h-8 rounded-[4px] bg-primary-600 grid place-items-center">
-          <StrapiIcon className="fill-neutral-0" width={16} height={16} />
+        <div
+          className={cn(
+            "rounded-[4px] bg-primary-600 grid place-items-center",
+            isCollapsed ? "w-10 h-10" : "w-8 h-8",
+          )}
+        >
+          <StrapiIcon
+            className="fill-neutral-0"
+            width={isCollapsed ? 20 : 16}
+            height={isCollapsed ? 20 : 16}
+          />
         </div>
-        <div>
+        <div className={isCollapsed ? "hidden" : ""}>
           <h2 className="text-sm font-bold mb-0.5 text-neutral-800 leading-none">
             Strapi Website
           </h2>
@@ -70,32 +92,67 @@ const Sidebar = () => {
       </header>
       <Divider className="-mx-3" />
       <div className="grow py-3">
-        <ListItem href="hi" icon={SquareLeafIcon}>
+        <ListItem isCollapsed={isCollapsed} href="hi" icon={SquareLeafIcon}>
           Content
         </ListItem>
-        <ListTitle>plugins</ListTitle>
+        <Divider className={isCollapsed ? "block my-4" : "hidden"} />
+        <ListTitle className={isCollapsed ? "hidden" : ""}>plugins</ListTitle>
         {plugins.map((plugin) => {
           return (
-            <ListItem icon={plugin.icon} href={plugin.href}>
+            <ListItem
+              isCollapsed={isCollapsed}
+              icon={plugin.icon}
+              href={plugin.href}
+            >
               {plugin.title}
             </ListItem>
           );
         })}
-        <ListTitle>general</ListTitle>
+        <ListTitle className={isCollapsed ? "hidden" : ""}>general</ListTitle>
+        <Divider className={isCollapsed ? "block my-4" : "hidden"} />
         {general.map((item) => {
           return (
-            <ListItem icon={item.icon} href={item.href}>
+            <ListItem
+              isCollapsed={isCollapsed}
+              icon={item.icon}
+              href={item.href}
+            >
               {item.title}
             </ListItem>
           );
         })}
       </div>
       <Divider className="-mx-3" />
-      <footer className="px-3 py-5">
+      <footer
+        className={cn(
+          "px-3 py-5 relative",
+          isCollapsed ? "px-0 flex justify-center" : "",
+        )}
+      >
         <div className="flex items-center gap-2">
           <Avatar src="" fallback="Kai" />
-          <p className="text-neutral-600 text-sm">Kai Doe</p>
+          <p
+            className={cn(
+              "text-neutral-600 text-sm",
+              isCollapsed ? "hidden" : "",
+            )}
+          >
+            Kai Doe
+          </p>
         </div>
+        <button
+          onClick={() => handleCollapseChange(!isCollapsed)}
+          className={cn(
+            "w-[18px] h-[25px] rounded-sm border border-neutral-150 grid place-items-center absolute top-1/2 -translate-y-1/2 z-10 bg-neutral-0",
+            isCollapsed ? "-right-1/2" : "right-7",
+          )}
+        >
+          {isCollapsed ? (
+            <ChevronRightIcon width={6} height={9} />
+          ) : (
+            <ChevronLeftIcon width={6} height={9} />
+          )}
+        </button>
       </footer>
     </nav>
   );
@@ -104,13 +161,24 @@ const Sidebar = () => {
 interface ListItemProps extends ReactTypes.ComponentProps<"li"> {
   icon: ReactTypes.ElementType;
   href: string;
+  isCollapsed: boolean;
 }
 
-const ListItem = ({ icon: IconComponent, href, children }: ListItemProps) => {
+const ListItem = ({
+  icon: IconComponent,
+  href,
+  children,
+  isCollapsed,
+}: ListItemProps) => {
   return (
-    <li className="flex items-center gap-2 px-3 py-2 relative text-sm">
+    <li
+      className={cn(
+        "flex items-center gap-2 px-3 py-2 relative text-sm",
+        isCollapsed ? "mb-2" : "",
+      )}
+    >
       <IconComponent width={16} height={16} className="fill-neutral-500" />
-      {children}
+      <div className={isCollapsed ? "hidden" : ""}>{children}</div>
       <a className="absolute inset-0" href={href} />
     </li>
   );
@@ -118,9 +186,15 @@ const ListItem = ({ icon: IconComponent, href, children }: ListItemProps) => {
 
 interface ListTitleProps extends ReactTypes.ComponentProps<"h2"> {}
 
-const ListTitle = ({ children }: ListTitleProps) => {
+const ListTitle = ({ children, className, ...props }: ListTitleProps) => {
   return (
-    <h2 className="py-1 px-3 uppercase text-xs text-neutral-600 mt-4 mb-2 font-bold">
+    <h2
+      className={cn(
+        "py-1 px-3 uppercase text-xs text-neutral-600 mt-4 mb-2 font-bold",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </h2>
   );
