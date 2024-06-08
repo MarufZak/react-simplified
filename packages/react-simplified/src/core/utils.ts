@@ -1,12 +1,17 @@
+// TODO: find way to make callerStack according to component invocations.
 export function getCallerStack() {
   const stack = new Error().stack!.split("\n");
 
   const result = [];
-  for (let i = 3; i < stack.length; i += 2) {
+  for (let i = 0; i < stack.length; i += 2) {
+    const item = stack[i].trim().split(" ")[1] || "";
     if (i >= stack.length - 1) {
-      break;
+      return result;
+    } else if (item.startsWith("on")) {
+      continue;
     }
-    result.push(stack[i].trim().split(" ")[1]);
+
+    result.push(item);
   }
 
   return result;

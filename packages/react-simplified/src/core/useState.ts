@@ -37,6 +37,8 @@ function useState<T = any>(initialValue: T) {
       state.cursor = 0;
     }
 
+    console.log({ states });
+
     for (let i = 0; i < stateSubscribers.length; i++) {
       const subscriber = stateSubscribers[i];
       subscriber();

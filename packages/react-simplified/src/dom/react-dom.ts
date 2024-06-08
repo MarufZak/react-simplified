@@ -163,12 +163,13 @@ class ReactDOM {
 
     const root = this.renderRecursively(virtualDom);
 
+    this.patches = [];
     this.generatePatches(this.rootElement, root as HTMLElement);
-    console.log(this.patches);
 
     return this.rootElement.appendChild(root);
   }
 
+  // TODO: consider changing api of render method or removing this
   commit(newDOM: HTMLElement | SVGElement | Text) {
     if (!this.rootElement || !this.rootComponent) {
       throw new Error("root element or root component is not registered");
