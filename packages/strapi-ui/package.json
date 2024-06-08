@@ -40,6 +40,10 @@
     "./icons/logos": {
       "default": "./dist/icons/logos/index.js",
       "types": "./dist/icons/index.d.ts"
+    },
+    "./utils": {
+      "default": "./dist/utils.js",
+      "types": "./dist/utils.d.ts"
     }
   },
   "typesVersions": {
@@ -52,6 +56,9 @@
       ],
       "icons/logos": [
         "./dist/icons/logos/index.d.ts"
+      ],
+      "utils": [
+        "./dist/utils.d.ts"
       ]
     }
   }

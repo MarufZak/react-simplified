@@ -11,7 +11,10 @@ import terser from "@rollup/plugin-terser";
 
 export default {
   input: Object.fromEntries(
-    globSync("./src/{components,icons,icons/logos}/*.tsx").map((file) => [
+    globSync([
+      "./src/{components,icons,icons/logos}/*.tsx",
+      "./src/utils.ts",
+    ]).map((file) => [
       // This remove `src/` as well as the file extension from each file, so e.g. src/nested/foo.js becomes nested/foo
       path.relative(
         "src",
