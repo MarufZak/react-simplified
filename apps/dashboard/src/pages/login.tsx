@@ -1,17 +1,14 @@
 import React from "react-simplified";
-import {
-  PasswordInput,
-  TextInput,
-  Checkbox,
-  Button,
-  LogoIcon,
-} from "strapi-ui";
+import { PasswordInput, TextInput, Checkbox, Button } from "strapi-ui";
+import { StrapiIcon } from "strapi-ui/icons/logos";
 
 const Login = () => {
   return (
     <section className="min-h-screen flex flex-col items-center justify-start pt-24 bg-neutral-100">
       <div className="max-w-[560px] w-full px-[60px] pt-12 pb-[42px] bg-neutral-0 border-[0.5px] border-neutral-150 rounded-[4px] shadow-sm">
-        <LogoIcon className="mx-auto mb-6" width={72} height={72} />
+        <div className="w-[72px] h-[72px] rounded-[4px] bg-primary-600 grid place-items-center mx-auto">
+          <StrapiIcon className="fill-neutral-0" width={32} height={32} />
+        </div>
         <h2 className="text-[32px] leading-10 mb-1 text-center font-bold text-neutral-800">
           Welcome back!
         </h2>

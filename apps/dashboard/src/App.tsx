@@ -1,8 +1,8 @@
 import React from "react-simplified";
-import Login from "./pages/login";
+import Sidebar from "./components/sidebar";
 
 const App = () => {
-  return <Login />;
+  return <Sidebar />;
 };
 
 export default App;
