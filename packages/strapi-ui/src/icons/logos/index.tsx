@@ -4,6 +4,7 @@ import RedditIcon from "./reddit";
 import MediumIcon from "./medium";
 import DiscordIcon from "./discord";
 import DiscourseIcon from "./discourse";
+import TwitterIcon from "./twitter";
 
 export {
   GithubIcon,
@@ -12,4 +13,5 @@ export {
   MediumIcon,
   DiscordIcon,
   DiscourseIcon,
+  TwitterIcon,
 };

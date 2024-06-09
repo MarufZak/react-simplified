@@ -1,8 +1,13 @@
 import React from "react-simplified";
-import Sidebar from "./components/sidebar";
+import DashboardLayout from "./components/layout";
+import Welcome from "./pages/welcome";
 
 const App = () => {
-  return <Sidebar />;
+  return (
+    <DashboardLayout>
+      <Welcome />
+    </DashboardLayout>
+  );
 };
 
 export default App;

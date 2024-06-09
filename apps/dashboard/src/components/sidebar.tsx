@@ -66,7 +66,7 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
   return (
     <nav
       className={cn(
-        "px-3 border-r border-neutral-150 min-h-screen flex flex-col",
+        "px-3 border-r border-neutral-150 h-screen flex flex-col overflow-y-auto bg-neutral-0",
         isCollapsed ? "w-16" : "w-[225px]",
       )}
     >
@@ -140,6 +140,7 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
             Kai Doe
           </p>
         </div>
+        {/* TODO: fix overflowing hidden issue on collapse */}
         <button
           onClick={() => handleCollapseChange(!isCollapsed)}
           className={cn(
@@ -148,9 +149,17 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
           )}
         >
           {isCollapsed ? (
-            <ChevronRightIcon width={6} height={9} />
+            <ChevronRightIcon
+              className="fill-neutral-600"
+              width={6}
+              height={9}
+            />
           ) : (
-            <ChevronLeftIcon width={6} height={9} />
+            <ChevronLeftIcon
+              className="fill-neutral-600"
+              width={6}
+              height={9}
+            />
           )}
         </button>
       </footer>

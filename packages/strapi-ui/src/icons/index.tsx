@@ -21,6 +21,7 @@ import ChevronDownIcon from "./chevron-down";
 import ChevronUpIcon from "./chevron-up";
 import QuestionMarkIcon from "./question-mark";
 import ExternalLinkIcon from "./external-link";
+import ArrowRightIcon from "./arrow-right";
 
 export {
   CircleInfoIcon,
@@ -46,4 +47,5 @@ export {
   ChevronUpIcon,
   QuestionMarkIcon,
   ExternalLinkIcon,
+  ArrowRightIcon,
 };
