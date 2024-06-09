@@ -50,10 +50,7 @@ function useState<T = any>(initialValue: T) {
 }
 
 export function subscribeToStateChange(callback: StateSubscriberType) {
-  // TODO: remove timeout. Error cannot access stateSubscribers before initialization. Detected when using this function inside useRef
-  setTimeout(() => {
-    stateSubscribers.push(callback);
-  }, 0);
+  stateSubscribers.push(callback);
 }
 
 export default useState;

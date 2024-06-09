@@ -66,7 +66,7 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
   return (
     <nav
       className={cn(
-        "px-3 border-r border-neutral-150 h-screen flex flex-col overflow-y-auto bg-neutral-0",
+        "px-3 border-r border-neutral-150 h-screen flex flex-col bg-neutral-0",
         isCollapsed ? "w-16" : "w-[225px]",
       )}
     >
@@ -140,7 +140,6 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
             Kai Doe
           </p>
         </div>
-        {/* TODO: fix overflowing hidden issue on collapse */}
         <button
           onClick={() => handleCollapseChange(!isCollapsed)}
           className={cn(
