@@ -10,9 +10,7 @@ const collections: Record<string, CollectionType> = {};
 
 type ReturnType = { current: any };
 const useRef = (): ReturnType => {
-  const stringCallerStack = getCallerStack()
-    .filter((item) => item !== "performUpdate")
-    .join(".");
+  const stringCallerStack = getCallerStack().join(".");
 
   if (collections[stringCallerStack] === undefined) {
     collections[stringCallerStack] = {

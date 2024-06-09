@@ -9,9 +9,7 @@ type CollectionType = {
 const collections: Record<string, CollectionType> = {};
 
 const useId = () => {
-  const stringCallerStack = getCallerStack()
-    .filter((item) => item !== "performUpdate")
-    .join(".");
+  const stringCallerStack = getCallerStack().join(".");
 
   if (collections[stringCallerStack] === undefined) {
     collections[stringCallerStack] = {

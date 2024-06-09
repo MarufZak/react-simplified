@@ -9,20 +9,12 @@ import {
   transformJSXEvent,
 } from "./utils";
 
-type PatchVariant = "add" | "remove" | "replace";
-
 type RootComponentType = (() => ReactElementType) | null;
 type RootElementType = HTMLElement | null;
-type PatchType = {
-  type: PatchVariant;
-  node?: HTMLElement | SVGElement;
-  index: number;
-};
 
 class ReactDOM {
   private rootComponent: RootComponentType = null;
   private rootElement: RootElementType = null;
-  private patches: PatchType[] = [];
 
   private renderChildrenRecursively(
     virtualDom: VDOMType[],
@@ -110,45 +102,6 @@ class ReactDOM {
     this.rootComponent = component;
   }
 
-  generatePatches(
-    oldDOM?: HTMLElement | SVGElement,
-    newDOM?: HTMLElement | SVGElement,
-    index: number = 0,
-  ) {
-    if (!newDOM) {
-      this.patches.push({
-        type: "remove",
-        index,
-      });
-    } else if (!oldDOM) {
-      this.patches.push({
-        type: "add",
-        node: newDOM,
-        index,
-      });
-    } else if (oldDOM.nodeName !== newDOM.nodeName) {
-      this.patches.push({
-        type: "replace",
-        node: newDOM,
-        index,
-      });
-    }
-
-    const oldDomChildrenLength = oldDOM ? oldDOM.children.length : 0;
-    const newDomChildrenLength = newDOM ? newDOM.children.length : 0;
-    const iterationsCount = Math.max(
-      oldDomChildrenLength,
-      newDomChildrenLength,
-    );
-    for (let i = 0; i < iterationsCount; i++) {
-      this.generatePatches(
-        oldDOM?.children[i] as HTMLElement,
-        newDOM?.children[i] as HTMLElement,
-        i,
-      );
-    }
-  }
-
   render() {
     if (!this.rootElement || !this.rootComponent) {
       throw new Error("root element or root component is not registered");
@@ -162,21 +115,8 @@ class ReactDOM {
     }
 
     const root = this.renderRecursively(virtualDom);
-
-    this.patches = [];
-    this.generatePatches(this.rootElement, root as HTMLElement);
-
-    return this.rootElement.appendChild(root);
-  }
-
-  // TODO: consider changing api of render method or removing this
-  commit(newDOM: HTMLElement | SVGElement | Text) {
-    if (!this.rootElement || !this.rootComponent) {
-      throw new Error("root element or root component is not registered");
-    }
-
     this.rootElement.innerHTML = "";
-    this.rootElement.appendChild(newDOM);
+    this.rootElement.appendChild(root);
   }
 }
 

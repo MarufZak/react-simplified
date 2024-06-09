@@ -1,17 +1,18 @@
-// TODO: find way to make callerStack according to component invocations.
 export function getCallerStack() {
   const stack = new Error().stack!.split("\n");
 
-  const result = [];
-  for (let i = 0; i < stack.length; i += 2) {
-    const item = stack[i].trim().split(" ")[1] || "";
-    if (i >= stack.length - 1) {
-      return result;
-    } else if (item.startsWith("on")) {
-      continue;
-    }
+  const result: any = [];
 
-    result.push(item);
+  for (let i = 0; i < stack.length; i++) {
+    const item = stack[i].trim().split(" ")[1] || "";
+
+    // this makes the caller stack easier to read and debug,
+    // for example ['Sidebar', 'DashboardLayout', 'App', 'render'];
+    if (item.startsWith("RSComponent-")) {
+      result.push(item.replace("RSComponent-", ""));
+    } else if (item.startsWith("ReactDOM.")) {
+      result.push(item.replace("ReactDOM.", ""));
+    }
   }
 
   return result;

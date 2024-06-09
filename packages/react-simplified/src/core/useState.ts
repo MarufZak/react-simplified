@@ -11,10 +11,7 @@ const stateSubscribers: StateSubscriberType[] = [];
 const states: Record<string, StateType> = {};
 
 function useState<T = any>(initialValue: T) {
-  const stringCallerStack = getCallerStack()
-    // makes states stale on first update if exists in stack
-    .filter((item) => item !== "performUpdate")
-    .join(".");
+  const stringCallerStack = getCallerStack().join(".");
 
   if (states[stringCallerStack] === undefined) {
     // initial render
@@ -37,8 +34,6 @@ function useState<T = any>(initialValue: T) {
       state.cursor = 0;
     }
 
-    console.log({ states });
-
     for (let i = 0; i < stateSubscribers.length; i++) {
       const subscriber = stateSubscribers[i];
       subscriber();
@@ -46,10 +41,7 @@ function useState<T = any>(initialValue: T) {
 
     currentValues[currentCursor] = newValue;
 
-    const root = ReactDOM.render();
-    if (root) {
-      ReactDOM.commit(root);
-    }
+    ReactDOM.render();
   };
 
   states[stringCallerStack].cursor++;
