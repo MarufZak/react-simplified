@@ -65,6 +65,7 @@ export const PasswordInput = ({
           {...props}
         />
         <button
+          type="button"
           disabled={disabled}
           className="absolute right-3 top-1/2 -translate-y-1/2 fill-neutral-600"
           onClick={() => setShowPassword(!showPassword)}

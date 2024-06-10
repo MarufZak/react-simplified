@@ -1,11 +1,11 @@
 import React from "react-simplified";
 import DashboardLayout from "./components/layout";
-import Welcome from "./pages/welcome";
+import Profile from "./pages/dashboard/profile";
 
 const App = () => {
   return (
     <DashboardLayout>
-      <Welcome />
+      <Profile />
     </DashboardLayout>
   );
 };

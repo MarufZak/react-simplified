@@ -59,7 +59,7 @@ const general = [
 
 interface SidebarProps {
   isCollapsed: boolean;
-  handleCollapseChange: (value: boolean) => void;
+  handleCollapseChange: () => void;
 }
 
 const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
@@ -141,7 +141,7 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
           </p>
         </div>
         <button
-          onClick={() => handleCollapseChange(!isCollapsed)}
+          onClick={handleCollapseChange}
           className={cn(
             "w-[18px] h-[25px] rounded-sm border border-neutral-150 grid place-items-center absolute top-1/2 -translate-y-1/2 z-10 bg-neutral-0",
             isCollapsed ? "-right-1/2" : "right-7",

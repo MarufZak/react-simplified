@@ -1,5 +1,5 @@
 import CircleInfoIcon from "./circle-info";
-import CheckIcon from "./check";
+import CircleCheckIcon from "./circle-check";
 import CloseIcon from "./close";
 import WarningIcon from "./warning";
 import EyeCloseIcon from "./eye-close";
@@ -22,10 +22,11 @@ import ChevronUpIcon from "./chevron-up";
 import QuestionMarkIcon from "./question-mark";
 import ExternalLinkIcon from "./external-link";
 import ArrowRightIcon from "./arrow-right";
+import CheckIcon from "./check";
 
 export {
   CircleInfoIcon,
-  CheckIcon,
+  CircleCheckIcon,
   CloseIcon,
   WarningIcon,
   EyeCloseIcon,
@@ -48,4 +49,5 @@ export {
   QuestionMarkIcon,
   ExternalLinkIcon,
   ArrowRightIcon,
+  CheckIcon,
 };

@@ -45,4 +45,7 @@ export default {
       targets: "dist",
     }),
   ],
+  // IMPORTANT, because when using strapi-ui, react-simplified/dom
+  // is expected to be loaded at runtime
+  external: ["react-simplified"],
 };

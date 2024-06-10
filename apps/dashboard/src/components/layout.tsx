@@ -3,13 +3,22 @@ import type ReactTypes from "react-simplified/types";
 import Sidebar from "./sidebar";
 
 const DashboardLayout = ({ children }: { children: ReactTypes.ReactNode }) => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(() => {
+    const value = localStorage.getItem("isSidebarCollapsed");
+    return value ? (JSON.parse(value) as boolean) : false;
+  });
+
+  const handleCollapseChange = () => {
+    const newValue = !isSidebarCollapsed;
+    localStorage.setItem("isSidebarCollapsed", String(newValue));
+    setIsSidebarCollapsed(newValue);
+  };
 
   return (
     <div className="grid grid-cols-[auto_1fr] h-screen overflow-hidden">
       <Sidebar
         isCollapsed={isSidebarCollapsed}
-        handleCollapseChange={setIsSidebarCollapsed}
+        handleCollapseChange={handleCollapseChange}
       />
       <main className="relative p-[55px] bg-neutral-100 overflow-y-auto">
         {children}

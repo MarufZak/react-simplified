@@ -1,7 +1,7 @@
 import React from "react-simplified";
 import type ReactTypes from "react-simplified/types";
 import { cn } from "../utils";
-import { InfoIcon, CloseIcon, CheckIcon, WarningIcon } from "../icons";
+import { InfoIcon, CloseIcon, CircleCheckIcon, WarningIcon } from "../icons";
 
 const sizes = {
   sm: {
@@ -24,7 +24,7 @@ const themes = {
     action: "text-primary-600 fill-primary-600",
   },
   success: {
-    icon: CheckIcon,
+    icon: CircleCheckIcon,
     iconClassname: "fill-success-600",
     wrapper: "bg-success-100 border-success-200",
     action: "text-success-600 fill-success-600",
