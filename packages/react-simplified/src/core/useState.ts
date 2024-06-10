@@ -1,4 +1,5 @@
 import ReactDOM from "../dom/react-dom";
+import type { ExtractType } from "../shared/types";
 import { getCallerStack } from "./utils";
 
 type StateType = {
@@ -7,16 +8,31 @@ type StateType = {
 };
 type StateSubscriberType = () => void;
 
+type ReturnValueType<T> = T extends () => infer K
+  ? ExtractType<K>
+  : ExtractType<T>;
+type UpdaterFunctionType<T> = (
+  newValue:
+    | ReturnValueType<T>
+    | ((currentValue: ReturnValueType<T>) => ReturnValueType<T>),
+) => void;
+
 const stateSubscribers: StateSubscriberType[] = [];
 const states: Record<string, StateType> = {};
 
-function useState<T = any>(initialValue: T) {
+function useState<T = undefined>(
+  initialValue?:
+    | ReturnValueType<T>
+    | ((currentValue: ReturnValueType<T>) => ReturnValueType<T>),
+): [ReturnValueType<T>, UpdaterFunctionType<T>] {
   const stringCallerStack = getCallerStack().join(".");
 
   // initial render
   if (states[stringCallerStack] === undefined) {
     const savedValue =
-      typeof initialValue === "function" ? initialValue() : initialValue;
+      typeof initialValue === "function"
+        ? (initialValue as Function)()
+        : initialValue;
     states[stringCallerStack] = {
       cursor: 0,
       values: [savedValue],
@@ -30,9 +46,7 @@ function useState<T = any>(initialValue: T) {
     currentValues[currentCursor] = initialValue;
   }
 
-  const performUpdate = (
-    newValue: T extends (...args: any) => any ? ReturnType<T> : T,
-  ) => {
+  const performUpdate: UpdaterFunctionType<T> = (newValue) => {
     // clears all cursors, remove when diffing algorithm is made
     for (const state of Object.values(states)) {
       state.cursor = 0;
@@ -43,7 +57,10 @@ function useState<T = any>(initialValue: T) {
       subscriber();
     }
 
-    currentValues[currentCursor] = newValue;
+    currentValues[currentCursor] =
+      typeof newValue === "function"
+        ? (newValue as Function)(currentValues[currentCursor])
+        : newValue;
 
     ReactDOM.render();
   };
