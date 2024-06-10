@@ -13,11 +13,13 @@ const states: Record<string, StateType> = {};
 function useState<T = any>(initialValue: T) {
   const stringCallerStack = getCallerStack().join(".");
 
+  // initial render
   if (states[stringCallerStack] === undefined) {
-    // initial render
+    const savedValue =
+      typeof initialValue === "function" ? initialValue() : initialValue;
     states[stringCallerStack] = {
       cursor: 0,
-      values: [initialValue],
+      values: [savedValue],
     };
   }
 
@@ -28,7 +30,9 @@ function useState<T = any>(initialValue: T) {
     currentValues[currentCursor] = initialValue;
   }
 
-  const performUpdate = (newValue: T) => {
+  const performUpdate = (
+    newValue: T extends (...args: any) => any ? ReturnType<T> : T,
+  ) => {
     // clears all cursors, remove when diffing algorithm is made
     for (const state of Object.values(states)) {
       state.cursor = 0;
