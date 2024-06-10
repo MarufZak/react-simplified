@@ -86,12 +86,8 @@ function renderRecursively(virtualDom: VDOMType) {
   throw new Error("unknown vdom type");
 }
 
-function registerRootElement(rootElement: RootElementType) {
-  if (!rootElement) {
-    throw new Error("root element not found");
-  }
-
-  rootElement = rootElement;
+function registerRootElement(element: RootElementType) {
+  rootElement = element;
 }
 
 function registerRootComponent(component: RootComponentType) {

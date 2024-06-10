@@ -20,6 +20,8 @@ type UpdaterFunctionType<T> = (
 const stateSubscribers: StateSubscriberType[] = [];
 const states: Record<string, StateType> = {};
 
+// TODO: when component unmounts, remove
+//  states that belonged to this component
 function useState<T = undefined>(
   initialValue?:
     | ReturnValueType<T>

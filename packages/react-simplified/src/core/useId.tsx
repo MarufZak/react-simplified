@@ -25,6 +25,8 @@ const useId = () => {
     currentValues[currentCursor] = crypto.randomUUID();
   }
 
+  collections[stringCallerStack].cursor++;
+
   return currentValues[currentCursor];
 };
 
