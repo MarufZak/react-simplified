@@ -11,8 +11,16 @@ export function createElement(
   ...rest: VDOMType[]
 ): ReactElementType {
   const children = rest.length > 0 ? rest : [];
-
   if (typeof type === "function") {
+    if (type.name === "Fragment") {
+      return {
+        type: "div",
+        props: {
+          children,
+        },
+      };
+    }
+
     // because vdom is generated on state change,
     // RSComponent- prefix is added to fns on every
     // change. This condition prevents it.
@@ -37,4 +45,9 @@ export function createElement(
       children,
     } as ReactElementPropsType,
   };
+}
+
+// TODO: implement Fragment
+export function Fragment() {
+  return "fragment";
 }

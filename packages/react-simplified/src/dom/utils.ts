@@ -47,6 +47,7 @@ const conditionalAttributes = [
   "selected",
   "required",
   "hidden",
+  "open",
 ];
 
 export function isConditionalAttribute(attribute: string) {

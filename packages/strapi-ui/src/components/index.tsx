@@ -1,6 +1,7 @@
 import "../globals.css";
 export * from "./breadcrumb";
 export * from "./input";
+export * from "./modal";
 
 import Alert from "./alert";
 import Avatar from "./avatar";
