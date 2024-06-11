@@ -4,8 +4,9 @@
   "description": "",
   "main": "./dist/core/index.js",
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "build:dev": "NODE_ENV=development rollup -c",
+    "watch:dev": "NODE_ENV=development rollup -c -w",
+    "build:prod": "NODE_ENV=production rollup -c"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.24.5",

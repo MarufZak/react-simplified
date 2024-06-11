@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "build:dev": "NODE_ENV=development rollup -c",
+    "watch:dev": "NODE_ENV=development rollup -c -w",
+    "build:prod": "NODE_ENV=production rollup -c"
   },
   "author": "marufzak",
   "license": "ISC",

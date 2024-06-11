@@ -18,10 +18,10 @@ export default {
     resolve(),
     babel({ babelHelpers: "bundled" }),
     typescript(),
-    terser(),
     del({
       targets: "dist",
     }),
+    process.env.NODE_ENV === "production" && terser(),
   ],
   onwarn(warning, warn) {
     if (warning.code === "THIS_IS_UNDEFINED") return;

@@ -40,10 +40,10 @@ export default {
       plugins: [tailwindcss(), autoprefixer()],
       extract: false,
     }),
-    terser(),
     del({
       targets: "dist",
     }),
+    process.env.NODE_ENV === "production" && terser(),
   ],
   // IMPORTANT, because when using strapi-ui, react-simplified/dom
   // is expected to be loaded at runtime
