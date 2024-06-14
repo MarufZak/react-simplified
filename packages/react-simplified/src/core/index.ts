@@ -1,4 +1,5 @@
 import { Fragment, createElement } from "./jsx-runtime";
+import useEffect from "./useEffect";
 import useId from "./useId";
 import useRef from "./useRef";
 import useState from "./useState";
@@ -9,6 +10,7 @@ const React = {
   useState,
   useId,
   useRef,
+  useEffect,
 };
 
 export default React;

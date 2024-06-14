@@ -3,7 +3,7 @@ import { getCallerStack } from "./utils";
 
 type CollectionType = {
   cursor: number;
-  values: any[];
+  values: string[];
 };
 
 const collections: Record<string, CollectionType> = {};
