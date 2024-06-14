@@ -1,9 +1,13 @@
 import { subscribeToStateChange } from "./useState";
 import { getCallerStack } from "./utils";
 
+type ValueType = {
+  current: any;
+};
+
 type CollectionType = {
   cursor: number;
-  values: any[];
+  values: ValueType[];
 };
 
 const collections: Record<string, CollectionType> = {};
@@ -15,7 +19,11 @@ const useRef = <T>(initialValue: T): ReturnType<T> => {
   if (collections[stringCallerStack] === undefined) {
     collections[stringCallerStack] = {
       cursor: 0,
-      values: [initialValue],
+      values: [
+        {
+          current: initialValue,
+        },
+      ],
     };
   }
 
