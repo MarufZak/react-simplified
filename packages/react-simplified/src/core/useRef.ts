@@ -8,14 +8,14 @@ type CollectionType = {
 
 const collections: Record<string, CollectionType> = {};
 
-type ReturnType = { current: any };
-const useRef = (): ReturnType => {
+type ReturnType<T> = { current: T };
+const useRef = <T>(initialValue: T): ReturnType<T> => {
   const stringCallerStack = getCallerStack().join(".");
 
   if (collections[stringCallerStack] === undefined) {
     collections[stringCallerStack] = {
       cursor: 0,
-      values: [],
+      values: [initialValue],
     };
   }
 
