@@ -56,7 +56,8 @@ const useEffect = (
     );
 
     if (!depsSame) {
-      const callback = currentEffects[currentCursor].callback;
+      // invoke newly passed callback,
+      // because old one has stale data
       callback();
     }
   }
