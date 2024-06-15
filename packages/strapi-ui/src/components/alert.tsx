@@ -1,5 +1,5 @@
-import React from "react-simplified";
-import type ReactTypes from "react-simplified/types";
+import React from "@marufzak/react";
+import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 import { InfoIcon, CloseIcon, CircleCheckIcon, WarningIcon } from "../icons";
 

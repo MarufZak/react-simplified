@@ -1,11 +1,11 @@
-import React from "react-simplified";
+import React from "@marufzak/react";
 import {
   Button,
   Modal,
   ModalContent,
   ModalFooter,
   ModalHeader,
-} from "strapi-ui";
+} from "@marufzak/strapi-ui";
 
 const App = () => {
   const [isOpen, setIsOpen] = React.useState(false);

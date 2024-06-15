@@ -1,5 +1,5 @@
-import React from "react-simplified";
-import { Button, PasswordInput, TextInput } from "strapi-ui";
+import React from "../../../../../packages/react/dist/core";
+import { Button, PasswordInput, TextInput } from "@marufzak/strapi-ui";
 import { CheckIcon } from "strapi-ui/icons";
 import Block from "../../components/block";
 

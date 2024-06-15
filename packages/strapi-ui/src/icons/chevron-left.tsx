@@ -1,4 +1,4 @@
-import React from "react-simplified";
+import React from "@marufzak/react";
 
 const ChevronLeftIcon = (props: React.ComponentProps<"svg">) => {
   return (

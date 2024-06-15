@@ -1,12 +1,11 @@
 {
-  "name": "strapi-ui",
+  "name": "@marufzak/strapi-ui",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": "NODE_ENV=development rollup -c",
-    "watch:dev": "NODE_ENV=development rollup -c -w",
-    "build:prod": "NODE_ENV=production rollup -c"
+    "watch": "NODE_ENV=development rollup -c -w",
+    "build": "NODE_ENV=production rollup -c"
   },
   "author": "marufzak",
   "license": "ISC",

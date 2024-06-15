@@ -1,6 +1,6 @@
 {
-  "name": "react",
-  "version": "0.5.0",
+  "name": "react-simplified",
+  "version": "0.8.0",
   "description": "A monorepo containing react-simplified and strapi-ui packages",
   "type": "module",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "workspaces": [
-    "packages/react-simplified",
+    "packages/react",
     "packages/strapi-ui",
     "apps/dashboard"
   ],

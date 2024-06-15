@@ -1,5 +1,10 @@
-import React from "react-simplified";
-import { PasswordInput, TextInput, Checkbox, Button } from "strapi-ui";
+import React from "../../../../packages/react/dist/core";
+import {
+  PasswordInput,
+  TextInput,
+  Checkbox,
+  Button,
+} from "@marufzak/strapi-ui";
 import { StrapiIcon } from "strapi-ui/icons/logos";
 
 const Login = () => {

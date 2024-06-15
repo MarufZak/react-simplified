@@ -1,4 +1,4 @@
-import React from "react-simplified";
+import React from "@marufzak/react";
 import { cn } from "../utils";
 
 interface Props extends React.ComponentProps<"img"> {

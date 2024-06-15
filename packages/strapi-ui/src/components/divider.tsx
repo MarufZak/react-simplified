@@ -1,5 +1,5 @@
-import React from "react-simplified";
-import type ReactTypes from "react-simplified/types";
+import React from "@marufzak/react";
+import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 
 interface Props extends ReactTypes.ComponentProps<"div"> {}

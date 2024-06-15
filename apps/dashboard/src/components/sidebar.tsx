@@ -1,6 +1,6 @@
-import React from "react-simplified";
-import type ReactTypes from "react-simplified/types";
-import { Avatar, Divider } from "strapi-ui";
+import React from "../../../../packages/react/dist/core";
+import type ReactTypes from "../../../../packages/react/dist/types";
+import { Avatar, Divider } from "@marufzak/strapi-ui";
 import {
   SquareLeafIcon,
   LayoutIcon,

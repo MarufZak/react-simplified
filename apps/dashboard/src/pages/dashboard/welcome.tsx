@@ -1,4 +1,4 @@
-import React from "react-simplified";
+import React from "../../../../../packages/react/dist/core";
 import {
   ArrowRightIcon,
   CodeIcon,

@@ -1,12 +1,11 @@
 {
-  "name": "react-simplified",
-  "version": "1.0.0",
+  "name": "@marufzak/react",
+  "version": "0.8.0",
   "description": "",
   "main": "./dist/core/index.js",
   "scripts": {
-    "build:dev": "NODE_ENV=development rollup -c",
-    "watch:dev": "NODE_ENV=development rollup -c -w",
-    "build:prod": "NODE_ENV=production rollup -c"
+    "watch": "NODE_ENV=development rollup -c -w",
+    "build": "NODE_ENV=production rollup -c"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.24.5",
