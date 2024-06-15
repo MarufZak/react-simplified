@@ -1,3 +1,5 @@
+import type { ReactElementType } from "../shared/types";
+
 export function attachStyles(
   element: HTMLElement | SVGElement,
   styles: Record<string, string>,
@@ -72,4 +74,8 @@ const svgElements = [
 ];
 export function isSvgElement(element: string) {
   return svgElements.includes(element);
+}
+
+export function isDocumentFragment(virtualDom: ReactElementType) {
+  return virtualDom.type === "fragment";
 }

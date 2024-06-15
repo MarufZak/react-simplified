@@ -4,6 +4,7 @@ import {
   attachAttribute,
   attachStyles,
   isConditionalAttribute,
+  isDocumentFragment,
   isStaticType,
   isSvgElement,
   transformJSXEvent,
@@ -17,7 +18,7 @@ let rootElement: RootElementType = null;
 
 function renderChildrenRecursively(
   virtualDom: VDOMType[],
-  parent: HTMLElement | SVGElement,
+  parent: HTMLElement | SVGElement | DocumentFragment,
 ): void {
   for (let i = 0; i < virtualDom.length; i++) {
     const child = virtualDom[i];
@@ -38,10 +39,16 @@ function renderRecursively(virtualDom: VDOMType) {
   } else if (typeof virtualDom === "object") {
     const element = isSvgElement(virtualDom.type)
       ? document.createElementNS("http://www.w3.org/2000/svg", virtualDom.type)
-      : document.createElement(virtualDom.type);
+      : isDocumentFragment(virtualDom)
+        ? document.createDocumentFragment()
+        : document.createElement(virtualDom.type);
 
     const props = virtualDom.props;
     for (const key in props) {
+      if (element instanceof DocumentFragment) {
+        break;
+      }
+
       if (
         key === "children" ||
         props[key] === undefined ||

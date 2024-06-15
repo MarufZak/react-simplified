@@ -14,7 +14,7 @@ export interface ReactElementPropsType {
 }
 
 export interface ReactElementType {
-  type: HTMLTagElementType;
+  type: HTMLTagElementType | "fragment";
   props: ReactElementPropsType;
 }
 

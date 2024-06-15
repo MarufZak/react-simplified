@@ -1,3 +1,4 @@
+import type ReactTypes from "../types";
 import type {
   HTMLTagElementType,
   ReactElementPropsType,
@@ -12,19 +13,13 @@ export function createElement(
 ): ReactElementType {
   const children = rest.length > 0 ? rest : [];
   if (typeof type === "function") {
-    if (type.name === "Fragment") {
-      return {
-        type: "div",
-        props: {
-          children,
-        },
-      };
-    }
-
     // because vdom is generated on state change,
     // RSComponent- prefix is added to fns on every
     // change. This condition prevents it.
-    if (type.name.includes("RSComponent-") === false) {
+    if (
+      type.name.includes("RSComponent-") === false &&
+      type.name !== Fragment.name
+    ) {
       // this makes easy to filter caller stack for hooks
       // make - because fns cannot be declared in such way
       // => consumers cannot 'break' it.
@@ -32,6 +27,7 @@ export function createElement(
         value: `RSComponent-${type.name}`,
       });
     }
+
     return type({
       ...attributes,
       children,
@@ -47,7 +43,12 @@ export function createElement(
   };
 }
 
-// TODO: implement Fragment
-export function Fragment() {
-  return "fragment";
+export function Fragment({ children }: { children: VDOMType[] }) {
+  return {
+    type: "fragment",
+    props: {
+      // fragment has no attributes
+      children,
+    },
+  } as ReactTypes.ReactNode;
 }
