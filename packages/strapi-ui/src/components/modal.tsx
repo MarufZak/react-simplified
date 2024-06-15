@@ -4,25 +4,35 @@ import { cn } from "../utils";
 
 interface ModalProps extends ReactTypes.ComponentProps<"dialog"> {}
 
+// Note: Modal is currently not visible on open=true.
+// The bug should be resolved when diffing is done.
+
 const Modal = ({ className, children, open, ...props }: ModalProps) => {
+  const modalRef = React.useRef<HTMLDialogElement | null>(null);
+
+  React.useEffect(() => {
+    if (!modalRef.current) {
+      return;
+    }
+
+    if (open) {
+      modalRef.current.showModal();
+      return;
+    }
+
+    modalRef.current.close();
+  }, [modalRef, open]);
+
   return (
     <dialog
-      open={open}
+      ref={modalRef}
       className={cn(
-        "duration-200 fixed w-full h-full inset-0 place-items-center bg-black/15 overflow-hidden backdrop-blur-sm",
-        open && "grid",
+        "backdrop:bg-black/40 rounded-[4px] open:animate-in open:fade-in-0 open:zoom-in-95",
         className,
       )}
       {...props}
     >
-      <div
-        className={cn(
-          "w-[420px] rounded-[4px] shadow-lg bg-neutral-0",
-          open
-            ? "grid animate-in fade-in-0 zoom-in-95"
-            : "animate-out fade-out-0 zoom-out-95",
-        )}
-      >
+      <div className={cn("w-[420px] rounded-[4px] shadow-lg bg-neutral-0")}>
         {children}
       </div>
     </dialog>

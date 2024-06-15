@@ -9,8 +9,6 @@ const Avatar = ({ className, fallback, ...props }: Props) => {
   const [showPlaceholder, setShowPlaceholder] = React.useState(true);
 
   const handleLoad = () => {
-    console.log("fire");
-
     setShowPlaceholder(false);
   };
 
