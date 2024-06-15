@@ -3,10 +3,11 @@ import { compareArrays, getCallerStack } from "./utils";
 
 type DependenciesType = any[];
 type CallbackType = () => void;
+type CleanupFunctionType = (() => any) | void;
 
 type EffectType = {
   dependencies: DependenciesType;
-  callback: CallbackType;
+  cleanupFunction: CleanupFunctionType;
 };
 
 type StoreItemType = {
@@ -25,12 +26,11 @@ const useEffect = (
   const callerStack = getCallerStack().join(".");
 
   if (effectsStore[callerStack] === undefined) {
-    callback();
     effectsStore[callerStack] = {
       cursor: 0,
       effects: [
         {
-          callback,
+          cleanupFunction: callback(),
           dependencies,
         },
       ],
@@ -42,9 +42,8 @@ const useEffect = (
   const currentCursor = effectsStore[callerStack].cursor;
 
   if (currentEffects[currentCursor] === undefined) {
-    callback();
     currentEffects[currentCursor] = {
-      callback,
+      cleanupFunction: callback(),
       dependencies,
     };
   }
@@ -56,9 +55,8 @@ const useEffect = (
     );
 
     if (!depsSame) {
-      // invoke newly passed callback,
-      // because old one has stale data
-      callback();
+      // refresh the cleanup function
+      currentEffects[currentCursor].cleanupFunction = callback();
     }
   }
 
