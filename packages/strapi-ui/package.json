@@ -1,13 +1,16 @@
 {
   "name": "@marufzak/strapi-ui",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.6.0",
+  "description": "Headless UI components built with @marufzak/react and Tailwind CSS packages",
+  "main": "./dist/components/index.js",
+  "types": "./dist/components/index.d.ts",
   "scripts": {
     "watch": "NODE_ENV=development rollup -c -w",
     "build": "NODE_ENV=production rollup -c"
   },
-  "author": "marufzak",
+  "author": {
+    "name": "marufzak"
+  },
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.24.5",

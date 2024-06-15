@@ -11,9 +11,9 @@ import {
   GearIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-} from "strapi-ui/icons";
-import { StrapiIcon } from "strapi-ui/icons/logos";
-import { cn } from "strapi-ui/utils";
+} from "@marufzak/strapi-ui/icons";
+import { StrapiIcon } from "@marufzak/strapi-ui/icons/logos";
+import { cn } from "@marufzak/strapi-ui/utils";
 
 const plugins = [
   {

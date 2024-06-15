@@ -1,6 +1,6 @@
 import React from "../../../../../packages/react/dist/core";
 import { Button, PasswordInput, TextInput } from "@marufzak/strapi-ui";
-import { CheckIcon } from "strapi-ui/icons";
+import { CheckIcon } from "@marufzak/strapi-ui/icons";
 import Block from "../../components/block";
 
 const Profile = () => {

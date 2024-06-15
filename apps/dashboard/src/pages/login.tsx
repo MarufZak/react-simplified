@@ -5,7 +5,7 @@ import {
   Checkbox,
   Button,
 } from "@marufzak/strapi-ui";
-import { StrapiIcon } from "strapi-ui/icons/logos";
+import { StrapiIcon } from "@marufzak/strapi-ui/icons/logos";
 
 const Login = () => {
   return (

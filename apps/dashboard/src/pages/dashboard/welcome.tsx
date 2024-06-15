@@ -7,7 +7,7 @@ import {
   LeafIcon,
   PlayIcon,
   QuestionMarkIcon,
-} from "strapi-ui/icons";
+} from "@marufzak/strapi-ui/icons";
 import {
   DiscordIcon,
   DiscourseIcon,
@@ -16,8 +16,8 @@ import {
   RedditIcon,
   StrapiIcon,
   TwitterIcon,
-} from "strapi-ui/icons/logos";
-import { cn } from "strapi-ui/utils";
+} from "@marufzak/strapi-ui/icons/logos";
+import { cn } from "@marufzak/strapi-ui/utils";
 
 const items = [
   {

@@ -1,4 +1,4 @@
-# react-simplified
+# @marufzak/react
 
 This project serves as a minimalistic implementation of the React library, originally created and maintained by Facebook.
 
@@ -12,7 +12,7 @@ This project serves as a minimalistic implementation of the React library, origi
 Assuming you have cloned the whole repository, build this package by running:
 
 ```bash
-npm run build -w react-simplified
+npm run build -w @marufzak/react
 ```
 
 Now you can go to strapi-ui package and see this package in action! For more information, refer to [its documentation.](../strapi-ui/README.md)

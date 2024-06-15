@@ -1,8 +1,9 @@
 {
   "name": "@marufzak/react",
   "version": "0.8.0",
-  "description": "",
+  "description": "Zero-dependency, lightweight and minimalistic implementation of the React library",
   "main": "./dist/core/index.js",
+  "types": "./dist/core/index.d.ts",
   "scripts": {
     "watch": "NODE_ENV=development rollup -c -w",
     "build": "NODE_ENV=production rollup -c"
@@ -21,7 +22,9 @@
     "rollup": "^4.17.2",
     "tslib": "^2.6.2"
   },
-  "author": "marufzak",
+  "author": {
+    "name": "marufzak"
+  },
   "license": "ISC",
   "type": "module",
   "exports": {

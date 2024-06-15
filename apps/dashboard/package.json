@@ -3,6 +3,7 @@
   "version": "0.5.0",
   "description": "",
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w"
