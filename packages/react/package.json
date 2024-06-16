@@ -1,7 +1,14 @@
 {
   "name": "@marufzak/react",
-  "version": "0.8.0",
+  "version": "0.8.4",
   "description": "Zero-dependency, lightweight and minimalistic implementation of the React library",
+  "keywords": [
+    "react",
+    "ui",
+    "library",
+    "no-dependencies",
+    "lightweight"
+  ],
   "main": "./dist/core/index.js",
   "types": "./dist/core/index.d.ts",
   "scripts": {
@@ -25,7 +32,7 @@
   "author": {
     "name": "marufzak"
   },
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {
@@ -50,5 +57,8 @@
         "./dist/dom/index.d.ts"
       ]
     }
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
