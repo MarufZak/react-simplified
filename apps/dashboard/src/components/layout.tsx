@@ -1,5 +1,5 @@
-import React from "../../../../packages/react/dist/core";
-import type ReactTypes from "../../../../packages/react/dist/types";
+import React from "@marufzak/react";
+import type ReactTypes from "@marufzak/react/types";
 import Sidebar from "./sidebar";
 
 const DashboardLayout = ({ children }: { children: ReactTypes.ReactNode }) => {

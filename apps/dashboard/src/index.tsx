@@ -1,4 +1,4 @@
-import ReactDOM from "../../../packages/react/dist/dom";
+import ReactDOM from "@marufzak/react/dom";
 import App from "./App";
 import "./globals.css";
 

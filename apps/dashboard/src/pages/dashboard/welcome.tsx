@@ -1,4 +1,4 @@
-import React from "../../../../../packages/react/dist/core";
+import React from "@marufzak/react";
 import {
   ArrowRightIcon,
   CodeIcon,

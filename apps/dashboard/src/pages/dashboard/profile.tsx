@@ -1,4 +1,4 @@
-import React from "../../../../../packages/react/dist/core";
+import React from "@marufzak/react";
 import { Button, PasswordInput, TextInput } from "@marufzak/strapi-ui";
 import { CheckIcon } from "@marufzak/strapi-ui/icons";
 import Block from "../../components/block";
