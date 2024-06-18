@@ -13,8 +13,8 @@ import {
 type RootComponentType = (() => ReactElementType) | null;
 type RootElementType = HTMLElement | null;
 
-let rootComponent: RootComponentType = null;
-let rootElement: RootElementType = null;
+export let rootComponent: RootComponentType = null;
+export let rootElement: RootElementType = null;
 
 function renderChildrenRecursively(
   virtualDom: VDOMType[],

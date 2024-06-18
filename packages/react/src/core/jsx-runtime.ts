@@ -5,6 +5,9 @@ import type {
   ReactElementType,
   VDOMType,
 } from "../shared/types";
+import { getCallerStack } from "./utils";
+
+const mountedComponents: string[] = [];
 
 export function createElement(
   type: HTMLTagElementType | Function,
@@ -26,6 +29,19 @@ export function createElement(
       Object.defineProperty(type, "name", {
         value: `RSComponent-${type.name}`,
       });
+    }
+
+    // functionality of mounted components store
+    if (type.name !== Fragment.name) {
+      let stringCallerStack = getCallerStack().join(".");
+      const functionName = type.name.replace("RSComponent-", "");
+      if (mountedComponents.includes(functionName) === false) {
+        stringCallerStack = `${functionName}.${stringCallerStack}`;
+      }
+
+      if (mountedComponents.includes(stringCallerStack) === false) {
+        mountedComponents.push(stringCallerStack);
+      }
     }
 
     return type({

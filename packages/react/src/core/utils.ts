@@ -1,3 +1,5 @@
+import { rootComponent } from "../dom/react-dom";
+
 export function getCallerStack() {
   const stack = new Error().stack!.split("\n");
 
@@ -12,6 +14,8 @@ export function getCallerStack() {
       result.push(item.replace("RSComponent-", ""));
     } else if (item.startsWith("ReactDOM.")) {
       result.push(item.replace("ReactDOM.", ""));
+    } else if (item === rootComponent?.name) {
+      result.push(item);
     }
   }
 
