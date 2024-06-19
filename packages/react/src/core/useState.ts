@@ -1,5 +1,6 @@
 import ReactDOM from "../dom/react-dom";
 import type { ExtractType } from "../shared/types";
+import componentRegistry from "./componentRegistry";
 import { getCallerStack } from "./utils";
 
 type StateType = {
@@ -64,6 +65,7 @@ function useState<T = undefined>(
         ? (newValue as Function)(currentValues[currentCursor])
         : newValue;
 
+    componentRegistry.resetStore();
     ReactDOM.render();
   };
 

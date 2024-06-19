@@ -6,8 +6,7 @@ import type {
   VDOMType,
 } from "../shared/types";
 import { getCallerStack } from "./utils";
-
-const mountedComponents: string[] = [];
+import componentRegistry from "./componentRegistry";
 
 export function createElement(
   type: HTMLTagElementType | Function,
@@ -35,13 +34,20 @@ export function createElement(
     if (type.name !== Fragment.name) {
       let stringCallerStack = getCallerStack().join(".");
       const functionName = type.name.replace("RSComponent-", "");
-      if (mountedComponents.includes(functionName) === false) {
+      // if (mountedComponents.includes(functionName) === false) {
+      //   stringCallerStack = `${functionName}.${stringCallerStack}`;
+      // }
+
+      // if (mountedComponents.includes(stringCallerStack) === false) {
+      //   mountedComponents.push(stringCallerStack);
+      // }
+      if (componentRegistry.hasComponent(functionName) === false) {
         stringCallerStack = `${functionName}.${stringCallerStack}`;
       }
 
-      if (mountedComponents.includes(stringCallerStack) === false) {
-        mountedComponents.push(stringCallerStack);
-      }
+      // if (componentRegistry.hasComponent(stringCallerStack) === false) {
+      // }
+      componentRegistry.registerComponent(stringCallerStack, type);
     }
 
     return type({
