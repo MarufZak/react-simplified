@@ -1,5 +1,8 @@
+import type { ReactElementPropsType } from "../shared/types";
+
 type ComponentType = Function;
-type StoreType = Record<string, ComponentType[]>;
+type StoreItemType = Record<string, ComponentType>;
+type StoreType = Record<string, StoreItemType>;
 
 class ComponentRegistry {
   private store: StoreType = {};
@@ -7,17 +10,22 @@ class ComponentRegistry {
   registerComponent(
     name: string,
     component: ComponentType,
-    index: number = this.store[name]?.length || 0,
+    key: ReactElementPropsType["key"] = "default",
   ) {
-    if (Object.keys(this.store).includes(name) === false) {
-      this.store[name] = [];
+    if (this.store[name] && this.store[name][key]) {
+      // TODO: check for dev and prod
+      throw new Error("Found same components with same keys");
     }
-    this.store[name][index] = component;
+
+    if (this.store[name] === undefined) {
+      this.store[name] = {};
+    }
+
+    this.store[name][key] = component;
   }
 
-  hasComponent(name: string) {
-    console.log({ store: this.store });
-    return Boolean(this.store[name]);
+  hasComponent(name: string, key: ReactElementPropsType["key"] = "default") {
+    return Boolean(this.store[name]) && Boolean(this.store[name][key]);
   }
 
   resetStore() {
