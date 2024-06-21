@@ -14,6 +14,7 @@ export function createElement(
   ...rest: VDOMType[]
 ): ReactElementType {
   const children = rest.length > 0 ? rest : [];
+  const key = attributes?.key;
   if (typeof type === "function") {
     // because vdom is generated on state change,
     // RSComponent- prefix is added to fns on every
@@ -25,8 +26,12 @@ export function createElement(
       // this makes easy to filter caller stack for hooks
       // make - because fns cannot be declared in such way
       // => consumers cannot 'break' it.
+      const newFunctionName =
+        typeof key === "undefined" || key === null
+          ? `RSComponent-${type.name}`
+          : `RSComponent-${type.name}-${key.toString()}`;
       Object.defineProperty(type, "name", {
-        value: `RSComponent-${type.name}`,
+        value: newFunctionName,
       });
     }
 
@@ -39,16 +44,12 @@ export function createElement(
         stringCallerStack = `${functionName}.${stringCallerStack}`;
       }
 
-      componentRegistry.registerComponent(
-        stringCallerStack,
-        type,
-        attributes?.key,
-      );
+      componentRegistry.registerComponent(stringCallerStack, type, key);
     }
 
     // because key is not a prop to func component,
     // meaning it cannot be used inside of that component.
-    if (attributes?.key) {
+    if (typeof key !== "undefined") {
       delete attributes.key;
     }
 
