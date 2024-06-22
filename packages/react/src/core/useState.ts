@@ -70,8 +70,6 @@ function useState<T = undefined>(
 
   states[stringCallerStack].cursor++;
 
-  console.log({ states });
-
   return [currentValues[currentCursor], performUpdate] as const;
 }
 

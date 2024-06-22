@@ -1,6 +1,7 @@
 import type { ReactElementPropsType } from "../shared/types";
+import { insertAtStringPosition, transformStorePaths } from "./utils";
 
-type StoreType = Record<string, string[]>;
+export type StoreType = Record<string, string[]>;
 type ComponentRegistryStateType = "pending" | "completed";
 type SubscriberType = (
   mountedComponents: string[],
@@ -52,11 +53,6 @@ class ComponentRegistry {
       return;
     }
 
-    console.log({
-      freshStore: this.freshStore,
-      staleStore: this.staleStore,
-    });
-
     const staleOuterKeys = Object.keys(this.staleStore);
     const freshOuterKeys = Object.keys(this.freshStore);
 
@@ -75,65 +71,21 @@ class ComponentRegistry {
       );
     });
 
-    console.log({
+    const mountedComponents = transformStorePaths(
+      this.freshStore,
+      this.staleStore,
       mountedComponentsKeys,
+    );
+    const unmountedComponents = transformStorePaths(
+      this.staleStore,
+      this.freshStore,
       unmountedComponentsKeys,
-    });
-
-    const mountedComponents: string[] = [];
-    const unmountedComponents: string[] = [];
-
-    for (let i = 0; i < mountedComponentsKeys.length; i++) {
-      const mountedComponentKey = mountedComponentsKeys[i];
-      const firstDotIndex = mountedComponentKey.indexOf(".");
-
-      for (let x = 0; x < this.freshStore[mountedComponentKey].length; x++) {
-        const mountedComponent = this.freshStore[mountedComponentKey][x];
-
-        if (this.staleStore[mountedComponentKey]?.includes(mountedComponent)) {
-          continue;
-        }
-
-        const pushItem = [
-          mountedComponentKey.slice(0, firstDotIndex),
-          `-${mountedComponent}`,
-          mountedComponentKey.slice(firstDotIndex),
-        ].join("");
-        mountedComponents.push(pushItem);
-      }
-    }
-
-    for (let i = 0; i < unmountedComponentsKeys.length; i++) {
-      const unmountedComponentKey = unmountedComponentsKeys[i];
-      const firstDotIndex = unmountedComponentKey.indexOf(".");
-
-      for (let x = 0; x < this.staleStore[unmountedComponentKey].length; x++) {
-        const unmountedComponent = this.staleStore[unmountedComponentKey][x];
-
-        if (
-          this.freshStore[unmountedComponentKey]?.includes(unmountedComponent)
-        ) {
-          continue;
-        }
-
-        const pushItem = [
-          unmountedComponentKey.slice(0, firstDotIndex),
-          `-${unmountedComponent}`,
-          unmountedComponentKey.slice(firstDotIndex),
-        ].join("");
-        unmountedComponents.push(pushItem);
-      }
-    }
+    );
 
     for (let i = 0; i < this.subscribers.length; i++) {
       const subscriber = this.subscribers[i];
       subscriber(mountedComponents, unmountedComponents);
     }
-
-    console.log({
-      mountedComponents,
-      unmountedComponents,
-    });
   }
 
   subscribeToComponentStoreChange(callback: SubscriberType) {

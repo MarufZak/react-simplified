@@ -1,4 +1,5 @@
 import { rootComponent } from "../dom/react-dom";
+import type { StoreType } from "./componentRegistry";
 
 export function getCallerStack() {
   const stack = new Error().stack!.split("\n");
@@ -38,10 +39,50 @@ export function compareArrays(firstArray: any[], secondArray: any[]) {
 }
 
 export function cloneFunction(func: Function, name: string) {
+  // TODO: potential XSS?
   const result = eval(`(${func.toString()})`);
   Object.defineProperty(result, "name", {
     value: name,
   });
+
+  return result;
+}
+
+export function insertAtStringPosition(
+  first: string,
+  second: string,
+  index: number,
+) {
+  return [first.slice(0, index), second, first.slice(index)].join("");
+}
+
+export function transformStorePaths(
+  currentStore: StoreType,
+  referenceStore: StoreType,
+  componentPaths: string[],
+) {
+  const result: string[] = [];
+
+  for (let i = 0; i < componentPaths.length; i++) {
+    const componentPath = componentPaths[i];
+    const dotIndex = componentPath.indexOf(".");
+
+    for (let x = 0; x < currentStore[componentPath].length; x++) {
+      const component = currentStore[componentPath][x];
+
+      if (referenceStore[componentPath]?.includes(component)) {
+        continue;
+      }
+
+      const pushItem = insertAtStringPosition(
+        componentPath,
+        `-${component}`,
+        dotIndex,
+      );
+
+      result.push(pushItem);
+    }
+  }
 
   return result;
 }
