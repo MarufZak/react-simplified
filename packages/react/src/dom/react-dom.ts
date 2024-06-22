@@ -1,3 +1,4 @@
+import componentRegistry from "../core/componentRegistry";
 import type { ReactElementType, VDOMType } from "../shared/types";
 import eventRegistry from "./eventRegistry";
 import {
@@ -106,7 +107,9 @@ function render() {
     throw new Error("root element or root component is not registered");
   }
 
+  componentRegistry.setComponentRegistryState("pending");
   const virtualDom = rootComponent();
+  componentRegistry.setComponentRegistryState("completed");
 
   // handle situation when root component returns array of values
   if (Array.isArray(virtualDom)) {

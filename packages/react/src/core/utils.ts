@@ -23,11 +23,7 @@ export function getCallerStack() {
 }
 
 export function compareArrays(firstArray: any[], secondArray: any[]) {
-  const biggestLength =
-    firstArray.length > secondArray.length
-      ? firstArray.length
-      : secondArray.length;
-
+  const biggestLength = Math.max(firstArray.length, secondArray.length);
   let result = true;
 
   for (let i = 0; i < biggestLength; i++) {
@@ -37,6 +33,15 @@ export function compareArrays(firstArray: any[], secondArray: any[]) {
       break;
     }
   }
+
+  return result;
+}
+
+export function cloneFunction(func: Function, name: string) {
+  const result = eval(`(${func.toString()})`);
+  Object.defineProperty(result, "name", {
+    value: name,
+  });
 
   return result;
 }

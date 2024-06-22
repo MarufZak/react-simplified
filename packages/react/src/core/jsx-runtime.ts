@@ -5,7 +5,7 @@ import type {
   ReactElementType,
   VDOMType,
 } from "../shared/types";
-import { getCallerStack } from "./utils";
+import { cloneFunction, getCallerStack } from "./utils";
 import componentRegistry from "./componentRegistry";
 
 export function createElement(
@@ -16,35 +16,44 @@ export function createElement(
   const children = rest.length > 0 ? rest : [];
   const key = attributes?.key;
   if (typeof type === "function") {
+    // we need to attach key to function instance,
+    // using type instead func would lead to changing
+    // name of original function
+    const func = cloneFunction(type, type.name);
+
     // because vdom is generated on state change,
     // RSComponent- prefix is added to fns on every
     // change. This condition prevents it.
     if (
-      type.name.includes("RSComponent-") === false &&
-      type.name !== Fragment.name
+      func.name.includes("RSComponent-") === false &&
+      func.name !== Fragment.name
     ) {
       // this makes easy to filter caller stack for hooks
       // make - because fns cannot be declared in such way
       // => consumers cannot 'break' it.
       const newFunctionName =
         typeof key === "undefined" || key === null
-          ? `RSComponent-${type.name}`
-          : `RSComponent-${type.name}-${key.toString()}`;
-      Object.defineProperty(type, "name", {
+          ? `RSComponent-${func.name}`
+          : `RSComponent-${func.name}-${key.toString()}`;
+      Object.defineProperty(func, "name", {
         value: newFunctionName,
       });
     }
 
     // functionality of mounted components store
-    if (type.name !== Fragment.name) {
+    if (func.name !== Fragment.name) {
       let stringCallerStack = getCallerStack().join(".");
-      const functionName = type.name.replace("RSComponent-", "");
+      const functionName = func.name.replace("RSComponent-", "");
 
       if (componentRegistry.hasComponent(functionName) === false) {
         stringCallerStack = `${functionName}.${stringCallerStack}`;
       }
 
-      componentRegistry.registerComponent(stringCallerStack, type, key);
+      if (key !== undefined && key !== null) {
+        stringCallerStack = stringCallerStack.replace(`-${key}`, "");
+      }
+
+      componentRegistry.registerComponent(stringCallerStack, key);
     }
 
     // because key is not a prop to func component,
@@ -53,7 +62,7 @@ export function createElement(
       delete attributes.key;
     }
 
-    return type({
+    return func({
       ...attributes,
       children,
     });

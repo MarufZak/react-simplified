@@ -65,11 +65,12 @@ function useState<T = undefined>(
         ? (newValue as Function)(currentValues[currentCursor])
         : newValue;
 
-    componentRegistry.resetStore();
     ReactDOM.render();
   };
 
   states[stringCallerStack].cursor++;
+
+  console.log({ states });
 
   return [currentValues[currentCursor], performUpdate] as const;
 }
