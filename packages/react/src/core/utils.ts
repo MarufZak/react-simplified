@@ -39,7 +39,8 @@ export function compareArrays(firstArray: any[], secondArray: any[]) {
 }
 
 export function cloneFunction(func: Function, name: string) {
-  // TODO: potential XSS?
+  // eval is intentional here, because other methods to
+  // clone function breaks the stores functionality.
   const result = eval(`(${func.toString()})`);
   Object.defineProperty(result, "name", {
     value: name,
@@ -74,11 +75,10 @@ export function transformStorePaths(
         continue;
       }
 
-      const pushItem = insertAtStringPosition(
-        componentPath,
-        `-${component}`,
-        dotIndex,
-      );
+      const pushItem =
+        component === "default"
+          ? componentPath
+          : insertAtStringPosition(componentPath, `-${component}`, dotIndex);
 
       result.push(pushItem);
     }

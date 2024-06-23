@@ -4,6 +4,8 @@ import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import del from "rollup-plugin-delete";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default {
   input: {
     core: "./src/core/index.ts",
@@ -21,10 +23,11 @@ export default {
     del({
       targets: "dist",
     }),
-    process.env.NODE_ENV === "production" && terser(),
+    isProduction && terser(),
   ],
   onwarn(warning, warn) {
-    if (warning.code === "THIS_IS_UNDEFINED") return;
+    if (warning.code === "THIS_IS_UNDEFINED" && isProduction) return;
+    if (warning.code === "EVAL" && isProduction) return;
     warn(warning);
   },
 };

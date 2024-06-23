@@ -1,5 +1,5 @@
 import type { ReactElementPropsType } from "../shared/types";
-import { insertAtStringPosition, transformStorePaths } from "./utils";
+import { transformStorePaths } from "./utils";
 
 export type StoreType = Record<string, string[]>;
 type ComponentRegistryStateType = "pending" | "completed";

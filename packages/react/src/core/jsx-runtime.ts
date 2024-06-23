@@ -31,7 +31,6 @@ export function createElement(
       // this makes easy to filter caller stack for hooks
       // make - because fns cannot be declared in such way
       // => consumers cannot 'break' it.
-      // TODO: what about Object.defineProperty used by consumer?
       const newFunctionName =
         typeof key === "undefined" || key === null
           ? `RSComponent-${func.name}`

@@ -21,8 +21,6 @@ type UpdaterFunctionType<T> = (
 const stateSubscribers: StateSubscriberType[] = [];
 const states: Record<string, StateType> = {};
 
-// TODO: when component unmounts, remove
-//  states that belonged to this component
 function useState<T = undefined>(
   initialValue?:
     | ReturnValueType<T>
@@ -72,6 +70,19 @@ function useState<T = undefined>(
 
   return [currentValues[currentCursor], performUpdate] as const;
 }
+
+componentRegistry.subscribeToComponentStoreChange(
+  (mountedComponents, unmountedComponents) => {
+    for (let i = 0; i < unmountedComponents.length; i++) {
+      const unmountedComponent = unmountedComponents[i];
+      for (const key in states) {
+        if (key === unmountedComponent) {
+          delete states[key];
+        }
+      }
+    }
+  },
+);
 
 export function subscribeToStateChange(callback: StateSubscriberType) {
   stateSubscribers.push(callback);
