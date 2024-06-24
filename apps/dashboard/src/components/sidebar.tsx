@@ -90,16 +90,22 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
           <p className="text-xs text-neutral-600 leading-none">Workplace</p>
         </div>
       </header>
-      <Divider className="-mx-3" />
+      <Divider key="divider-1" className="-mx-3" />
       <div className="grow py-3">
         <ListItem isCollapsed={isCollapsed} href="hi" icon={SquareLeafIcon}>
           Content
         </ListItem>
-        <Divider className={isCollapsed ? "block my-4" : "hidden"} />
-        <ListTitle className={isCollapsed ? "hidden" : ""}>plugins</ListTitle>
+        <Divider
+          key="divider-2"
+          className={isCollapsed ? "block my-4" : "hidden"}
+        />
+        <ListTitle key="title-1" className={isCollapsed ? "hidden" : ""}>
+          plugins
+        </ListTitle>
         {plugins.map((plugin) => {
           return (
             <ListItem
+              key={plugin.id}
               isCollapsed={isCollapsed}
               icon={plugin.icon}
               href={plugin.href}
@@ -108,11 +114,17 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
             </ListItem>
           );
         })}
-        <ListTitle className={isCollapsed ? "hidden" : ""}>general</ListTitle>
-        <Divider className={isCollapsed ? "block my-4" : "hidden"} />
+        <ListTitle key="title-2" className={isCollapsed ? "hidden" : ""}>
+          general
+        </ListTitle>
+        <Divider
+          key="divider-3"
+          className={isCollapsed ? "block my-4" : "hidden"}
+        />
         {general.map((item) => {
           return (
             <ListItem
+              key={item.id}
               isCollapsed={isCollapsed}
               icon={item.icon}
               href={item.href}
@@ -122,7 +134,7 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
           );
         })}
       </div>
-      <Divider className="-mx-3" />
+      <Divider key="divider-4" className="-mx-3" />
       <footer
         className={cn(
           "px-3 py-5 relative",

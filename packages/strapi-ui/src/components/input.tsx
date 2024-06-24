@@ -71,9 +71,9 @@ export const PasswordInput = ({
           onClick={() => setShowPassword(!showPassword)}
         >
           {showPassword ? (
-            <EyeCloseIcon width={16} height={16} />
+            <EyeCloseIcon key={`${id}-eye-close`} width={16} height={16} />
           ) : (
-            <EyeOpenIcon width={16} height={16} />
+            <EyeOpenIcon key={`${id}-eye-open`} width={16} height={16} />
           )}
         </button>
       </div>

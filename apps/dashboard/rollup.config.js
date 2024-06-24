@@ -28,4 +28,9 @@ export default {
       watch: "./public",
     }),
   ],
+  onwarn(warning, warn) {
+    if (warning.code === "THIS_IS_UNDEFINED") return;
+    if (warning.code === "EVAL") return;
+    warn(warning);
+  },
 };

@@ -10,6 +10,8 @@ import { fileURLToPath } from "node:url";
 import terser from "@rollup/plugin-terser";
 import del from "rollup-plugin-delete";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default {
   input: Object.fromEntries(
     globSync([
@@ -43,9 +45,14 @@ export default {
     del({
       targets: "dist",
     }),
-    process.env.NODE_ENV === "production" && terser(),
+    isProduction && terser(),
   ],
   // IMPORTANT, because when using strapi-ui, react-simplified/dom
   // is expected to be loaded at runtime
   external: ["@marufzak/react"],
+  onwarn(warning, warn) {
+    if (warning.code === "THIS_IS_UNDEFINED" && isProduction) return;
+    if (warning.code === "EVAL" && isProduction) return;
+    warn(warning);
+  },
 };

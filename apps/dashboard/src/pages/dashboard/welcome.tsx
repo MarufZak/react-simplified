@@ -125,6 +125,7 @@ const Welcome = () => {
       <div className="flex flex-col gap-4 col-start-1 col-end-2">
         {items.map((item) => {
           const Icon = item.icon;
+
           return (
             <article className="bg-neutral-0 border-[0.5px] border-neutral-150 shadow-sm p-6 rounded-[4px] flex items-center gap-6">
               <div
@@ -140,7 +141,12 @@ const Welcome = () => {
                     item.iconBg,
                   )}
                 >
-                  <Icon width={13} height={13} className="fill-neutral-0" />
+                  <Icon
+                    key={item.id}
+                    width={13}
+                    height={13}
+                    className="fill-neutral-0"
+                  />
                 </div>
               </div>
               <div>
@@ -176,7 +182,12 @@ const Welcome = () => {
                   href="/"
                   className="py-2 px-3 hover:bg-neutral-100 rounded-[4px] flex items-center gap-2"
                 >
-                  <Icon width={24} height={24} className={mediaItem.iconFill} />
+                  <Icon
+                    key={mediaItem.id}
+                    width={24}
+                    height={24}
+                    className={mediaItem.iconFill}
+                  />
                   {mediaItem.title}
                 </a>
               </li>

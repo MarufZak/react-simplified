@@ -19,39 +19,50 @@ const Profile = () => {
         </Button>
       </header>
       <form>
-        <Block className="grid grid-cols-2 gap-x-4 gap-y-6" title="Profile">
+        <Block
+          key="block-1"
+          className="grid grid-cols-2 gap-x-4 gap-y-6"
+          title="Profile"
+        >
           <TextInput
+            key="input-given-name"
             autoComplete="given-name"
             label="First name"
             placeholder="Kai"
           />
           <TextInput
+            key="input-family-name"
             autoComplete="family-name"
             label="Last name"
             placeholder="Doe"
           />
           <TextInput
+            key="input-email"
             autoComplete="email"
             type="email"
             label="Email"
             placeholder="kai@doe.com"
           />
           <TextInput
+            key="input-username"
             autoComplete="username"
             label="Username"
             placeholder="kai_doe"
           />
         </Block>
         <Block
+          key="block-2"
           className="grid grid-cols-2 gap-x-4 gap-y-6"
           title="Change password"
         >
           <PasswordInput
+            key="password"
             autoComplete="new-password"
             label="Password"
             placeholder="Your password"
           />
           <PasswordInput
+            key="password-confirmation"
             autoComplete="new-password"
             label="Password confirmation"
             placeholder="Your password"
