@@ -22,11 +22,11 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "rollup-plugin-delete": "^2.0.0",
     "@types/node": "^20.12.10",
     "@types/react": "^18.3.1",
     "prettier": "^3.2.5",
     "rollup": "^4.17.2",
+    "rollup-plugin-delete": "^2.0.0",
     "tslib": "^2.6.2"
   },
   "author": {
@@ -60,5 +60,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@rollup/plugin-replace": "^5.0.7"
+  }
 }

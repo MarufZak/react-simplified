@@ -1,4 +1,5 @@
 import componentRegistry from "../core/componentRegistry";
+import { ComponentError, InternalError } from "../shared/errors";
 import type { ReactElementType, VDOMType } from "../shared/types";
 import eventRegistry from "./eventRegistry";
 import {
@@ -91,7 +92,7 @@ function renderRecursively(virtualDom: VDOMType) {
     return element;
   }
 
-  throw new Error("unknown vdom type");
+  throw new InternalError("unknown vdom type");
 }
 
 function registerRootElement(element: RootElementType) {
@@ -104,7 +105,9 @@ function registerRootComponent(component: RootComponentType) {
 
 function render() {
   if (!rootElement || !rootComponent) {
-    throw new Error("root element or root component is not registered");
+    throw new ComponentError(
+      "root element or root component is not registered",
+    );
   }
 
   componentRegistry.setComponentRegistryState("pending");

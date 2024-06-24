@@ -1,3 +1,4 @@
+import { ComponentError } from "../shared/errors";
 import type { ReactElementPropsType } from "../shared/types";
 import { transformStorePaths } from "./utils";
 
@@ -26,8 +27,7 @@ class ComponentRegistry {
   ) {
     const storeKey = key === null ? "default" : key.toString();
     if (this.freshStore[name] && this.freshStore[name].includes(storeKey)) {
-      // TODO: check for dev and prod env
-      throw new Error("Found same components with same keys");
+      throw new ComponentError("Found same components with same keys");
     }
 
     if (this.freshStore[name] === undefined) {
