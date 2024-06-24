@@ -1,8 +1,9 @@
 import { subscribeToStateChange } from "./useState";
 import { compareArrays, getCallerStack } from "./utils";
+import componentRegistry from "./componentRegistry";
 
 type DependenciesType = any[];
-type CallbackType = () => void;
+type CallbackType = () => void | (() => any);
 type CleanupFunctionType = (() => any) | void;
 
 type EffectType = {
@@ -68,5 +69,23 @@ subscribeToStateChange(() => {
     item.cursor = 0;
   }
 });
+
+componentRegistry.subscribeToComponentStoreChange(
+  (mountedComponents, unmountedComponents) => {
+    for (const key in effectsStore) {
+      if (unmountedComponents.includes(key) === false) {
+        continue;
+      }
+
+      for (let i = 0; i < effectsStore[key].effects.length; i++) {
+        const cleanupFunction = effectsStore[key].effects[i].cleanupFunction;
+        if (typeof cleanupFunction === "function") {
+          cleanupFunction();
+        }
+      }
+      delete effectsStore[key];
+    }
+  },
+);
 
 export default useEffect;
