@@ -1,5 +1,4 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 
 const statuses = {
@@ -8,7 +7,7 @@ const statuses = {
   modified: "bg-alternative-100 border-alternative-200 text-alternative-700",
 };
 
-interface Props extends ReactTypes.ComponentProps<"div"> {
+interface Props extends React.ComponentProps<"div"> {
   type: keyof typeof statuses;
 }
 

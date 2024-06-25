@@ -1,10 +1,9 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 
-interface Props extends ReactTypes.ComponentProps<"section"> {
+interface Props extends React.ComponentProps<"section"> {
   title: string;
   description?: string;
-  action?: ReactTypes.ReactNode;
+  action?: React.ReactNode;
 }
 
 const Block = ({

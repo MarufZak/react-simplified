@@ -1,5 +1,4 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 
 const sizes = {
@@ -7,7 +6,7 @@ const sizes = {
   lg: "h-2 rounded-[9px]",
 };
 
-interface Props extends ReactTypes.ComponentProps<"div"> {
+interface Props extends React.ComponentProps<"div"> {
   size: keyof typeof sizes;
   value?: number;
 }

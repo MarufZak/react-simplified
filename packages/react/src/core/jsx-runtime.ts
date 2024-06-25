@@ -1,4 +1,4 @@
-import type ReactTypes from "../types";
+import React from "./index";
 import type {
   HTMLTagElementType,
   ReactElementPropsType,
@@ -88,5 +88,5 @@ export function Fragment({ children }: { children: VDOMType[] }) {
       // fragment has no attributes
       children,
     },
-  } as ReactTypes.ReactNode;
+  } as React.ReactNode;
 }

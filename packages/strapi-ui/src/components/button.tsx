@@ -1,5 +1,4 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 
 const themes = {
@@ -37,7 +36,7 @@ const sizes = {
 };
 
 interface Props<T extends keyof typeof themes>
-  extends ReactTypes.ComponentProps<"button"> {
+  extends React.ComponentProps<"button"> {
   theme: T;
   variant: keyof (typeof themes)[T];
   size?: keyof typeof sizes;

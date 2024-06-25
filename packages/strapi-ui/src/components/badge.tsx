@@ -1,5 +1,4 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 
 const variants = {
@@ -12,7 +11,7 @@ const sizes = {
   md: "text-xs p-1 rounded-[4px]",
 };
 
-interface Props extends ReactTypes.ComponentProps<"span"> {
+interface Props extends React.ComponentProps<"span"> {
   variant?: keyof typeof variants;
   size?: keyof typeof sizes;
 }

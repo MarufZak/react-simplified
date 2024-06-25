@@ -1,9 +1,8 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 
-interface BreadcrumbProps extends ReactTypes.ComponentProps<"nav"> {
-  children: ReactTypes.ReactNode;
+interface BreadcrumbProps extends React.ComponentProps<"nav"> {
+  children: React.ReactNode;
 }
 
 export function Breadcrumb({ children, className, ...props }: BreadcrumbProps) {
@@ -14,8 +13,8 @@ export function Breadcrumb({ children, className, ...props }: BreadcrumbProps) {
   );
 }
 
-interface BreadcrumbListProps extends ReactTypes.ComponentProps<"ol"> {
-  children: ReactTypes.ReactNode;
+interface BreadcrumbListProps extends React.ComponentProps<"ol"> {
+  children: React.ReactNode;
 }
 
 export function BreadcrumbList({
@@ -30,8 +29,8 @@ export function BreadcrumbList({
   );
 }
 
-interface BreadcrumbItemProps extends ReactTypes.ComponentProps<"li"> {
-  children: ReactTypes.ReactNode;
+interface BreadcrumbItemProps extends React.ComponentProps<"li"> {
+  children: React.ReactNode;
 }
 
 export function BreadcrumbItem({
@@ -46,8 +45,8 @@ export function BreadcrumbItem({
   );
 }
 
-interface BreadcrumbLinkProps extends ReactTypes.ComponentProps<"a"> {
-  children: ReactTypes.ReactNode;
+interface BreadcrumbLinkProps extends React.ComponentProps<"a"> {
+  children: React.ReactNode;
   isActive?: boolean;
 }
 
@@ -71,7 +70,7 @@ export function BreadcrumbLink({
   );
 }
 
-interface BreadcrumbSeparatorProps extends ReactTypes.ComponentProps<"li"> {
+interface BreadcrumbSeparatorProps extends React.ComponentProps<"li"> {
   children?: string;
 }
 
@@ -92,7 +91,7 @@ export function BreadcrumbSeparator({
   );
 }
 
-interface BreadcrumbEllipsisProps extends ReactTypes.ComponentProps<"span"> {}
+interface BreadcrumbEllipsisProps extends React.ComponentProps<"span"> {}
 
 export function BreadcrumbEllipsis({
   children,
