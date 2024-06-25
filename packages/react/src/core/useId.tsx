@@ -1,3 +1,4 @@
+import componentRegistry from "./componentRegistry";
 import { subscribeToStateChange } from "./useState";
 import { getCallerStack } from "./utils";
 
@@ -30,11 +31,20 @@ const useId = () => {
   return currentValues[currentCursor];
 };
 
-// reset cursors so there are properly reset on rerender
 subscribeToStateChange(() => {
   for (const collection of Object.values(collections)) {
     collection.cursor = 0;
   }
 });
+
+componentRegistry.subscribeToComponentStoreChange(
+  (mountedComponents, unmountedComponents) => {
+    for (const key in collections) {
+      if (unmountedComponents.includes(key)) {
+        delete collections[key];
+      }
+    }
+  },
+);
 
 export default useId;
