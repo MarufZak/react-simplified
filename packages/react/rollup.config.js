@@ -4,6 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import terser from "@rollup/plugin-terser";
 import del from "rollup-plugin-delete";
 import replace from "@rollup/plugin-replace";
+import copy from "rollup-plugin-copy";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -18,6 +19,14 @@ export default {
     entryFileNames: "[name]/index.js",
   },
   plugins: [
+    copy({
+      targets: [
+        {
+          src: "./src/types/index.d.ts",
+          dest: "./dist/types",
+        },
+      ],
+    }),
     resolve(),
     babel({ babelHelpers: "bundled" }),
     typescript(),

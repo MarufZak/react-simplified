@@ -15,7 +15,7 @@ const sizes = {
   },
 };
 
-const themes = {
+const themes: any = {
   primary: {
     icon: InfoIcon,
     iconClassname: "fill-primary-600",

@@ -73,7 +73,14 @@ function renderRecursively(virtualDom: VDOMType) {
         }
         continue;
       } else if (isConditionalAttribute(key) && !props[key]) {
+        if (key === "checked") {
+          console.log(props[key]);
+        }
         continue;
+      }
+
+      if (key === "checked") {
+        console.log(props[key]);
       }
 
       attachAttribute(element, key, props[key]);

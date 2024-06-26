@@ -1,11 +1,15 @@
 import React from "@marufzak/react";
-import DashboardLayout from "./components/layout";
 
 const App = () => {
+  const [text, setText] = React.useState("");
+
   return (
-    <DashboardLayout>
-      <p></p>
-    </DashboardLayout>
+    <input
+      value={text}
+      onClick={(e: MouseEvent) => {
+        e.preventDefault();
+      }}
+    />
   );
 };
 
