@@ -20,6 +20,14 @@ type StoreItemType = {
 
 const effectsStore: Record<string, StoreItemType> = {};
 
+const subscribeToComponentRegistryComplete = (callback: Function) => {
+  return componentRegistry.subscribeToStateChange((state) => {
+    if (state === "completed") {
+      return callback();
+    }
+  });
+};
+
 const useEffect = (
   callback: CallbackType,
   dependencies: DependenciesType,
@@ -31,11 +39,15 @@ const useEffect = (
       cursor: 0,
       effects: [
         {
-          cleanupFunction: callback(),
+          cleanupFunction: undefined,
           dependencies,
         },
       ],
     };
+
+    subscribeToComponentRegistryComplete(() => {
+      effectsStore[callerStack].effects[0].cleanupFunction = callback();
+    });
   }
 
   // effects inside component, which invoked hook
@@ -44,9 +56,13 @@ const useEffect = (
 
   if (currentEffects[currentCursor] === undefined) {
     currentEffects[currentCursor] = {
-      cleanupFunction: callback(),
+      cleanupFunction: undefined,
       dependencies,
     };
+
+    subscribeToComponentRegistryComplete(() => {
+      currentEffects[currentCursor].cleanupFunction = callback();
+    });
   }
 
   if (currentEffects[currentCursor]) {
@@ -57,7 +73,9 @@ const useEffect = (
 
     if (!depsSame) {
       // refresh the cleanup function
-      currentEffects[currentCursor].cleanupFunction = callback();
+      subscribeToComponentRegistryComplete(() => {
+        currentEffects[currentCursor].cleanupFunction = callback();
+      });
     }
   }
 
@@ -70,7 +88,7 @@ subscribeToStateChange(() => {
   }
 });
 
-componentRegistry.subscribeToComponentStoreChange(
+componentRegistry.subscribeToStoreChange(
   (mountedComponents, unmountedComponents) => {
     for (const key in effectsStore) {
       if (unmountedComponents.includes(key) === false) {

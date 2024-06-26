@@ -4,10 +4,11 @@ import { transformStorePaths } from "./utils";
 
 export type StoreType = Record<string, string[]>;
 type ComponentRegistryStateType = "pending" | "completed";
-type SubscriberType = (
+type StoreSubscriberType = (
   mountedComponents: string[],
   unmountedComponents: string[],
 ) => any;
+type StateSubscriberType = (state: ComponentRegistryStateType) => any;
 
 // keys in components should be unique for
 // same components in component scope. Meaning
@@ -19,7 +20,8 @@ class ComponentRegistry {
   private staleStore: StoreType = {};
   private freshStore: StoreType = {};
   private state: ComponentRegistryStateType = "pending";
-  private subscribers: SubscriberType[] = [];
+  private stateSubscribers: StateSubscriberType[] = [];
+  private storeSubscribers: StoreSubscriberType[] = [];
 
   registerComponent(
     name: string,
@@ -47,9 +49,15 @@ class ComponentRegistry {
   setComponentRegistryState(newState: ComponentRegistryStateType) {
     this.state = newState;
 
+    for (let i = 0; i < this.stateSubscribers.length; i++) {
+      const subscriber = this.stateSubscribers[i];
+      subscriber(newState);
+    }
+
     if (newState === "pending") {
       this.staleStore = structuredClone(this.freshStore);
       this.freshStore = {};
+      this.stateSubscribers = [];
       return;
     }
 
@@ -82,14 +90,18 @@ class ComponentRegistry {
       unmountedComponentsKeys,
     );
 
-    for (let i = 0; i < this.subscribers.length; i++) {
-      const subscriber = this.subscribers[i];
+    for (let i = 0; i < this.storeSubscribers.length; i++) {
+      const subscriber = this.storeSubscribers[i];
       subscriber(mountedComponents, unmountedComponents);
     }
   }
 
-  subscribeToComponentStoreChange(callback: SubscriberType) {
-    this.subscribers.push(callback);
+  subscribeToStoreChange(callback: StoreSubscriberType) {
+    this.storeSubscribers.push(callback);
+  }
+
+  subscribeToStateChange(callback: StateSubscriberType) {
+    this.stateSubscribers.push(callback);
   }
 }
 
