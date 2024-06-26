@@ -1,8 +1,7 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 
-interface ModalProps extends ReactTypes.ComponentProps<"dialog"> {}
+interface ModalProps extends React.ComponentProps<"dialog"> {}
 
 // Note: Modal is currently not visible on open=true.
 // The bug should be resolved when diffing is done.
@@ -39,7 +38,7 @@ const Modal = ({ className, children, open, ...props }: ModalProps) => {
   );
 };
 
-interface ModalHeaderProps extends ReactTypes.ComponentProps<"header"> {}
+interface ModalHeaderProps extends React.ComponentProps<"header"> {}
 
 const ModalHeader = ({ children, className, ...props }: ModalHeaderProps) => {
   return (
@@ -55,7 +54,7 @@ const ModalHeader = ({ children, className, ...props }: ModalHeaderProps) => {
   );
 };
 
-interface ModalContentProps extends ReactTypes.ComponentProps<"div"> {}
+interface ModalContentProps extends React.ComponentProps<"div"> {}
 
 const ModalContent = ({ className, children, ...props }: ModalContentProps) => {
   return (
@@ -65,7 +64,7 @@ const ModalContent = ({ className, children, ...props }: ModalContentProps) => {
   );
 };
 
-interface ModalFooterProps extends ReactTypes.ComponentProps<"footer"> {}
+interface ModalFooterProps extends React.ComponentProps<"footer"> {}
 
 const ModalFooter = ({ children, className, ...props }: ModalFooterProps) => {
   return (

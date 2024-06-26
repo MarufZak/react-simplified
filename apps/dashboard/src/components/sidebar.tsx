@@ -1,5 +1,4 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { Avatar, Divider } from "@marufzak/strapi-ui";
 import {
   SquareLeafIcon,
@@ -178,8 +177,8 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
   );
 };
 
-interface ListItemProps extends ReactTypes.ComponentProps<"li"> {
-  icon: ReactTypes.ElementType;
+interface ListItemProps extends React.ComponentProps<"li"> {
+  icon: React.ElementType;
   href: string;
   isCollapsed: boolean;
 }
@@ -204,7 +203,7 @@ const ListItem = ({
   );
 };
 
-interface ListTitleProps extends ReactTypes.ComponentProps<"h2"> {}
+interface ListTitleProps extends React.ComponentProps<"h2"> {}
 
 const ListTitle = ({ children, className, ...props }: ListTitleProps) => {
   return (

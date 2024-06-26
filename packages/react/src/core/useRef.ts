@@ -1,5 +1,6 @@
 import { subscribeToStateChange } from "./useState";
 import { getCallerStack } from "./utils";
+import componentRegistry from "./componentRegistry";
 
 type ValueType = {
   current: any;
@@ -46,5 +47,15 @@ subscribeToStateChange(() => {
     collection.cursor = 0;
   }
 });
+
+componentRegistry.subscribeToComponentStoreChange(
+  (mountedComponents, unmountedComponents) => {
+    for (const key in collections) {
+      if (unmountedComponents.includes(key)) {
+        delete collections[key];
+      }
+    }
+  },
+);
 
 export default useRef;

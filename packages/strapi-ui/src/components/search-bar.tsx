@@ -1,9 +1,8 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 import MagnifierIcon from "../icons/magnifier";
 
-interface Props extends Omit<ReactTypes.ComponentProps<"input">, "type"> {}
+interface Props extends Omit<React.ComponentProps<"input">, "type"> {}
 
 const SearchBar = ({ className, disabled, ...props }: Props) => {
   return (

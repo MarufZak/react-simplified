@@ -1,5 +1,4 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { cn } from "../utils";
 import { InfoIcon, CloseIcon, CircleCheckIcon, WarningIcon } from "../icons";
 
@@ -16,7 +15,7 @@ const sizes = {
   },
 };
 
-const themes = {
+const themes: any = {
   primary: {
     icon: InfoIcon,
     iconClassname: "fill-primary-600",
@@ -43,12 +42,12 @@ const themes = {
   },
 };
 
-interface Props extends ReactTypes.ComponentProps<"div"> {
+interface Props extends React.ComponentProps<"div"> {
   title: string;
   description: string;
   size: keyof typeof sizes;
   theme: keyof typeof themes;
-  action?: ReactTypes.ReactNode;
+  action?: React.ReactNode;
 }
 
 const Alert = ({

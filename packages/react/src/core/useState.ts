@@ -48,6 +48,10 @@ function useState<T = undefined>(
   }
 
   const performUpdate: UpdaterFunctionType<T> = (newValue) => {
+    if (Object.is(currentValues[currentCursor], newValue)) {
+      return;
+    }
+
     // clears all cursors, remove when diffing algorithm is made
     for (const state of Object.values(states)) {
       state.cursor = 0;

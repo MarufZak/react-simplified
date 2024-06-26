@@ -1,10 +1,8 @@
 import React from "@marufzak/react";
-import type ReactTypes from "@marufzak/react/types";
 import { EyeCloseIcon, EyeOpenIcon } from "../icons";
 import { cn } from "../utils";
 
-interface TextInputProps
-  extends Omit<ReactTypes.ComponentProps<"input">, "id"> {
+interface TextInputProps extends Omit<React.ComponentProps<"input">, "id"> {
   label: string;
   description?: string;
 }

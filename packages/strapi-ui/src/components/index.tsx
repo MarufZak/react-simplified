@@ -13,6 +13,7 @@ import SearchBar from "./search-bar";
 import Status from "./status";
 import Checkbox from "./checkbox";
 import Button from "./button";
+import ToggleInput from "./toggle-input";
 
 export {
   Alert,
@@ -25,4 +26,5 @@ export {
   Status,
   Checkbox,
   Button,
+  ToggleInput,
 };
