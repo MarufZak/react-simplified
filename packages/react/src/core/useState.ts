@@ -75,7 +75,7 @@ function useState<T = undefined>(
   return [currentValues[currentCursor], performUpdate] as const;
 }
 
-componentRegistry.subscribeToComponentStoreChange(
+componentRegistry.subscribeToStoreChange(
   (mountedComponents, unmountedComponents) => {
     for (let i = 0; i < unmountedComponents.length; i++) {
       const unmountedComponent = unmountedComponents[i];

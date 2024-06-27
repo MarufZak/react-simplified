@@ -37,7 +37,7 @@ subscribeToStateChange(() => {
   }
 });
 
-componentRegistry.subscribeToComponentStoreChange(
+componentRegistry.subscribeToStoreChange(
   (mountedComponents, unmountedComponents) => {
     for (const key in collections) {
       if (unmountedComponents.includes(key)) {
