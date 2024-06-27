@@ -4,6 +4,7 @@ import useId from "./useId";
 import useRef from "./useRef";
 import useState from "./useState";
 import type ReactTypes from "../types";
+import useLayoutEffect from "./useLayoutEffect";
 
 const React = {
   createElement,
@@ -12,6 +13,7 @@ const React = {
   useId,
   useRef,
   useEffect,
+  useLayoutEffect,
 };
 
 export { type ReactTypes as React };
