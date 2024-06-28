@@ -1,5 +1,5 @@
 import ReactDOM from "../dom/react-dom";
-import type { ExtractType } from "../shared/types";
+import type { ReturnValueType } from "../shared/types";
 import componentRegistry from "./componentRegistry";
 import { getCallerStack } from "./utils";
 
@@ -9,9 +9,6 @@ type StateType = {
 };
 type StateSubscriberType = () => void;
 
-type ReturnValueType<T> = T extends () => infer K
-  ? ExtractType<K>
-  : ExtractType<T>;
 type UpdaterFunctionType<T> = (
   newValue:
     | ReturnValueType<T>
@@ -21,19 +18,15 @@ type UpdaterFunctionType<T> = (
 const stateSubscribers: StateSubscriberType[] = [];
 const states: Record<string, StateType> = {};
 
-function useState<T = undefined>(
-  initialValue?:
-    | ReturnValueType<T>
-    | ((currentValue: ReturnValueType<T>) => ReturnValueType<T>),
-): [ReturnValueType<T>, UpdaterFunctionType<T>] {
+function useState<T>(
+  initialValue?: T | (() => ReturnValueType<T>),
+): readonly [ReturnValueType<T>, UpdaterFunctionType<T>] {
   const stringCallerStack = getCallerStack().join(".");
 
   // initial render
   if (states[stringCallerStack] === undefined) {
     const savedValue =
-      typeof initialValue === "function"
-        ? (initialValue as Function)()
-        : initialValue;
+      initialValue instanceof Function ? initialValue() : initialValue;
     states[stringCallerStack] = {
       cursor: 0,
       values: [savedValue],
@@ -63,8 +56,8 @@ function useState<T = undefined>(
     }
 
     currentValues[currentCursor] =
-      typeof newValue === "function"
-        ? (newValue as Function)(currentValues[currentCursor])
+      newValue instanceof Function
+        ? newValue(currentValues[currentCursor])
         : newValue;
 
     ReactDOM.render();
@@ -72,7 +65,7 @@ function useState<T = undefined>(
 
   states[stringCallerStack].cursor++;
 
-  return [currentValues[currentCursor], performUpdate] as const;
+  return [currentValues[currentCursor], performUpdate];
 }
 
 componentRegistry.subscribeToStoreChange(
