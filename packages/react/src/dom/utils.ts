@@ -9,7 +9,7 @@ export function attachStyles(
   }
 }
 
-const specialAttributes = {
+const specialAttributes: Record<string, string> = {
   className: "class",
   htmlFor: "for",
 };
@@ -20,10 +20,7 @@ export function attachAttribute(
   value: string,
 ) {
   if (Object.keys(specialAttributes).includes(attribute)) {
-    element.setAttribute(
-      specialAttributes[attribute as keyof typeof specialAttributes],
-      value,
-    );
+    element.setAttribute(specialAttributes[attribute], value);
     return;
   }
 
