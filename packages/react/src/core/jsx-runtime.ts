@@ -73,7 +73,7 @@ export function createElement(
     props: {
       ...attributes,
       children,
-    } as ReactElementPropsType,
+    },
   };
 }
 
@@ -84,5 +84,5 @@ export function Fragment({ children }: { children: VDOMType[] }) {
       // fragment has no attributes
       children,
     },
-  } as React.ReactNode;
+  };
 }
