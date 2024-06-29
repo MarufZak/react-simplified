@@ -7,6 +7,7 @@ import {
   attachStyles,
   isConditionalAttribute,
   isDocumentFragment,
+  isSameReactElement,
   isStaticType,
   isSvgElement,
   transformJSXEvent,
@@ -17,6 +18,7 @@ type RootElementType = HTMLElement | null;
 
 export let rootComponent: RootComponentType = null;
 export let rootElement: RootElementType = null;
+export let currentVDOM: VDOMType = undefined;
 
 function renderChildrenRecursively(
   virtualDom: VDOMType[],
@@ -122,13 +124,73 @@ function render() {
   componentRegistry.setComponentRegistryState("completed");
 
   // handle situation when root component returns array of values
-  if (Array.isArray(virtualDom)) {
-    return renderChildrenRecursively(virtualDom, rootElement);
+  // if (Array.isArray(virtualDom)) {
+  //   return renderChildrenRecursively(virtualDom, rootElement);
+  // }
+
+  patch(currentVDOM, virtualDom, rootElement);
+  currentVDOM = virtualDom;
+}
+
+function patch(
+  oldVDOM: VDOMType,
+  newVDOM: VDOMType,
+  parentElement: RootElementType,
+) {
+  if (!parentElement) {
+    return;
   }
 
-  const root = renderRecursively(virtualDom);
-  rootElement.innerHTML = "";
-  rootElement.appendChild(root);
+  console.log({ oldVDOM, newVDOM, parentElement });
+
+  const activeElement = document.activeElement;
+
+  // replace primitive values if no match.
+  if (
+    typeof oldVDOM !== "object" &&
+    typeof newVDOM !== "object" &&
+    oldVDOM !== newVDOM
+  ) {
+    console.log(1);
+    parentElement.children[0].replaceWith(
+      document.createTextNode(newVDOM ? newVDOM.toString() : ""),
+    );
+  } else if (typeof oldVDOM === "object" && typeof newVDOM !== "object") {
+    console.log(2);
+    for (let i = 0; i < parentElement.children.length; i++) {
+      parentElement.children[i].remove();
+    }
+    parentElement.appendChild(renderRecursively(newVDOM));
+  } else if (typeof oldVDOM !== "object" && typeof newVDOM === "object") {
+    console.log(3);
+    const dom = renderRecursively(newVDOM);
+    parentElement.replaceChildren(dom);
+  } else if (
+    typeof oldVDOM === "object" &&
+    typeof newVDOM === "object" &&
+    isSameReactElement(oldVDOM, newVDOM) === false
+  ) {
+    console.log(4);
+    const oldVDOMChildren = oldVDOM ? oldVDOM.props.children : [];
+    const newVDOMChildren = newVDOM ? newVDOM.props.children : [];
+    const iterationsCount = Math.max(
+      oldVDOMChildren.length,
+      newVDOMChildren.length,
+    );
+    for (let i = 0; i < iterationsCount; i++) {
+      patch(
+        oldVDOMChildren[i],
+        newVDOMChildren[i],
+        parentElement.children[i] as HTMLElement,
+      );
+    }
+  }
+
+  console.log(5);
+
+  if (activeElement) {
+    (activeElement as HTMLElement).focus();
+  }
 }
 
 export default {

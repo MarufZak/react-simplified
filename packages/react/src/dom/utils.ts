@@ -54,7 +54,9 @@ export function isConditionalAttribute(attribute: string) {
 }
 
 const staticTypes = ["string", "number", "boolean"];
-export function isStaticType(element: unknown) {
+export function isStaticType(
+  element: unknown,
+): element is string | number | boolean {
   return staticTypes.includes(typeof element);
 }
 
@@ -75,4 +77,40 @@ export function isSvgElement(element: string) {
 
 export function isDocumentFragment(virtualDom: ReactElementType) {
   return virtualDom.type === "fragment";
+}
+
+export function isObjectSame(
+  firstObject: Record<string, any>,
+  secondObject: Record<string, any>,
+) {
+  if (Object.keys(firstObject).length !== Object.keys(secondObject).length) {
+    return false;
+  }
+
+  for (const key in firstObject) {
+    if (
+      typeof firstObject[key] === "object" &&
+      typeof secondObject[key] === "object" &&
+      isObjectSame(firstObject[key], secondObject[key]) === false
+    ) {
+      return false;
+    }
+    if (firstObject[key] !== secondObject[key]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export function isSameReactElement(
+  firstElement: ReactElementType | null,
+  secondElement: ReactElementType | null,
+) {
+  return (
+    firstElement &&
+    secondElement &&
+    firstElement.type === secondElement.type &&
+    isObjectSame(firstElement.props, secondElement.props)
+  );
 }
