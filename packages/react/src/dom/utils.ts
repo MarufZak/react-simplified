@@ -1,4 +1,6 @@
-import type { ReactElementType } from "../shared/types";
+import { compareArrays } from "../core/utils";
+import type { ReactElementPropsType, ReactElementType } from "../shared/types";
+import eventRegistry from "./eventRegistry";
 
 export function attachStyles(
   element: HTMLElement | SVGElement,
@@ -79,38 +81,39 @@ export function isDocumentFragment(virtualDom: ReactElementType) {
   return virtualDom.type === "fragment";
 }
 
-export function isObjectSame(
-  firstObject: Record<string, any>,
-  secondObject: Record<string, any>,
+export function setAttributes(
+  element: HTMLElement | SVGElement | DocumentFragment,
+  props: ReactElementPropsType,
 ) {
-  if (Object.keys(firstObject).length !== Object.keys(secondObject).length) {
-    return false;
-  }
-
-  for (const key in firstObject) {
-    if (
-      typeof firstObject[key] === "object" &&
-      typeof secondObject[key] === "object" &&
-      isObjectSame(firstObject[key], secondObject[key]) === false
-    ) {
-      return false;
+  for (const key in props) {
+    if (element instanceof DocumentFragment) {
+      break;
     }
-    if (firstObject[key] !== secondObject[key]) {
-      return false;
+
+    if (key === "children" || props[key] === undefined || props[key] === null) {
+      continue;
+    } else if (key === "style") {
+      attachStyles(element, props[key]);
+      continue;
+    } else if (key.startsWith("on")) {
+      const event = transformJSXEvent(key);
+      eventRegistry.setEvent(event, element, props[key]);
+      continue;
+    } else if (key === "ref") {
+      if (
+        typeof props[key] === "object" &&
+        Object.keys(props[key]).includes("current")
+      ) {
+        props[key].current = element;
+      }
+      continue;
+    } else if (isConditionalAttribute(key) && !props[key]) {
+      if (key === "checked") {
+        console.log(props[key]);
+      }
+      continue;
     }
+
+    attachAttribute(element, key, props[key]);
   }
-
-  return true;
-}
-
-export function isSameReactElement(
-  firstElement: ReactElementType | null,
-  secondElement: ReactElementType | null,
-) {
-  return (
-    firstElement &&
-    secondElement &&
-    firstElement.type === secondElement.type &&
-    isObjectSame(firstElement.props, secondElement.props)
-  );
 }
