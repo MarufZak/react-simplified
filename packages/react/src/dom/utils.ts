@@ -108,9 +108,6 @@ export function setAttributes(
       }
       continue;
     } else if (isConditionalAttribute(key) && !props[key]) {
-      if (key === "checked") {
-        console.log(props[key]);
-      }
       continue;
     }
 

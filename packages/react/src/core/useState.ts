@@ -45,7 +45,6 @@ function useState<T>(
       return;
     }
 
-    // clears all cursors, remove when diffing algorithm is made
     for (const state of Object.values(states)) {
       state.cursor = 0;
     }
