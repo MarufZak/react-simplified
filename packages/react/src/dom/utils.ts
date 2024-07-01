@@ -1,4 +1,6 @@
-import type { ReactElementType } from "../shared/types";
+import { compareArrays } from "../core/utils";
+import type { ReactElementPropsType, ReactElementType } from "../shared/types";
+import eventRegistry from "./eventRegistry";
 
 export function attachStyles(
   element: HTMLElement | SVGElement,
@@ -54,7 +56,9 @@ export function isConditionalAttribute(attribute: string) {
 }
 
 const staticTypes = ["string", "number", "boolean"];
-export function isStaticType(element: unknown) {
+export function isStaticType(
+  element: unknown,
+): element is string | number | boolean {
   return staticTypes.includes(typeof element);
 }
 
@@ -75,4 +79,38 @@ export function isSvgElement(element: string) {
 
 export function isDocumentFragment(virtualDom: ReactElementType) {
   return virtualDom.type === "fragment";
+}
+
+export function setAttributes(
+  element: HTMLElement | SVGElement | DocumentFragment,
+  props: ReactElementPropsType,
+) {
+  for (const key in props) {
+    if (element instanceof DocumentFragment) {
+      break;
+    }
+
+    if (key === "children" || props[key] === undefined || props[key] === null) {
+      continue;
+    } else if (key === "style") {
+      attachStyles(element, props[key]);
+      continue;
+    } else if (key.startsWith("on")) {
+      const event = transformJSXEvent(key);
+      eventRegistry.setEvent(event, element, props[key]);
+      continue;
+    } else if (key === "ref") {
+      if (
+        typeof props[key] === "object" &&
+        Object.keys(props[key]).includes("current")
+      ) {
+        props[key].current = element;
+      }
+      continue;
+    } else if (isConditionalAttribute(key) && !props[key]) {
+      continue;
+    }
+
+    attachAttribute(element, key, props[key]);
+  }
 }

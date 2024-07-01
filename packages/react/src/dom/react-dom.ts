@@ -1,15 +1,15 @@
 import componentRegistry from "../core/componentRegistry";
 import { ComponentError, InternalError } from "../shared/errors";
-import type { ReactElementType, VDOMType } from "../shared/types";
-import eventRegistry from "./eventRegistry";
+import type {
+  ReactElementPropsType,
+  ReactElementType,
+  VDOMType,
+} from "../shared/types";
 import {
-  attachAttribute,
-  attachStyles,
-  isConditionalAttribute,
   isDocumentFragment,
   isStaticType,
   isSvgElement,
-  transformJSXEvent,
+  setAttributes,
 } from "./utils";
 
 type RootComponentType = (() => ReactElementType) | null;
@@ -17,6 +17,7 @@ type RootElementType = HTMLElement | null;
 
 export let rootComponent: RootComponentType = null;
 export let rootElement: RootElementType = null;
+export let currentVDOM: VDOMType = undefined;
 
 function renderChildrenRecursively(
   virtualDom: VDOMType[],
@@ -46,45 +47,7 @@ function renderRecursively(virtualDom: VDOMType) {
         : document.createElement(virtualDom.type);
 
     const props = virtualDom.props;
-    for (const key in props) {
-      if (element instanceof DocumentFragment) {
-        break;
-      }
-
-      if (
-        key === "children" ||
-        props[key] === undefined ||
-        props[key] === null
-      ) {
-        continue;
-      } else if (key === "style") {
-        attachStyles(element, props[key]);
-        continue;
-      } else if (key.startsWith("on")) {
-        const event = transformJSXEvent(key);
-        eventRegistry.setEvent(event, element, props[key]);
-        continue;
-      } else if (key === "ref") {
-        if (
-          typeof props[key] === "object" &&
-          Object.keys(props[key]).includes("current")
-        ) {
-          props[key].current = element;
-        }
-        continue;
-      } else if (isConditionalAttribute(key) && !props[key]) {
-        if (key === "checked") {
-          console.log(props[key]);
-        }
-        continue;
-      }
-
-      if (key === "checked") {
-        console.log(props[key]);
-      }
-
-      attachAttribute(element, key, props[key]);
-    }
+    setAttributes(element, props);
 
     const children = props.children;
     for (let i = 0; i < children?.length; i++) {
@@ -116,19 +79,152 @@ function render() {
       "root element or root component is not registered",
     );
   }
-
   componentRegistry.setComponentRegistryState("pending");
-  const virtualDom = rootComponent();
+  const newVDOM = rootComponent();
   componentRegistry.setComponentRegistryState("completed");
 
-  // handle situation when root component returns array of values
-  if (Array.isArray(virtualDom)) {
-    return renderChildrenRecursively(virtualDom, rootElement);
-  }
+  patch(
+    currentVDOM,
+    newVDOM,
+    (rootElement.children[0] ?? rootElement) as RootElementType,
+  );
 
-  const root = renderRecursively(virtualDom);
-  rootElement.innerHTML = "";
-  rootElement.appendChild(root);
+  currentVDOM = newVDOM;
+}
+
+function patch(
+  oldVDOM: VDOMType,
+  newVDOM: VDOMType,
+  currentNode: RootElementType,
+) {
+  if (!currentNode) {
+    throw new InternalError("currentNode is not specified");
+  }
+  if (Array.isArray(oldVDOM) && Array.isArray(newVDOM)) {
+    currentNode.replaceChildren();
+    renderChildrenRecursively(newVDOM, currentNode);
+  } else if (
+    Array.isArray(oldVDOM) &&
+    Array.isArray(newVDOM) === false &&
+    typeof newVDOM === "object"
+  ) {
+    for (let i = 0; i < oldVDOM.length; i++) {
+      currentNode.removeChild(oldVDOM[i]);
+    }
+    currentNode.appendChild(renderRecursively(newVDOM));
+  } else if (
+    Array.isArray(oldVDOM) === false &&
+    typeof oldVDOM === "object" &&
+    Array.isArray(newVDOM)
+  ) {
+    for (let i = 0; i < currentNode.children.length; i++) {
+      currentNode.children[i].remove();
+    }
+    renderChildrenRecursively(newVDOM, currentNode);
+  } else if (typeof oldVDOM === "object" && typeof newVDOM === "object") {
+    if (oldVDOM === null && newVDOM !== null && currentNode !== rootElement) {
+      currentNode.parentElement!.replaceChildren(renderRecursively(newVDOM));
+    } else if (oldVDOM !== null && newVDOM === null) {
+      currentNode.remove();
+    } else if (oldVDOM !== null && newVDOM !== null) {
+      if (oldVDOM.type !== newVDOM.type) {
+        currentNode.parentElement!.appendChild(renderRecursively(newVDOM));
+        currentNode.remove();
+        return;
+      }
+
+      // filters decreases number of checks, which
+      // could be deeply nested and could be expensive
+      const oldVDOMPropsKeys = Object.keys(oldVDOM.props).filter(
+        (key) => key !== "children",
+      );
+      const newVDOMPropsKeys = Object.keys(newVDOM.props).filter(
+        (key) => key !== "children",
+      );
+
+      const removeProps = oldVDOMPropsKeys.filter(
+        (prop) => newVDOMPropsKeys.includes(prop) === false,
+      );
+      const createProps = newVDOMPropsKeys.filter(
+        (prop) => oldVDOMPropsKeys.includes(prop) === false,
+      );
+      const editProps = newVDOMPropsKeys.filter(
+        (prop) =>
+          removeProps.includes(prop) === false &&
+          createProps.includes(prop) === false &&
+          oldVDOM.props[prop] !== newVDOM.props[prop],
+      );
+
+      removeProps.forEach((prop) => {
+        currentNode.removeAttribute(prop);
+      });
+      const attributes: ReactElementPropsType = {
+        children: [],
+      };
+      [...editProps].forEach((prop) => {
+        attributes[prop] = newVDOM.props[prop];
+      });
+
+      // this prevents bug when local variables inside
+      // handler function are not updated on state change
+      setAttributes(currentNode as HTMLElement, attributes);
+      if (Object.keys(attributes).some((key) => key.startsWith("on"))) {
+        let isActive = document.activeElement === currentNode;
+        const replaceNode = renderRecursively(newVDOM) as HTMLElement;
+        currentNode.replaceWith(replaceNode);
+
+        if (isActive) {
+          if (
+            replaceNode instanceof HTMLInputElement ||
+            replaceNode instanceof HTMLTextAreaElement
+          ) {
+            replaceNode.setSelectionRange(
+              replaceNode.value.length,
+              replaceNode.value.length,
+            );
+          }
+          replaceNode.focus();
+        }
+      }
+
+      // flattening is required here because nested arrays
+      // are causing issues with current patching algorithm
+      const oldVDOMChildren = oldVDOM.props.children.flat();
+      const newVDOMChildren = newVDOM.props.children.flat();
+      const iterationsCount = Math.max(
+        oldVDOMChildren.length,
+        newVDOMChildren.length,
+      );
+
+      for (let i = 0; i < iterationsCount; i++) {
+        const newCurrentNode = currentNode.children[i] || currentNode;
+
+        patch(
+          oldVDOMChildren[i],
+          newVDOMChildren[i],
+          newCurrentNode as RootElementType,
+        );
+      }
+    }
+  } else if (typeof oldVDOM !== "object" && typeof newVDOM === "object") {
+    if (currentNode === rootElement) {
+      renderChildrenRecursively([newVDOM], currentNode);
+      return;
+    }
+    currentNode.parentNode!.replaceChildren(renderRecursively(newVDOM));
+  } else if (typeof oldVDOM === "object" && typeof newVDOM !== "object") {
+    currentNode.remove();
+  } else if (typeof oldVDOM !== "object" && typeof newVDOM !== "object") {
+    if (oldVDOM === newVDOM) {
+      return;
+    }
+
+    if (newVDOM) {
+      currentNode.textContent = newVDOM.toString();
+    }
+  } else {
+    throw new InternalError("unknown");
+  }
 }
 
 export default {
