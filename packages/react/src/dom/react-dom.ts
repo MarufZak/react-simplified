@@ -193,8 +193,8 @@ function patch(
       });
       setAttributes(currentNode as HTMLElement, attributes);
 
-      const oldVDOMChildren = oldVDOM.props.children;
-      const newVDOMChildren = newVDOM.props.children;
+      const oldVDOMChildren = oldVDOM.props.children.flat();
+      const newVDOMChildren = newVDOM.props.children.flat();
       const iterationsCount = Math.max(
         oldVDOMChildren.length,
         newVDOMChildren.length,
@@ -203,10 +203,7 @@ function patch(
       // debugger;
 
       for (let i = 0; i < iterationsCount; i++) {
-        let newCurrentNode =
-          currentNode.children.length > 0
-            ? currentNode.children[i]
-            : currentNode;
+        let newCurrentNode = currentNode.children[i] || currentNode;
 
         if (
           Array.isArray(oldVDOMChildren[i]) &&
