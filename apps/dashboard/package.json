@@ -9,7 +9,11 @@
     "watch": "rollup -c -w"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "email": "marufzak04@gmail.com",
+    "name": "Ma'ruf Zakirov",
+    "url": "https://github.com/MarufZak"
+  },
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.24.7",

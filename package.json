@@ -1,16 +1,20 @@
 {
   "name": "react-simplified",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A monorepo containing react-simplified and strapi-ui packages",
   "type": "module",
   "scripts": {
-    "check": "prettier . --check",
-    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "format:write": "prettier . --write",
     "prepare": "husky"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "email": "marufzak04@gmail.com",
+    "name": "Ma'ruf Zakirov",
+    "url": "https://github.com/MarufZak"
+  },
+  "license": "MIT",
   "workspaces": [
     "packages/react",
     "packages/strapi-ui",

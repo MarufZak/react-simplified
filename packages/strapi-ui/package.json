@@ -9,7 +9,9 @@
     "build": "NODE_ENV=production rollup -c"
   },
   "author": {
-    "name": "marufzak"
+    "email": "marufzak04@gmail.com",
+    "name": "Ma'ruf Zakirov",
+    "url": "https://github.com/MarufZak"
   },
   "license": "ISC",
   "devDependencies": {
