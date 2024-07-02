@@ -5,7 +5,10 @@ import { getCallerStack } from "./utils";
 
 type StateType = {
   cursor: number;
-  values: any[];
+  values: {
+    value: any;
+    updateQueue: any[];
+  }[];
 };
 type StateSubscriberType = () => void;
 
@@ -29,19 +32,26 @@ function useState<T>(
       initialValue instanceof Function ? initialValue() : initialValue;
     states[stringCallerStack] = {
       cursor: 0,
-      values: [savedValue],
+      values: [
+        {
+          updateQueue: [],
+          value: savedValue,
+        },
+      ],
     };
   }
 
   const currentCursor = states[stringCallerStack].cursor;
   const currentValues = states[stringCallerStack].values;
+  const currentUpdateQueue =
+    states[stringCallerStack].values[currentCursor].updateQueue;
 
-  if (currentValues[currentCursor] === undefined) {
-    currentValues[currentCursor] = initialValue;
+  if (currentValues[currentCursor].value === undefined) {
+    currentValues[currentCursor].value = initialValue;
   }
 
   const performUpdate: UpdaterFunctionType<T> = (newValue) => {
-    if (Object.is(currentValues[currentCursor], newValue)) {
+    if (Object.is(currentValues[currentCursor].value, newValue)) {
       return;
     }
 
@@ -54,17 +64,17 @@ function useState<T>(
       subscriber();
     }
 
-    currentValues[currentCursor] =
-      newValue instanceof Function
-        ? newValue(currentValues[currentCursor])
-        : newValue;
-
-    ReactDOM.render();
+    // for batching
+    const latestValue =
+      currentUpdateQueue.at(-1) || currentValues[currentCursor].value;
+    const queueItem =
+      newValue instanceof Function ? newValue(latestValue) : newValue;
+    currentUpdateQueue.push(queueItem);
   };
 
   states[stringCallerStack].cursor++;
 
-  return [currentValues[currentCursor], performUpdate];
+  return [currentValues[currentCursor].value, performUpdate];
 }
 
 componentRegistry.subscribeToStoreChange(
@@ -82,6 +92,22 @@ componentRegistry.subscribeToStoreChange(
 
 export function subscribeToStateChange(callback: StateSubscriberType) {
   stateSubscribers.push(callback);
+}
+
+export function flushStateUpdates() {
+  for (const key in states) {
+    for (let i = 0; i < states[key].values.length; i++) {
+      const state = states[key].values[i];
+      // prevent from falsy undefined assignment
+      if (state.updateQueue.length === 0) {
+        continue;
+      }
+
+      state.value = state.updateQueue.at(-1);
+      state.updateQueue = [];
+    }
+  }
+  ReactDOM.render();
 }
 
 export default useState;

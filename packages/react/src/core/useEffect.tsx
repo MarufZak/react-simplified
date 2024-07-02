@@ -1,4 +1,4 @@
-import { subscribeToStateChange } from "./useState";
+import { flushStateUpdates, subscribeToStateChange } from "./useState";
 import { compareArrays, getCallerStack } from "./utils";
 import componentRegistry from "./componentRegistry";
 
@@ -23,7 +23,8 @@ const effectsStore: Record<string, StoreItemType> = {};
 const subscribeToComponentRegistryComplete = (callback: Function) => {
   return componentRegistry.subscribeToStateChange((state) => {
     if (state === "completed") {
-      return callback();
+      callback();
+      flushStateUpdates();
     }
   });
 };
@@ -45,6 +46,7 @@ const useEffect = (
       ],
     };
 
+    // refresh the cleanup function
     subscribeToComponentRegistryComplete(() => {
       effectsStore[callerStack].effects[0].cleanupFunction = callback();
     });
