@@ -1,3 +1,5 @@
+import { flushStateUpdates } from "../core/useState";
+
 type EventType = string;
 type EventTargetType = HTMLElement | SVGElement;
 type EventHandlerType = (event: Event) => void;
@@ -27,6 +29,7 @@ class EventRegistry {
     const eventHandlerWrapper = (e: Event) => {
       if (elementAttachableEvents.includes(event)) {
         eventHandler(e);
+        flushStateUpdates();
         return;
       }
 
@@ -35,6 +38,7 @@ class EventRegistry {
       }
 
       eventHandler(e);
+      flushStateUpdates();
     };
 
     if (this.hasEvent(event)) {
