@@ -1,4 +1,4 @@
-import { compareArrays } from "../core/utils";
+import { compareArrays, getCallerStack } from "../core/utils";
 import type { ReactElementPropsType, ReactElementType } from "../shared/types";
 import eventRegistry from "./eventRegistry";
 
@@ -97,6 +97,10 @@ export function setAttributes(
       continue;
     } else if (key.startsWith("on")) {
       const event = transformJSXEvent(key);
+      // if (!eventRegistry.hasEventTarget(event, element)) {
+      //   // console.log(true);
+      //   // continue;
+      // }
       eventRegistry.setEvent(event, element, props[key]);
       continue;
     } else if (key === "ref") {

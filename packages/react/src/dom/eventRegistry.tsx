@@ -18,7 +18,9 @@ class EventRegistry {
   }
 
   hasEventTarget(event: EventType, eventTarget: EventTargetType) {
-    return this.eventRegistry[event].has(eventTarget);
+    return this.eventRegistry[event]
+      ? this.eventRegistry[event].has(eventTarget)
+      : false;
   }
 
   setEvent(
@@ -52,10 +54,15 @@ class EventRegistry {
     }
 
     if (elementAttachableEvents.includes(event)) {
+      console.log("no1");
+
       eventTarget.addEventListener(event.toLowerCase(), eventHandlerWrapper);
     } else {
+      console.log("no2");
       document.body.addEventListener(event, eventHandlerWrapper);
     }
+
+    console.log("noo");
 
     const map = new Map();
     map.set(eventTarget, eventHandlerWrapper);
@@ -68,6 +75,20 @@ class EventRegistry {
     }
 
     return this.eventRegistry[event].get(eventTarget);
+  }
+
+  clearEventRegistry() {
+    for (const event in this.eventRegistry) {
+      for (const [eventTarget, eventHandler] of this.eventRegistry[event]) {
+        if (elementAttachableEvents.includes(event)) {
+          eventTarget.removeEventListener(event.toLowerCase(), eventHandler);
+          continue;
+        }
+        document.body.removeEventListener(event, eventHandler);
+      }
+    }
+
+    this.eventRegistry = {};
   }
 }
 

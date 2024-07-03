@@ -1,3 +1,4 @@
+import eventRegistry from "../dom/eventRegistry";
 import ReactDOM from "../dom/react-dom";
 import type { ReturnValueType } from "../shared/types";
 import componentRegistry from "./componentRegistry";
@@ -43,8 +44,6 @@ function useState<T>(
 
   const currentCursor = states[stringCallerStack].cursor;
   const currentValues = states[stringCallerStack].values;
-  console.log({ currentCursor, currentValues });
-  const currentUpdateQueue = currentValues[currentCursor].updateQueue;
 
   if (currentValues[currentCursor] === undefined) {
     currentValues[currentCursor] = {
@@ -52,6 +51,8 @@ function useState<T>(
       updateQueue: [],
     };
   }
+
+  const currentUpdateQueue = currentValues[currentCursor].updateQueue;
 
   const performUpdate: UpdaterFunctionType<T> = (newValue) => {
     if (Object.is(currentValues[currentCursor].value, newValue)) {
@@ -110,6 +111,7 @@ export function flushStateUpdates() {
       state.updateQueue = [];
     }
   }
+  eventRegistry.clearEventRegistry();
   ReactDOM.render();
 }
 
