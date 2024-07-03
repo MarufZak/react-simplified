@@ -23,8 +23,9 @@ const effectsStore: Record<string, StoreItemType> = {};
 const subscribeToComponentRegistryComplete = (callback: Function) => {
   return componentRegistry.subscribeToStateChange((state) => {
     if (state === "completed") {
-      callback();
-      flushStateUpdates();
+      return callback();
+      // TODO: causing infinite loop
+      // flushStateUpdates();
     }
   });
 };
@@ -73,10 +74,16 @@ const useEffect = (
       dependencies,
     );
 
+    console.log({
+      currentDeps: currentEffects[currentCursor].dependencies,
+      deps: dependencies,
+    });
+
     if (!depsSame) {
       // refresh the cleanup function
       subscribeToComponentRegistryComplete(() => {
         currentEffects[currentCursor].cleanupFunction = callback();
+        currentEffects[currentCursor].dependencies = dependencies;
       });
     }
   }

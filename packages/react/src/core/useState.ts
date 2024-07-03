@@ -43,11 +43,14 @@ function useState<T>(
 
   const currentCursor = states[stringCallerStack].cursor;
   const currentValues = states[stringCallerStack].values;
-  const currentUpdateQueue =
-    states[stringCallerStack].values[currentCursor].updateQueue;
+  console.log({ currentCursor, currentValues });
+  const currentUpdateQueue = currentValues[currentCursor].updateQueue;
 
-  if (currentValues[currentCursor].value === undefined) {
-    currentValues[currentCursor].value = initialValue;
+  if (currentValues[currentCursor] === undefined) {
+    currentValues[currentCursor] = {
+      value: initialValue,
+      updateQueue: [],
+    };
   }
 
   const performUpdate: UpdaterFunctionType<T> = (newValue) => {
