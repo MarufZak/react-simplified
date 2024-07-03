@@ -18,6 +18,7 @@ type RootElementType = HTMLElement | null;
 export let rootComponent: RootComponentType = null;
 export let rootElement: RootElementType = null;
 export let currentVDOM: VDOMType = undefined;
+export let isPatchingEnabled = false;
 
 function renderChildrenRecursively(
   virtualDom: VDOMType[],
@@ -73,23 +74,40 @@ function registerRootComponent(component: RootComponentType) {
   rootComponent = component;
 }
 
-function render() {
+function render({
+  experimental__withPatching,
+}: {
+  experimental__withPatching: boolean;
+}) {
   if (!rootElement || !rootComponent) {
     throw new ComponentError(
       "root element or root component is not registered",
     );
   }
+
   componentRegistry.setComponentRegistryState("pending");
   const newVDOM = rootComponent();
   componentRegistry.setComponentRegistryState("completed");
 
-  patch(
-    currentVDOM,
-    newVDOM,
-    (rootElement.children[0] ?? rootElement) as RootElementType,
-  );
+  if (experimental__withPatching) {
+    patch(
+      currentVDOM,
+      newVDOM,
+      (rootElement.children[0] ?? rootElement) as RootElementType,
+    );
 
-  currentVDOM = newVDOM;
+    currentVDOM = newVDOM;
+    return;
+  }
+
+  // handle situation when root component returns array of values
+  if (Array.isArray(newVDOM)) {
+    return renderChildrenRecursively(newVDOM, rootElement);
+  }
+
+  const root = renderRecursively(newVDOM);
+  rootElement.innerHTML = "";
+  rootElement.appendChild(root);
 }
 
 function patch(
@@ -168,7 +186,10 @@ function patch(
       // this prevents bug when local variables inside
       // handler function are not updated on state change
       setAttributes(currentNode as HTMLElement, attributes);
-      if (Object.keys(attributes).some((key) => key.startsWith("on"))) {
+      if (
+        Object.keys(attributes).some((key) => key.startsWith("on")) &&
+        currentNode.nodeName === "INPUT"
+      ) {
         let isActive = document.activeElement === currentNode;
         const replaceNode = renderRecursively(newVDOM) as HTMLElement;
         currentNode.replaceWith(replaceNode);

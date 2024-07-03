@@ -46,8 +46,11 @@ function useState<T>(
   const currentValues = states[stringCallerStack].values;
 
   if (currentValues[currentCursor] === undefined) {
+    const savedValue =
+      initialValue instanceof Function ? initialValue() : initialValue;
+
     currentValues[currentCursor] = {
-      value: initialValue,
+      value: savedValue,
       updateQueue: [],
     };
   }
@@ -112,7 +115,9 @@ export function flushStateUpdates() {
     }
   }
   eventRegistry.clearEventRegistry();
-  ReactDOM.render();
+  ReactDOM.render({
+    experimental__withPatching: false,
+  });
 }
 
 export default useState;

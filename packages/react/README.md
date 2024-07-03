@@ -44,6 +44,7 @@ export default App;
 
 1. Problem: Uncaught TypeError: Failed to resolve module specifier "react". Relative references must start with either "/", "./", or "../". Solution: You either have imported React Simplified from wrong directory (import it from "@marufzak/react" instead), or you have not put keyword type before importing ReactTypes from "@marufzak/react/types" (import type ReactTypes from "@marufzak/react/types")
 2. Problem: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead. Solution: Import React from "@marufzak/react" at the top of your file.
+3. Problem: Email type cannot be set range
 
 ## Authors
 

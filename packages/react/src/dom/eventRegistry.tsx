@@ -54,15 +54,10 @@ class EventRegistry {
     }
 
     if (elementAttachableEvents.includes(event)) {
-      console.log("no1");
-
       eventTarget.addEventListener(event.toLowerCase(), eventHandlerWrapper);
     } else {
-      console.log("no2");
       document.body.addEventListener(event, eventHandlerWrapper);
     }
-
-    console.log("noo");
 
     const map = new Map();
     map.set(eventTarget, eventHandlerWrapper);

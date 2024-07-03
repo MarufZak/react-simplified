@@ -14,6 +14,9 @@ export function attachStyles(
 const specialAttributes: Record<string, string> = {
   className: "class",
   htmlFor: "for",
+  tabIndex: "tabindex",
+  defaultChecked: "checked",
+  defaultValue: "value",
 };
 
 export function attachAttribute(
@@ -97,10 +100,6 @@ export function setAttributes(
       continue;
     } else if (key.startsWith("on")) {
       const event = transformJSXEvent(key);
-      // if (!eventRegistry.hasEventTarget(event, element)) {
-      //   // console.log(true);
-      //   // continue;
-      // }
       eventRegistry.setEvent(event, element, props[key]);
       continue;
     } else if (key === "ref") {
