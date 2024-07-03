@@ -2,66 +2,35 @@ import React from "@marufzak/react";
 import { Avatar, Divider } from "@marufzak/strapi-ui";
 import {
   SquareLeafIcon,
-  LayoutIcon,
-  LandscapeIcon,
-  CircleInfoIcon,
-  PuzzleIcon,
-  ShoppingCartIcon,
-  GearIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@marufzak/strapi-ui/icons";
 import { StrapiIcon } from "@marufzak/strapi-ui/icons/logos";
 import { cn } from "@marufzak/strapi-ui/utils";
+import type { User } from "../App";
+import {
+  generalPages,
+  pluginsPages,
+  type GeneralPageType,
+  type PluginPageType,
+} from "../lib/constants";
 
-const plugins = [
-  {
-    id: Math.random(),
-    title: "Builder",
-    icon: LayoutIcon,
-    href: "builder",
-  },
-  {
-    id: Math.random(),
-    title: "Media Library",
-    icon: LandscapeIcon,
-    href: "media",
-  },
-  {
-    id: Math.random(),
-    title: "Documentation",
-    icon: CircleInfoIcon,
-    href: "docs",
-  },
-];
-
-const general = [
-  {
-    id: Math.random(),
-    title: "Plugins",
-    icon: PuzzleIcon,
-    href: "plugins",
-  },
-  {
-    id: Math.random(),
-    title: "Marketplace",
-    icon: ShoppingCartIcon,
-    href: "cart",
-  },
-  {
-    id: Math.random(),
-    title: "Settings",
-    icon: GearIcon,
-    href: "settings",
-  },
-];
-
+export type PathType = GeneralPageType | PluginPageType | "Content";
 interface SidebarProps {
   isCollapsed: boolean;
   handleCollapseChange: () => void;
+  user: User | null;
+  activePath: PathType;
+  onPathChange: (newPath: PathType) => void;
 }
 
-const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
+const Sidebar = ({
+  isCollapsed,
+  handleCollapseChange,
+  activePath,
+  user,
+  onPathChange,
+}: SidebarProps) => {
   return (
     <nav
       className={cn(
@@ -84,14 +53,20 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
         </div>
         <div className={isCollapsed ? "hidden" : ""}>
           <h2 className="text-sm font-bold mb-0.5 text-neutral-800 leading-none">
-            Strapi Website
+            {user ? user.username : "Strapi Website"}
           </h2>
           <p className="text-xs text-neutral-600 leading-none">Workplace</p>
         </div>
       </header>
       <Divider key="divider-1" className="-mx-3" />
       <div className="grow py-3">
-        <ListItem isCollapsed={isCollapsed} href="hi" icon={SquareLeafIcon}>
+        <ListItem
+          onClick={() => onPathChange("Content")}
+          isActive={activePath === "Content"}
+          isCollapsed={isCollapsed}
+          href="hi"
+          icon={SquareLeafIcon}
+        >
           Content
         </ListItem>
         <Divider
@@ -101,9 +76,11 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
         <ListTitle key="title-1" className={isCollapsed ? "hidden" : ""}>
           plugins
         </ListTitle>
-        {plugins.map((plugin) => {
+        {pluginsPages.map((plugin) => {
           return (
             <ListItem
+              onClick={() => onPathChange(plugin.title)}
+              isActive={activePath === plugin.title}
               key={plugin.id}
               isCollapsed={isCollapsed}
               icon={plugin.icon}
@@ -120,9 +97,11 @@ const Sidebar = ({ isCollapsed, handleCollapseChange }: SidebarProps) => {
           key="divider-3"
           className={isCollapsed ? "block my-4" : "hidden"}
         />
-        {general.map((item) => {
+        {generalPages.map((item) => {
           return (
             <ListItem
+              onClick={() => onPathChange(item.title)}
+              isActive={activePath === item.title}
               key={item.id}
               isCollapsed={isCollapsed}
               icon={item.icon}
@@ -181,6 +160,7 @@ interface ListItemProps extends React.ComponentProps<"li"> {
   icon: React.ElementType;
   href: string;
   isCollapsed: boolean;
+  isActive: boolean;
 }
 
 const ListItem = ({
@@ -188,17 +168,25 @@ const ListItem = ({
   href,
   children,
   isCollapsed,
+  isActive,
+  ...props
 }: ListItemProps) => {
   return (
     <li
       className={cn(
         "flex items-center gap-2 px-3 py-2 relative text-sm",
         isCollapsed ? "mb-2" : "",
+        isActive ? "text-primary-600 bg-primary-100" : "",
       )}
+      {...props}
     >
-      <IconComponent width={16} height={16} className="fill-neutral-500" />
+      <IconComponent
+        width={16}
+        height={16}
+        className={cn(isActive ? "fill-primary-500" : "fill-neutral-500")}
+      />
       <div className={isCollapsed ? "hidden" : ""}>{children}</div>
-      <a className="absolute inset-0" href={href} />
+      <p className="absolute inset-0" />
     </li>
   );
 };

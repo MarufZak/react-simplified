@@ -1,7 +1,20 @@
 import React from "@marufzak/react";
-import Sidebar from "./sidebar";
+import Sidebar, { type PathType } from "./sidebar";
+import type { User } from "../App";
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+interface Props {
+  user: User | null;
+  children: React.ReactNode;
+  activePath: PathType;
+  onPathChange: (newPath: PathType) => void;
+}
+
+const DashboardLayout = ({
+  children,
+  user,
+  activePath,
+  onPathChange,
+}: Props) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = React.useState(() => {
     const value = localStorage.getItem("isSidebarCollapsed");
     return value ? (JSON.parse(value) as boolean) : false;
@@ -16,6 +29,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="grid grid-cols-[auto_1fr] h-screen overflow-hidden">
       <Sidebar
+        onPathChange={onPathChange}
+        activePath={activePath}
+        user={user}
         isCollapsed={isSidebarCollapsed}
         handleCollapseChange={handleCollapseChange}
       />
