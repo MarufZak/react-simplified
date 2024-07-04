@@ -30,7 +30,7 @@ const Profile = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} ref={formRef}>
+    <form experimental__patching={true} onSubmit={handleSubmit} ref={formRef}>
       <header className="flex items-center justify-between mb-14">
         <h2 className="text-[32px] leading-10 font-bold">Kai Doe</h2>
         <Button
@@ -44,7 +44,7 @@ const Profile = () => {
           Save
         </Button>
       </header>
-      <div className="flex flex-col gap-6">
+      <div experimental__patching={true} className="flex flex-col gap-6">
         <Block
           key="block-1"
           className="grid grid-cols-2 gap-x-4 gap-y-6"
@@ -83,23 +83,22 @@ const Profile = () => {
             placeholder="kai_doe"
           />
         </Block>
-        {/* unfortunately InputPassword cannot be used here because
-            of experimental patching feature is not being used */}
         <Block
           key="block-2"
           className="grid grid-cols-2 gap-x-4 gap-y-6"
           title="Change password"
+          experimental__patching={true}
         >
-          <TextInput
-            type="password"
+          <PasswordInput
+            experimental__patching={true}
             key="password"
             name="password"
             autoComplete="new-password"
             label="Password"
             placeholder="Your password"
           />
-          <TextInput
-            type="password"
+          <PasswordInput
+            experimental__patching={true}
             key="password-confirmation"
             name="confirm-password"
             autoComplete="new-password"

@@ -50,12 +50,16 @@ export const PasswordInput = ({
   const [showPassword, setShowPassword] = React.useState(false);
 
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div
+      experimental__patching={true}
+      className={cn("flex flex-col", className)}
+    >
       <label className="text-xs text-neutral-800 mb-1 font-bold" htmlFor={id}>
         {label}
       </label>
-      <div className="relative">
+      <div experimental__patching={true} className="relative">
         <input
+          experimental__patching={true}
           type={showPassword ? "text" : "password"}
           className="w-full border border-neutral-200 rounded-[4px] bg-neutral-0 text-sm placeholder:text-neutral-600 text-neutral-800 h-10 focus-visible:border-2 focus-visible:border-primary-600 focus-visible:pl-[15px] outline-none px-4 disabled:bg-neutral-150 disabled:text-neutral-600"
           id={id}
@@ -63,6 +67,7 @@ export const PasswordInput = ({
           {...props}
         />
         <button
+          experimental__patching={true}
           type="button"
           disabled={disabled}
           className="absolute right-3 top-1/2 -translate-y-1/2 fill-neutral-600"

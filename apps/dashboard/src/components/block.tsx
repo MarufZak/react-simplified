@@ -20,6 +20,7 @@ const Block = ({
         "px-8 py-6 rounded-[4px] border-[0.5px] bg-neutral-0 border-neutral-150 shadow-sm"
       }
       {...props}
+      experimental__patching={true}
     >
       <header className="flex items-center justify-between mb-4">
         <div>
@@ -30,7 +31,9 @@ const Block = ({
         </div>
         {action}
       </header>
-      <div className={className}>{children}</div>
+      <div experimental__patching={true} className={className}>
+        {children}
+      </div>
     </section>
   );
 };

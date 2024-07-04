@@ -5,6 +5,4 @@ import "./globals.css";
 const root = document.getElementById("root");
 ReactDOM.registerRootComponent(App);
 ReactDOM.registerRootElement(root);
-ReactDOM.render({
-  experimental__withPatching: false,
-});
+ReactDOM.render();

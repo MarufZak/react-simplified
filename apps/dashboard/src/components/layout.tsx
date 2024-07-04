@@ -27,7 +27,10 @@ const DashboardLayout = ({
   };
 
   return (
-    <div className="grid grid-cols-[auto_1fr] h-screen overflow-hidden">
+    <div
+      experimental__patching={true}
+      className="grid grid-cols-[auto_1fr] h-screen overflow-hidden"
+    >
       <Sidebar
         onPathChange={onPathChange}
         activePath={activePath}
@@ -35,7 +38,10 @@ const DashboardLayout = ({
         isCollapsed={isSidebarCollapsed}
         handleCollapseChange={handleCollapseChange}
       />
-      <main className="relative p-[55px] bg-neutral-100 overflow-y-auto">
+      <main
+        experimental__patching={true}
+        className="relative p-[55px] bg-neutral-100 overflow-y-auto"
+      >
         {children}
       </main>
     </div>

@@ -115,9 +115,7 @@ export function flushStateUpdates() {
     }
   }
   eventRegistry.clearEventRegistry();
-  ReactDOM.render({
-    experimental__withPatching: false,
-  });
+  ReactDOM.render();
 }
 
 export default useState;

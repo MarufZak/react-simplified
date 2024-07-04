@@ -36,14 +36,25 @@ const App = () => {
   // the following code will not work as expected,
   // and approach would be different
   return user ? (
-    <DashboardLayout
-      onPathChange={handlePathChange}
-      activePath={activePath}
-      user={user}
-    >
-      {activePath === "Content" ? <Welcome /> : null}
-      {activePath === "Builder" ? <Profile /> : null}
-    </DashboardLayout>
+    activePath === "Content" ? (
+      <DashboardLayout
+        onPathChange={handlePathChange}
+        activePath={activePath}
+        user={user}
+      >
+        <Welcome />
+      </DashboardLayout>
+    ) : activePath === "Builder" ? (
+      <DashboardLayout
+        onPathChange={handlePathChange}
+        activePath={activePath}
+        user={user}
+      >
+        <Profile />
+      </DashboardLayout>
+    ) : (
+      <div></div>
+    )
   ) : (
     <Login onLogin={handleLogin} />
   );

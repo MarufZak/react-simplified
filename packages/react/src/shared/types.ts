@@ -11,6 +11,7 @@ export type HTMLTagElementType = keyof JSX.IntrinsicElements;
 export interface ReactElementPropsType {
   children: VDOMType[];
   key?: string | number | bigint | null | undefined;
+  experimental__patching?: boolean;
   [key: string]: any;
 }
 

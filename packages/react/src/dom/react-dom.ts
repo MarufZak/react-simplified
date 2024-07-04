@@ -74,11 +74,7 @@ function registerRootComponent(component: RootComponentType) {
   rootComponent = component;
 }
 
-function render({
-  experimental__withPatching,
-}: {
-  experimental__withPatching: boolean;
-}) {
+function render() {
   if (!rootElement || !rootComponent) {
     throw new ComponentError(
       "root element or root component is not registered",
@@ -89,25 +85,13 @@ function render({
   const newVDOM = rootComponent();
   componentRegistry.setComponentRegistryState("completed");
 
-  if (experimental__withPatching) {
-    patch(
-      currentVDOM,
-      newVDOM,
-      (rootElement.children[0] ?? rootElement) as RootElementType,
-    );
+  patch(
+    currentVDOM,
+    newVDOM,
+    (rootElement.children[0] ?? rootElement) as RootElementType,
+  );
 
-    currentVDOM = newVDOM;
-    return;
-  }
-
-  // handle situation when root component returns array of values
-  if (Array.isArray(newVDOM)) {
-    return renderChildrenRecursively(newVDOM, rootElement);
-  }
-
-  const root = renderRecursively(newVDOM);
-  rootElement.innerHTML = "";
-  rootElement.appendChild(root);
+  currentVDOM = newVDOM;
 }
 
 function patch(
@@ -145,9 +129,11 @@ function patch(
     } else if (oldVDOM !== null && newVDOM === null) {
       currentNode.remove();
     } else if (oldVDOM !== null && newVDOM !== null) {
-      if (oldVDOM.type !== newVDOM.type) {
-        currentNode.parentElement!.appendChild(renderRecursively(newVDOM));
-        currentNode.remove();
+      if (
+        oldVDOM.type !== newVDOM.type ||
+        !oldVDOM.props.experimental__patching
+      ) {
+        currentNode.replaceWith(renderRecursively(newVDOM));
         return;
       }
 
@@ -159,7 +145,6 @@ function patch(
       const newVDOMPropsKeys = Object.keys(newVDOM.props).filter(
         (key) => key !== "children",
       );
-
       const removeProps = oldVDOMPropsKeys.filter(
         (prop) => newVDOMPropsKeys.includes(prop) === false,
       );
@@ -188,7 +173,9 @@ function patch(
       setAttributes(currentNode as HTMLElement, attributes);
       if (
         Object.keys(attributes).some((key) => key.startsWith("on")) &&
-        currentNode.nodeName === "INPUT"
+        (currentNode.nodeName === "INPUT" ||
+          currentNode.nodeName === "TEXTAREA" ||
+          currentNode.nodeName === "BUTTON")
       ) {
         let isActive = document.activeElement === currentNode;
         const replaceNode = renderRecursively(newVDOM) as HTMLElement;
@@ -244,7 +231,7 @@ function patch(
       currentNode.textContent = newVDOM.toString();
     }
   } else {
-    throw new InternalError("unknown");
+    throw new InternalError("unknown vdom type");
   }
 }
 

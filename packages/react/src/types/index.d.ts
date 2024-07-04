@@ -418,6 +418,7 @@ declare namespace React {
    */
   interface Attributes {
     key?: Key | null | undefined;
+    experimental__patching?: boolean;
   }
   /**
    * The props any component accepting refs can receive.
@@ -491,6 +492,7 @@ declare namespace React {
     type: T;
     props: P;
     key: string | null;
+    experimental__patching?: boolean;
   }
 
   /**

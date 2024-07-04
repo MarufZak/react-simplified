@@ -37,6 +37,7 @@ const Sidebar = ({
         "px-3 border-r border-neutral-150 h-screen flex flex-col bg-neutral-0",
         isCollapsed ? "w-16" : "w-[225px]",
       )}
+      experimental__patching={true}
     >
       <header className="py-5 flex items-center gap-2">
         <div
@@ -114,6 +115,7 @@ const Sidebar = ({
       </div>
       <Divider key="divider-4" className="-mx-3" />
       <footer
+        experimental__patching={true}
         className={cn(
           "px-3 py-5 relative",
           isCollapsed ? "px-0 flex justify-center" : "",
@@ -131,6 +133,7 @@ const Sidebar = ({
           </p>
         </div>
         <button
+          experimental__patching={true}
           onClick={handleCollapseChange}
           className={cn(
             "w-[18px] h-[25px] rounded-sm border border-neutral-150 grid place-items-center absolute top-1/2 -translate-y-1/2 z-10 bg-neutral-0",

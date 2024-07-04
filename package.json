@@ -6,7 +6,8 @@
   "scripts": {
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
-    "prepare": "husky"
+    "prepare": "husky",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": {

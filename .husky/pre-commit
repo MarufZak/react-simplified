@@ -1,1 +1,2 @@
 npm run format:write
+npm run typecheck
