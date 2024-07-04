@@ -1,5 +1,3 @@
-declare global {}
-
 export class InternalError extends Error {
   constructor(message: string) {
     if (__DEV__) {

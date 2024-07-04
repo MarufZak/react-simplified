@@ -2,7 +2,7 @@ import { Fragment, createElement } from "./jsx-runtime";
 import useEffect from "./useEffect";
 import useId from "./useId";
 import useRef from "./useRef";
-import useState from "./useState";
+import useState, { flushStateUpdates } from "./useState";
 import type ReactTypes from "../types";
 import useLayoutEffect from "./useLayoutEffect";
 
@@ -14,6 +14,7 @@ const React = {
   useRef,
   useEffect,
   useLayoutEffect,
+  flushStateUpdates,
 };
 
 export { type ReactTypes as React };

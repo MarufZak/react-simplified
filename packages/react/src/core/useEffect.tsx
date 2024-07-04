@@ -74,11 +74,6 @@ const useEffect = (
       dependencies,
     );
 
-    console.log({
-      currentDeps: currentEffects[currentCursor].dependencies,
-      deps: dependencies,
-    });
-
     if (!depsSame) {
       // refresh the cleanup function
       subscribeToComponentRegistryComplete(() => {
