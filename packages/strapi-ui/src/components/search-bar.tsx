@@ -7,7 +7,7 @@ interface Props extends Omit<React.ComponentProps<"input">, "type"> {}
 const SearchBar = ({ className, disabled, ...props }: Props) => {
   return (
     // prevent shift on focus because of 2px border on focus and 1px on idle
-    <div className="relative">
+    <div experimental__patching={true} className="relative">
       <input
         className={cn(
           "py-[9px] pr-3 pl-[30px] rounded-[4px] border-1 border-neutral-150 bg-neutral-0 placeholder:text-neutral-500 text-xs text-neutral-800 outline-none focus-visible:border-2 focus-visible:border-primary-600 focus-visible:py-2 focus-visible:pl-[29px] disabled:bg-neutral-150 disabled:border-1 disabled:border-neutral-200 [&:focus-visible+svg]:fill-primary-600",
@@ -15,6 +15,7 @@ const SearchBar = ({ className, disabled, ...props }: Props) => {
         )}
         type="search"
         disabled={disabled}
+        experimental__patching={true}
         {...props}
       />
       <MagnifierIcon

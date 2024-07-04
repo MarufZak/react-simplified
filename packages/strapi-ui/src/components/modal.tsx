@@ -3,8 +3,7 @@ import { cn } from "../utils";
 
 interface ModalProps extends React.ComponentProps<"dialog"> {}
 
-// Note: Modal is currently not visible on open=true.
-// The bug should be resolved when diffing is done.
+// Note: Modal breaks on escape key press
 
 const Modal = ({ className, children, open, ...props }: ModalProps) => {
   const modalRef = React.useRef<HTMLDialogElement | null>(null);
@@ -24,6 +23,7 @@ const Modal = ({ className, children, open, ...props }: ModalProps) => {
 
   return (
     <dialog
+      experimental__patching={true}
       ref={modalRef}
       className={cn(
         "backdrop:bg-black/40 rounded-[4px] open:animate-in open:fade-in-0 open:zoom-in-95",

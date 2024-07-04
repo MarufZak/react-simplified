@@ -23,6 +23,12 @@ import QuestionMarkIcon from "./question-mark";
 import ExternalLinkIcon from "./external-link";
 import ArrowRightIcon from "./arrow-right";
 import CheckIcon from "./check";
+import StrapiPatternIcon from "./strapi-pattern";
+import StarIcon from "./star";
+import DownloadIcon from "./download";
+import VerifiedIcon from "./verified";
+import CopyIcon from "./copy";
+import UploadIcon from "./upload";
 
 export {
   CircleInfoIcon,
@@ -50,4 +56,10 @@ export {
   ExternalLinkIcon,
   ArrowRightIcon,
   CheckIcon,
+  StrapiPatternIcon,
+  StarIcon,
+  DownloadIcon,
+  VerifiedIcon,
+  CopyIcon,
+  UploadIcon,
 };

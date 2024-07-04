@@ -18,11 +18,15 @@ export const TextInput = ({
   const id = React.useId();
 
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div
+      experimental__patching={true}
+      className={cn("flex flex-col", className)}
+    >
       <label className="text-xs text-neutral-800 mb-1 font-bold" htmlFor={id}>
         {label}
       </label>
       <input
+        experimental__patching={true}
         className="border border-neutral-200 rounded-[4px] bg-neutral-0 text-sm placeholder:text-neutral-600 text-neutral-800 h-10 focus-visible:border-2 focus-visible:border-primary-600 focus-visible:pl-[15px] outline-none px-4 disabled:bg-neutral-150 disabled:text-neutral-600"
         id={id}
         {...props}
