@@ -4,6 +4,7 @@ import Welcome from "./pages/dashboard/welcome";
 import Login from "./pages/login";
 import Profile from "./pages/dashboard/profile";
 import type { PathType } from "./components/sidebar";
+import Marketplace from "./pages/dashboard/marketplace";
 
 export interface User {
   username: string;
@@ -51,6 +52,14 @@ const App = () => {
         user={user}
       >
         <Profile />
+      </DashboardLayout>
+    ) : activePath === "Marketplace" ? (
+      <DashboardLayout
+        onPathChange={handlePathChange}
+        activePath={activePath}
+        user={user}
+      >
+        <Marketplace />
       </DashboardLayout>
     ) : (
       <div></div>

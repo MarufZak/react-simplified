@@ -20,7 +20,7 @@ const Profile = () => {
 
     for (const [key, value] of formData.entries()) {
       if (key === "password" || key === "confirm-password") {
-        return;
+        continue;
       }
 
       localStorage.setItem(key, value as string);
@@ -90,7 +90,6 @@ const Profile = () => {
           experimental__patching={true}
         >
           <PasswordInput
-            experimental__patching={true}
             key="password"
             name="password"
             autoComplete="new-password"
@@ -98,7 +97,6 @@ const Profile = () => {
             placeholder="Your password"
           />
           <PasswordInput
-            experimental__patching={true}
             key="password-confirmation"
             name="confirm-password"
             autoComplete="new-password"
