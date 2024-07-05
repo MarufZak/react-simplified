@@ -24,7 +24,7 @@ function Badge({
   ...props
 }: Props) {
   return (
-    <span className={cn(variants["active"], sizes[size], className)} {...props}>
+    <span className={cn(variants[variant], sizes[size], className)} {...props}>
       {children}
     </span>
   );

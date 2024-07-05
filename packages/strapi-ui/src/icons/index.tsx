@@ -29,6 +29,9 @@ import DownloadIcon from "./download";
 import VerifiedIcon from "./verified";
 import CopyIcon from "./copy";
 import UploadIcon from "./upload";
+import PlusIcon from "./plus";
+import EmptyDocumentsIcon from "./empty-documents";
+import AdobeFileIcon from "./adobe-file";
 
 export {
   CircleInfoIcon,
@@ -62,4 +65,7 @@ export {
   VerifiedIcon,
   CopyIcon,
   UploadIcon,
+  PlusIcon,
+  EmptyDocumentsIcon,
+  AdobeFileIcon,
 };
