@@ -2,37 +2,47 @@ import React from "@marufzak/react";
 import { Button, PasswordInput, TextInput } from "@marufzak/strapi-ui";
 import { CheckIcon } from "@marufzak/strapi-ui/icons";
 import Block from "../../components/block";
+import type { User } from "../../App";
 
 const Profile = () => {
   const formRef = React.useRef<HTMLFormElement | null>(null);
+
+  const user = JSON.parse(localStorage.getItem("user") as string) as User;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(formRef.current!);
 
     const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirm-password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
 
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
+    const newUser: Record<string, any> = {
+      ...user,
+    };
+
     for (const [key, value] of formData.entries()) {
-      if (key === "password" || key === "confirm-password") {
+      if (key === "confirmPassword") {
         continue;
       }
-
-      localStorage.setItem(key, value as string);
+      newUser[key] = value;
     }
+
+    localStorage.setItem("user", JSON.stringify(newUser));
 
     alert("Profile saved successfully!");
   };
 
+  // verified that it exists in the App
+
   return (
     <form experimental__patching={true} onSubmit={handleSubmit} ref={formRef}>
       <header className="flex items-center justify-between mb-14">
-        <h2 className="text-[32px] leading-10 font-bold">Kai Doe</h2>
+        <h2 className="text-[32px] leading-10 font-bold">{user.username}</h2>
         <Button
           type="submit"
           size="md"
@@ -51,23 +61,23 @@ const Profile = () => {
           title="Profile"
         >
           <TextInput
-            defaultValue={localStorage.getItem("given-name") || ""}
+            defaultValue={user.firstName}
             key="input-given-name"
-            name="given-name"
+            name="firstName"
             autoComplete="given-name"
             label="First name"
             placeholder="Kai"
           />
           <TextInput
-            defaultValue={localStorage.getItem("family-name") || ""}
+            defaultValue={user.familyName}
             key="input-family-name"
-            name="family-name"
+            name="familyName"
             autoComplete="family-name"
             label="Last name"
             placeholder="Doe"
           />
           <TextInput
-            defaultValue={localStorage.getItem("email") || ""}
+            defaultValue={user.email}
             key="input-email"
             autoComplete="email"
             name="email"
@@ -76,9 +86,10 @@ const Profile = () => {
             placeholder="kai@doe.com"
           />
           <TextInput
-            defaultValue={localStorage.getItem("username") || ""}
+            defaultValue={user.username}
             key="input-username"
             autoComplete="username"
+            name="username"
             label="Username"
             placeholder="kai_doe"
           />
@@ -90,6 +101,7 @@ const Profile = () => {
           experimental__patching={true}
         >
           <PasswordInput
+            defaultValue={user.password}
             key="password"
             name="password"
             autoComplete="new-password"
@@ -98,7 +110,7 @@ const Profile = () => {
           />
           <PasswordInput
             key="password-confirmation"
-            name="confirm-password"
+            name="confirmPassword"
             autoComplete="new-password"
             label="Password confirmation"
             placeholder="Your password"

@@ -10,6 +10,9 @@ import Media from "./pages/dashboard/media";
 export interface User {
   username: string;
   password: string;
+  firstName?: string;
+  familyName?: string;
+  email?: string;
 }
 
 const App = () => {
