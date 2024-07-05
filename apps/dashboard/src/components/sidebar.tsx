@@ -175,9 +175,9 @@ const ListItem = ({
   ...props
 }: ListItemProps) => {
   return (
-    <li
+    <button
       className={cn(
-        "flex items-center gap-2 px-3 py-2 relative text-sm",
+        "w-full flex items-center gap-2 px-3 py-2 relative text-sm",
         isCollapsed ? "mb-2" : "",
         isActive ? "text-primary-600 bg-primary-100" : "",
       )}
@@ -190,7 +190,7 @@ const ListItem = ({
       />
       <div className={isCollapsed ? "hidden" : ""}>{children}</div>
       <p className="absolute inset-0" />
-    </li>
+    </button>
   );
 };
 

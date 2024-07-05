@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import Profile from "./pages/dashboard/profile";
 import type { PathType } from "./components/sidebar";
 import Marketplace from "./pages/dashboard/marketplace";
+import Media from "./pages/dashboard/media";
 
 export interface User {
   username: string;
@@ -33,9 +34,8 @@ const App = () => {
     setActivePath(newPath);
   };
 
-  // with experimental patching enabled,
-  // the following code will not work as expected,
-  // and approach would be different
+  // current patching algorithm requires
+  // this to make full rerender
   return user ? (
     activePath === "Content" ? (
       <DashboardLayout
@@ -60,6 +60,14 @@ const App = () => {
         user={user}
       >
         <Marketplace />
+      </DashboardLayout>
+    ) : activePath === "Media Library" ? (
+      <DashboardLayout
+        onPathChange={handlePathChange}
+        activePath={activePath}
+        user={user}
+      >
+        <Media />
       </DashboardLayout>
     ) : (
       <div></div>

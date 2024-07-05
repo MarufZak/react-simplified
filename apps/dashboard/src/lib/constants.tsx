@@ -53,7 +53,8 @@ export const marketplaceItems = [
   {
     id: Math.random(),
     name: "@marufzak/react",
-    description: "Adds GraphQL endpoint with default API methods.",
+    description:
+      "@marufzak/react is a JavaScript library for creating user interfaces.",
     githubStars: 12,
     forks: 0,
     installCommand: "npm install @marufzak/react",
