@@ -26,7 +26,7 @@ const Modal = ({ className, children, open, ...props }: ModalProps) => {
       experimental__patching={true}
       ref={modalRef}
       className={cn(
-        "backdrop:bg-neutral-800/20 rounded-[4px] open:animate-in open:fade-in-0 open:zoom-in-95",
+        "backdrop:bg-black/40 rounded-[4px] open:animate-in open:fade-in-0 open:zoom-in-95",
       )}
       {...props}
     >

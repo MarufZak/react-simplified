@@ -42,7 +42,9 @@ const Profile = () => {
   return (
     <form experimental__patching={true} onSubmit={handleSubmit} ref={formRef}>
       <header className="flex items-center justify-between mb-14">
-        <h2 className="text-[32px] leading-10 font-bold">{user.username}</h2>
+        <h2 className="text-[32px] leading-10 font-bold text-neutral-800">
+          {user.username}
+        </h2>
         <Button
           type="submit"
           size="md"

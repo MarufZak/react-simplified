@@ -32,7 +32,7 @@ const Media = () => {
         onModalClose={() => setIsModalOpen(false)}
         onAssetsUpload={handleAssetsUpload}
       />
-      <header className="flex items-center justify-between mb-14">
+      <header className="flex items-center justify-between mb-14 text-neutral-800">
         <h2 className="text-[32px] leading-10 font-bold">Media Library</h2>
         <Button
           onClick={() => setIsModalOpen(true)}
@@ -68,7 +68,7 @@ const Media = () => {
         <div className="grid grid-cols-4 gap-4 relative ">
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
             <EmptyDocumentsIcon
-              className="fill-neutral-0"
+              className="fill-neutral-0 dark:fill-neutral-50"
               width={172}
               height={96}
             />

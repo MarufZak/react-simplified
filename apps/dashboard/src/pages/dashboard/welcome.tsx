@@ -6,7 +6,6 @@ import {
   InfoIcon,
   LeafIcon,
   PlayIcon,
-  QuestionMarkIcon,
 } from "@marufzak/strapi-ui/icons";
 import {
   DiscordIcon,
@@ -150,7 +149,9 @@ const Welcome = () => {
                 </div>
               </div>
               <div>
-                <h3 className="font-medium mb-[3px]">{item.title}</h3>
+                <h3 className="font-medium mb-[3px] text-neutral-900">
+                  {item.title}
+                </h3>
                 <p className="text-sm text-neutral-600">{item.description}</p>
               </div>
             </article>
@@ -180,7 +181,7 @@ const Welcome = () => {
               <li>
                 <a
                   href="/"
-                  className="py-2 px-3 hover:bg-neutral-100 rounded-[4px] flex items-center gap-2"
+                  className="py-2 px-3 hover:bg-neutral-100 text-neutral-700 font-bold rounded-[4px] flex items-center gap-2"
                 >
                   <Icon
                     key={mediaItem.id}
@@ -195,9 +196,6 @@ const Welcome = () => {
           })}
         </ul>
       </div>
-      <button className="w-8 h-8 bg-primary-600 rounded-full absolute right-8 bottom-8 grid place-items-center focus-visible:ring-2 ring-primary-600 ring-offset-2">
-        <QuestionMarkIcon width={11} height={19} className="fill-neutral-0" />
-      </button>
     </section>
   );
 };

@@ -27,7 +27,7 @@ export const TextInput = ({
       </label>
       <input
         experimental__patching={true}
-        className="border border-neutral-200 rounded-[4px] bg-neutral-0 text-sm placeholder:text-neutral-600 text-neutral-800 h-10 focus-visible:border-2 focus-visible:border-primary-600 focus-visible:pl-[15px] outline-none px-4 disabled:bg-neutral-150 disabled:text-neutral-600"
+        className="border border-neutral-200 rounded-[4px] bg-neutral-0 text-sm placeholder:text-neutral-600/80 text-neutral-800 h-10 focus-visible:border-2 focus-visible:border-primary-600 focus-visible:pl-[15px] outline-none px-4 disabled:bg-neutral-150 disabled:text-neutral-600"
         id={id}
         {...props}
       />

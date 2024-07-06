@@ -6,6 +6,7 @@ import Profile from "./pages/dashboard/profile";
 import type { PathType } from "./components/sidebar";
 import Marketplace from "./pages/dashboard/marketplace";
 import Media from "./pages/dashboard/media";
+import Settings from "./pages/dashboard/settings";
 
 export interface User {
   username: string;
@@ -22,6 +23,13 @@ const App = () => {
   const [activePath, setActivePath] = React.useState(() => {
     return (localStorage.getItem("activePath") as PathType) || "Content";
   });
+
+  React.useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    }
+  }, []);
 
   const handleLogin = (username: string, password: string) => {
     const newUser = {
@@ -40,7 +48,7 @@ const App = () => {
   // current patching algorithm requires
   // this to make full rerender
   return user ? (
-    activePath === "Content" ? (
+    activePath === "Welcome" ? (
       <DashboardLayout
         onPathChange={handlePathChange}
         activePath={activePath}
@@ -48,7 +56,7 @@ const App = () => {
       >
         <Welcome />
       </DashboardLayout>
-    ) : activePath === "Builder" ? (
+    ) : activePath === "Profile" ? (
       <DashboardLayout
         onPathChange={handlePathChange}
         activePath={activePath}
@@ -72,8 +80,22 @@ const App = () => {
       >
         <Media />
       </DashboardLayout>
+    ) : activePath === "Settings" ? (
+      <DashboardLayout
+        onPathChange={handlePathChange}
+        activePath={activePath}
+        user={user}
+      >
+        <Settings />
+      </DashboardLayout>
     ) : (
-      <div></div>
+      <DashboardLayout
+        onPathChange={handlePathChange}
+        activePath={activePath}
+        user={user}
+      >
+        <div></div>
+      </DashboardLayout>
     )
   ) : (
     <Login onLogin={handleLogin} />

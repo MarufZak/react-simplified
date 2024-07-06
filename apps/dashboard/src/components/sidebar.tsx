@@ -15,7 +15,7 @@ import {
   type PluginPageType,
 } from "../lib/constants";
 
-export type PathType = GeneralPageType | PluginPageType | "Content";
+export type PathType = GeneralPageType | PluginPageType | "Welcome";
 interface SidebarProps {
   isCollapsed: boolean;
   handleCollapseChange: () => void;
@@ -62,13 +62,13 @@ const Sidebar = ({
       <Divider key="divider-1" className="-mx-3" />
       <div className="grow py-3">
         <ListItem
-          onClick={() => onPathChange("Content")}
-          isActive={activePath === "Content"}
+          onClick={() => onPathChange("Welcome")}
+          isActive={activePath === "Welcome"}
           isCollapsed={isCollapsed}
           href="hi"
           icon={SquareLeafIcon}
         >
-          Content
+          Welcome
         </ListItem>
         <Divider
           key="divider-2"
@@ -188,7 +188,17 @@ const ListItem = ({
         height={16}
         className={cn(isActive ? "fill-primary-500" : "fill-neutral-500")}
       />
-      <div className={isCollapsed ? "hidden" : ""}>{children}</div>
+      <div
+        className={
+          isCollapsed
+            ? "hidden"
+            : isActive
+              ? "text-primary-600"
+              : "text-neutral-600"
+        }
+      >
+        {children}
+      </div>
       <p className="absolute inset-0" />
     </button>
   );
