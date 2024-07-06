@@ -132,8 +132,6 @@ const Card = ({
     }
 
     const timeout = setTimeout(() => {
-      console.log("timeout");
-
       setIsCopied(false);
       React.flushStateUpdates();
     }, 2000);
