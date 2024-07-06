@@ -17,18 +17,19 @@ React simplified is simple, zero-dependency, and lightweight React.js implementa
   - [Experimental patching](#experimental-patching)
   - [Event types](#event-types)
 - [Limitations](#limitations)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
-- **jsx-runtime**: A simple JSX runtime that converts JSX to React elements.
-- **dom**: A simple DOM renderer that renders React elements and fragments to the DOM.
-- **events-system**: Event system that allows you to add event listeners to elements.
-- **component-lifecycle**: Component lifecycle methods that allow you to run code when a component is mounted, updated, or unmounted, using useEffect hook.
-- **reconciliation**: Reconciliation algorithm to update the DOM efficiently.
-- **state-management**: State management system that allows you to manage the state of your components using useState hook.
-- **side-effects**: Allows you to handle side effects in your components using useEffect hook.
-- **refs**: Implementation of React refs that allows you to access DOM elements using useRef hook.
-- **typescript**: TypeScript support, including generic hooks, React elements, and others.
+- **JSX runtime**: A simple JSX runtime that converts JSX to React elements.
+- **React DOM**: A simple DOM renderer that renders React elements and fragments to the DOM.
+- **Events system**: Event system that allows you to add event listeners to elements.
+- **Component lifecycle**: Component lifecycle methods that allow you to run code when a component is mounted, updated, or unmounted, using useEffect hook.
+- **Reconciliation**: Reconciliation algorithm to update the DOM efficiently.
+- **Hooks**: A set of hooks that allow you to manage the state of your components, handle side effects, access DOM elements, and generate unique and consistent ids with useState, useEffect, useRef, and useId hooks respectively.
+- **Typescript**: TypeScript support, including generic hooks, React elements, and others.
 
 ## Installation
 
@@ -358,6 +359,18 @@ Some known limitations of the library are:
 - **No support for portals**: The library does not support portals, so you cannot render elements outside of the root element.
 - **No support for context**: The library does not support context API, so you cannot use it to pass data to deeply nested components.
 
+## Troubleshooting
+
+1. **Problem**: Uncaught TypeError: Failed to resolve module specifier "react". Relative references must start with either "/", "./", or "../".
+   **Solution**: You probably have imported core package from wrong directory, import it from "@marufzak/react" instead.
+
+2. **Problem**: 'React' refers to a UMD global, but the current file is a module.
+   **Solution**: Consider adding an import instead. Import React from "@marufzak/react" at the top of your file.
+
 ## Contributing
 
 If you have any ideas on how to improve the library, or you found a bug, feel free to open an issue or create a pull request. I will be happy to review it!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENCE) file for details.

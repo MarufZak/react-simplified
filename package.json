@@ -1,7 +1,7 @@
 {
   "name": "react-simplified",
-  "version": "0.9.0",
-  "description": "A monorepo containing react-simplified and strapi-ui packages",
+  "version": "1.0.0",
+  "description": "React simplified is simple, zero-dependency, and lightweight React.js implementation that provides a simple way to create user interfaces",
   "type": "module",
   "scripts": {
     "format:check": "prettier . --check",
@@ -9,7 +9,14 @@
     "prepare": "husky",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "ui",
+    "user-interface",
+    "simplified",
+    "lightweight",
+    "zero-dependency"
+  ],
   "author": {
     "email": "marufzak04@gmail.com",
     "name": "Ma'ruf Zakirov",

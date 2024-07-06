@@ -15,7 +15,7 @@ const useId = () => {
   if (collections[stringCallerStack] === undefined) {
     collections[stringCallerStack] = {
       cursor: 0,
-      values: [crypto.randomUUID().slice(0, 5)],
+      values: [crypto.randomUUID()],
     };
   }
 
@@ -23,7 +23,7 @@ const useId = () => {
   const currentValues = collections[stringCallerStack].values;
 
   if (currentValues[currentCursor] === undefined) {
-    currentValues[currentCursor] = crypto.randomUUID().slice(0, 5);
+    currentValues[currentCursor] = crypto.randomUUID();
   }
 
   collections[stringCallerStack].cursor++;

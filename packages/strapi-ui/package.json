@@ -1,6 +1,6 @@
 {
   "name": "@marufzak/strapi-ui",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "description": "Headless UI components built with @marufzak/react and Tailwind CSS packages",
   "main": "./dist/components/index.js",
   "types": "./dist/components/index.d.ts",

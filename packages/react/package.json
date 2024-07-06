@@ -1,6 +1,6 @@
 {
   "name": "@marufzak/react",
-  "version": "0.8.4",
+  "version": "1.0.0",
   "description": "Zero-dependency, lightweight and minimalistic implementation of the React library",
   "keywords": [
     "react",
@@ -34,7 +34,9 @@
     "tslib": "^2.6.3"
   },
   "author": {
-    "name": "marufzak"
+    "email": "marufzak04@gmail.com",
+    "name": "Ma'ruf Zakirov",
+    "url": "https://github.com/MarufZak"
   },
   "license": "MIT",
   "type": "module",
