@@ -185,6 +185,7 @@ const MediaCreateModal = ({
           variant="tertiary"
           theme="default"
           size="md"
+          onClick={onModalClose}
         >
           Cancel
         </Button>

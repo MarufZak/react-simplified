@@ -37,7 +37,9 @@ const Marketplace = () => {
     <div experimental__patching={true}>
       <header className="flex items-center justify-between mb-12">
         <div>
-          <h2 className="text-[32px] leading-10 font-bold">Strapi Market</h2>
+          <h2 className="text-[32px] leading-10 font-bold text-neutral-800">
+            Strapi Market
+          </h2>
           <p className="text-neutral-600">Get more out of Strapi</p>
         </div>
         <Button
@@ -161,11 +163,15 @@ const Card = ({
       >
         <StrapiPatternIcon width={64} height={64} />
         <div className="flex items-center gap-1 text-xs text-neutral-800">
-          <GithubIcon width={12} height={12} />
+          <GithubIcon className="dark:fill-neutral-50" width={12} height={12} />
           <StarIcon width={12} height={12} className="fill-warning-500" />
           <span>{formatNumber(githubStars)}</span>
           <Divider className="w-[1px] h-3 mx-3" />
-          <DownloadIcon width={10} height={10} className="text-neutral-600" />
+          <DownloadIcon
+            width={10}
+            height={10}
+            className="dark:fill-neutral-50"
+          />
           <span>{formatNumber(forks)}</span>
         </div>
       </header>
@@ -187,7 +193,7 @@ const Card = ({
             variant="tertiary"
             theme="default"
             size="sm"
-            className="flex gap-2 items-center"
+            className="flex gap-2 items-center text-neutral-800"
             experimental__patching={true}
           >
             <ExternalLinkIcon

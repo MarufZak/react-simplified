@@ -28,8 +28,10 @@ const App = () => {
     const theme = localStorage.getItem("theme");
     if (theme === "dark") {
       document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
     }
-  }, []);
+  }, [activePath]);
 
   const handleLogin = (username: string, password: string) => {
     const newUser = {
@@ -43,6 +45,12 @@ const App = () => {
   const handlePathChange = (newPath: PathType) => {
     localStorage.setItem("activePath", newPath);
     setActivePath(newPath);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    document.body.classList.remove("dark");
+    setActivePath("Welcome");
   };
 
   // current patching algorithm requires
@@ -86,7 +94,7 @@ const App = () => {
         activePath={activePath}
         user={user}
       >
-        <Settings />
+        <Settings onLogout={handleLogout} />
       </DashboardLayout>
     ) : (
       <DashboardLayout

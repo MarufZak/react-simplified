@@ -4,61 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: properly extend dark tokens */
 @layer base {
-  :root {
-    --neutral-1000: #181826;
-    --neutral-900: #212134;
-    --neutral-800: #32324d;
-    --neutral-700: #4a4a6a;
-    --neutral-600: #666687;
-    --neutral-500: #8e8ea9;
-    --neutral-400: #a5a5ba;
-    --neutral-300: #c0c0cf;
-    --neutral-200: #dcdce4;
-    --neutral-150: #eaeaef;
-    --neutral-100: #f6f6f9;
-    --neutral-0: #ffffff;
-
-    --primary-700: #271fe0;
-    --primary-600: #4945ff;
-    --primary-500: #7b79ff;
-    --primary-200: #d9d8ff;
-    --primary-100: #f0f0ff;
-
-    --secondary-700: #006096;
-    --secondary-600: #0c75af;
-    --secondary-500: #66b7f1;
-    --secondary-200: #b8e1ff;
-    --secondary-100: #eaf5ff;
-
-    --success-700: #2f6846;
-    --success-600: #328048;
-    --success-500: #5cb176;
-    --success-200: #c6f0c2;
-    --success-100: #eafbe7;
-
-    --danger-700: #b72b1a;
-    --danger-600: #d02b20;
-    --danger-500: #ee5e52;
-    --danger-200: #f5c0b8;
-    --danger-100: #fcecea;
-
-    --alternative-700: #8312d1;
-    --alternative-600: #9736e8;
-    --alternative-500: #ac73e6;
-    --alternative-200: #e0c1f4;
-    --alternative-100: #f6ecfc;
-
-    --warning-700: #be5d01;
-    --warning-600: #d9822f;
-    --warning-500: #f29d41;
-    --warning-200: #fae7b9;
-    --warning-100: #fdf4dc;
-
-    --shadow-sm: 0px 1px 4px 0px #2121341a;
-    --shadow-lg: 0px 2px 15px 0px #2121341a;
-  }
-
   .dark {
     --neutral-1000: #ffffff;
     --neutral-900: #ffffff;
@@ -109,28 +56,4 @@
     --warning-200: #4a4a6a;
     --warning-100: #181826;
   }
-}
-
-@layer utilities {
-  .icon-check-white {
-    content: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.55323 0.323243C8.63135 0.242625 8.76051 0.242081 8.83931 0.322038L9.86256 1.36034C9.93893 1.43784 9.93935 1.56217 9.86349 1.64016L4.06401 7.60351C3.9859 7.68382 3.85707 7.68432 3.77834 7.60461L0.13866 3.9196C0.0617798 3.84176 0.0617102 3.71659 0.138504 3.63867L1.16213 2.59999C1.24038 2.52059 1.36843 2.52049 1.4468 2.59975L3.92174 5.10274L8.55323 0.323243Z' fill='white'/%3E%3C/svg%3E");
-    top: -2px;
-  }
-
-  .icon-check-gray {
-    content: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.55323 0.323243C8.63135 0.242625 8.76051 0.242081 8.83931 0.322038L9.86256 1.36034C9.93893 1.43784 9.93935 1.56217 9.86349 1.64016L4.06401 7.60351C3.9859 7.68382 3.85707 7.68432 3.77834 7.60461L0.13866 3.9196C0.0617798 3.84176 0.0617102 3.71659 0.138504 3.63867L1.16213 2.59999C1.24038 2.52059 1.36843 2.52049 1.4468 2.59975L3.92174 5.10274L8.55323 0.323243Z' fill='rgb(102, 102, 135)'/%3E%3C/svg%3E");
-    top: -2px;
-  }
-}
-
-input {
-  border: 1px solid var(--neutral-300);
-}
-
-/* https://stackoverflow.com/questions/18856246/input-type-search-hide-the-icons */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  display: none;
 }

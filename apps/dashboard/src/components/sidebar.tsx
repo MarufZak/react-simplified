@@ -8,14 +8,9 @@ import {
 import { StrapiIcon } from "@marufzak/strapi-ui/icons/logos";
 import { cn } from "@marufzak/strapi-ui/utils";
 import type { User } from "../App";
-import {
-  generalPages,
-  pluginsPages,
-  type GeneralPageType,
-  type PluginPageType,
-} from "../lib/constants";
+import { generalPages, type GeneralPageType } from "../lib/constants";
 
-export type PathType = GeneralPageType | PluginPageType | "Welcome";
+export type PathType = GeneralPageType | "Welcome";
 interface SidebarProps {
   isCollapsed: boolean;
   handleCollapseChange: () => void;
@@ -74,23 +69,7 @@ const Sidebar = ({
           key="divider-2"
           className={isCollapsed ? "block my-4" : "hidden"}
         />
-        <ListTitle key="title-1" className={isCollapsed ? "hidden" : ""}>
-          plugins
-        </ListTitle>
-        {pluginsPages.map((plugin) => {
-          return (
-            <ListItem
-              onClick={() => onPathChange(plugin.title)}
-              isActive={activePath === plugin.title}
-              key={plugin.id}
-              isCollapsed={isCollapsed}
-              icon={plugin.icon}
-              href={plugin.href}
-            >
-              {plugin.title}
-            </ListItem>
-          );
-        })}
+
         <ListTitle key="title-2" className={isCollapsed ? "hidden" : ""}>
           general
         </ListTitle>

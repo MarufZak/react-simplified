@@ -73,7 +73,10 @@ const Login = ({ onLogin }: Props) => {
           name="password"
           required={true}
         />
-        <label className="flex items-center text-sm text-neutral-800 gap-2 my-6">
+        <label
+          experimental__patching={true}
+          className="flex items-center text-sm text-neutral-800 gap-2 my-6"
+        >
           <Checkbox />
           Remember me
         </label>

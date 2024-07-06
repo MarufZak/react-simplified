@@ -1,7 +1,11 @@
 import React from "@marufzak/react";
-import { ToggleInput } from "@marufzak/strapi-ui";
+import { Button, ToggleInput } from "@marufzak/strapi-ui";
 
-const Settings = () => {
+interface Props {
+  onLogout?: () => void;
+}
+
+const Settings = ({ onLogout }: Props) => {
   const [isDark, setIsDark] = React.useState(() => {
     return localStorage.getItem("theme") === "dark";
   });
@@ -21,15 +25,36 @@ const Settings = () => {
     setIsDark(newValue);
   };
 
+  const handleLogout = () => {
+    localStorage.clear();
+    onLogout?.();
+  };
+
   return (
-    <ToggleInput
-      hint="Both of them look great!"
-      label="Dark mode"
-      offLabel="False"
-      onLabel="True"
-      checked={isDark}
-      onChange={handleToggle}
-    />
+    <section>
+      <header className="flex items-center justify-between mb-14">
+        <h2 className="text-[32px] leading-10 font-bold text-neutral-800">
+          Settings
+        </h2>
+        <Button
+          onClick={handleLogout}
+          type="submit"
+          size="md"
+          theme="danger"
+          variant="primary"
+        >
+          Logout
+        </Button>
+      </header>
+      <ToggleInput
+        hint="Both of them look great!"
+        label="Dark mode"
+        offLabel="False"
+        onLabel="True"
+        checked={isDark}
+        onChange={handleToggle}
+      />
+    </section>
   );
 };
 

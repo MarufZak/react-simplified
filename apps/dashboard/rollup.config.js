@@ -17,10 +17,7 @@ export default {
     babel({ babelHelpers: "bundled" }),
     typescript(),
     postcss({
-      plugins: [
-        tailwindcss({ config: "../../packages/strapi-ui/tailwind.config.js" }),
-        autoprefixer(),
-      ],
+      plugins: [tailwindcss(), autoprefixer()],
       extract: false,
     }),
     serve({

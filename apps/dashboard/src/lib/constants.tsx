@@ -5,16 +5,13 @@ import {
   GearIcon,
 } from "@marufzak/strapi-ui/icons";
 
-export const pluginsPages = [
+export const generalPages = [
   {
     id: Math.random(),
     title: "Media Library",
     icon: LandscapeIcon,
     href: "media",
   },
-] as const;
-
-export const generalPages = [
   {
     id: Math.random(),
     title: "Marketplace",
@@ -124,4 +121,3 @@ export const marketplaceItems = [
 ] as const;
 
 export type GeneralPageType = (typeof generalPages)[number]["title"];
-export type PluginPageType = (typeof pluginsPages)[number]["title"];

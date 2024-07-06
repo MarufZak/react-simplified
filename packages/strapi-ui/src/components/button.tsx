@@ -8,7 +8,7 @@ const themes = {
     secondary:
       "text-primary-600 bg-primary-100 hover:bg-neutral-0 border border-primary-200 active:border-primary-700",
     tertiary:
-      "text-primary-800 bg-neutral-0 hover:bg-neutral-100 border border-neutral-200 active:bg-neutral-150",
+      "text-primary-800 dark:text-neutral-800 bg-neutral-0 hover:bg-neutral-100 border border-neutral-200 active:bg-neutral-150",
   },
   success: {
     primary:
