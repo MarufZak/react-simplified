@@ -13,6 +13,7 @@ React simplified is simple, zero-dependency, and lightweight React.js implementa
   - [useRef](#useref)
   - [useId](#useid)
 - [Notes](#notes)
+  - [Components keys](#components-keys)
   - [Flushing states](#flushing-states)
   - [Experimental patching](#experimental-patching)
   - [Event types](#event-types)
@@ -23,9 +24,9 @@ React simplified is simple, zero-dependency, and lightweight React.js implementa
 
 ## Features
 
-- **JSX runtime**: A simple JSX runtime that converts JSX to React elements.
-- **React DOM**: A simple DOM renderer that renders React elements and fragments to the DOM.
-- **Events system**: Event system that allows you to add event listeners to elements.
+- **JSX runtime**: JSX runtime that converts JSX to React elements.
+- **React DOM**: DOM renderer that renders React elements and fragments to the DOM.
+- **Events system**: Events system that allows you to add event listeners to elements.
 - **Component lifecycle**: Component lifecycle methods that allow you to run code when a component is mounted, updated, or unmounted, using useEffect hook.
 - **Reconciliation**: Reconciliation algorithm to update the DOM efficiently.
 - **Hooks**: A set of hooks that allow you to manage the state of your components, handle side effects, access DOM elements, and generate unique and consistent ids with useState, useEffect, useRef, and useId hooks respectively.
@@ -50,10 +51,12 @@ npm run build -w @marufzak/strapi-ui
 npm run watch -w dashboard
 ```
 
+Now navigate to `http://localhost:3000` to see the dashboard example.
+
 ## Examples
 
 1. [Dashboard](./apps/dashboard/README.md). There is also video demo!
-2. [@marufzak/strapi-ui](./packages/strapi-ui/README.md). There is also video demo!
+2. [@marufzak/strapi-ui](./packages/strapi-ui/README.md).
 
 Here is also a simple counter example:
 
@@ -63,15 +66,6 @@ import ReactDOM from "@marufzak/react/dom";
 
 const App = () => {
   const [count, setCount] = React.useState(0);
-
-  React.useEffect(() => {
-    console.log("Counter mounted");
-
-    // useEffect has support for cleanup functions!
-    return () => {
-      console.log("Counter unmounted");
-    };
-  }, []);
 
   return (
     <div>
@@ -299,11 +293,29 @@ const App = () => {
 
 ## Notes
 
-### Flushing states
+### Components keys
+
+Usage of key prop is slightly different from React. If you have multiple functional components inside one component, you have to attach key prop to each of them. Keys should be unique in the scope of the parent component. Here is an example:
+
+```tsx
+import React from "@marufzak/react";
+
+const App = () => {
+  return (
+    <div>
+      <Component key="1" />
+      <Component key="2" />
+      <Component key="3" />
+      <Button>123</Button>
+      <Button>456</Button> // throws error
+    </div>
+  );
+};
+```
 
 ### Flushing states
 
-By default, the library flushes the state updates after any DOM event, such as `click`, `input`, etc. This means that the state updates will be applied immediately after the event is triggered, making it possible for useState to be batched. However, if you want to update the state inside useEffect hook, you need to manually flush the state updates using `React.flushStateUpdates()` function. Here is an example:
+By default, the library flushes the state updates after events, such as `click`, `input`, etc. This means that the state updates will be applied immediately after the event is triggered, making it possible for useState to be batched. However, if you want to update the state inside useEffect hook, you need to manually flush the state updates using `React.flushStateUpdates()` function. Here is an example:
 
 ```tsx
 import React from "@marufzak/react";
@@ -337,7 +349,7 @@ Every React element can be attached a `experimental__patching` prop that allows 
 
 ### Event types
 
-- The library has full TypeScript support, including types for hooks, React elements, and others. However, this library does not come with types for events, so you have to define them yourself. For example:
+The library has full TypeScript support, including types for hooks, React elements, and others. However, this library does not come with types for events, so you have to define them yourself. For example:
 
 ```tsx
 import React from "@marufzak/react";
