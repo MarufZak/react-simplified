@@ -185,7 +185,7 @@ State updates are batched, so you can update the state multiple times in a singl
 import React from "@marufzak/react";
 
 const App = () => {
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = React.useState(0);
 
   const handleClick = () => {
     setNumber(number + 1);
@@ -193,6 +193,11 @@ const App = () => {
     setNumber(number + 1);
 
     // number will be updated only once, and it will be incremented by 1.
+
+    // you can also access the previously set state using functional updates, like this:
+    setNumber((prevNumber) => {
+      return prevNumber + 1;
+    });
   };
 
   return (
