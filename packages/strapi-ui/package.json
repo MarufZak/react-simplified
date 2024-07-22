@@ -26,7 +26,7 @@
     "clsx": "^2.1.1",
     "glob": "^11.0.0",
     "postcss": "^8.4.39",
-    "rollup": "^4.18.1",
+    "rollup": "^4.19.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-postcss": "^4.0.2",
     "tailwind-merge": "^2.4.0",
