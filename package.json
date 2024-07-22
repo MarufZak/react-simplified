@@ -29,7 +29,7 @@
     "apps/dashboard"
   ],
   "devDependencies": {
-    "husky": "^9.0.11",
+    "husky": "^9.1.1",
     "typescript": "^5.5.3"
   }
 }
