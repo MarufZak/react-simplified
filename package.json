@@ -30,6 +30,6 @@
   ],
   "devDependencies": {
     "husky": "^9.1.4",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   }
 }
