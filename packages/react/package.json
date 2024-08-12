@@ -16,7 +16,7 @@
     "build": "NODE_ENV=production rollup -c"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.25.0",
+    "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
