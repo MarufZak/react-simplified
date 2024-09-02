@@ -24,7 +24,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "autoprefixer": "^10.4.20",
     "clsx": "^2.1.1",
-    "postcss": "^8.4.41",
+    "postcss": "^8.4.44",
     "rollup": "^4.20.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-postcss": "^4.0.2",
