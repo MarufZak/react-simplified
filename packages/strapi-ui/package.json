@@ -34,7 +34,7 @@
     "tslib": "^2.6.3"
   },
   "peerDependencies": {
-    "@marufzak/react": "~0.8.4"
+    "@marufzak/react": "1.0.0"
   },
   "type": "module",
   "exports": {
