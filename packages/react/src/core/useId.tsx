@@ -37,14 +37,12 @@ subscribeToStateChange(() => {
   }
 });
 
-componentRegistry.subscribeToStoreChange(
-  (mountedComponents, unmountedComponents) => {
-    for (const key in collections) {
-      if (unmountedComponents.includes(key)) {
-        delete collections[key];
-      }
+componentRegistry.subscribeToStoreChange((_, unmountedComponents) => {
+  for (const key in collections) {
+    if (unmountedComponents.includes(key)) {
+      delete collections[key];
     }
-  },
-);
+  }
+});
 
 export default useId;

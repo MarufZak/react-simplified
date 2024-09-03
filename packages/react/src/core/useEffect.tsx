@@ -1,6 +1,6 @@
-import { flushStateUpdates, subscribeToStateChange } from "./useState";
-import { compareArrays, getCallerStack } from "./utils";
 import componentRegistry from "./componentRegistry";
+import { subscribeToStateChange } from "./useState";
+import { compareArrays, getCallerStack } from "./utils";
 
 type DependenciesType = any[];
 type CallbackType = () => void | (() => any);
@@ -24,8 +24,7 @@ const subscribeToComponentRegistryComplete = (callback: Function) => {
   return componentRegistry.subscribeToStateChange((state) => {
     if (state === "completed") {
       return callback();
-      // TODO: causing infinite loop
-      // flushStateUpdates();
+      // flushStateUpdates() causing infinite loop
     }
   });
 };
@@ -92,22 +91,20 @@ subscribeToStateChange(() => {
   }
 });
 
-componentRegistry.subscribeToStoreChange(
-  (mountedComponents, unmountedComponents) => {
-    for (const key in effectsStore) {
-      if (unmountedComponents.includes(key) === false) {
-        continue;
-      }
-
-      for (let i = 0; i < effectsStore[key].effects.length; i++) {
-        const cleanupFunction = effectsStore[key].effects[i].cleanupFunction;
-        if (typeof cleanupFunction === "function") {
-          cleanupFunction();
-        }
-      }
-      delete effectsStore[key];
+componentRegistry.subscribeToStoreChange((_, unmountedComponents) => {
+  for (const key in effectsStore) {
+    if (unmountedComponents.includes(key) === false) {
+      continue;
     }
-  },
-);
+
+    for (let i = 0; i < effectsStore[key].effects.length; i++) {
+      const cleanupFunction = effectsStore[key].effects[i].cleanupFunction;
+      if (typeof cleanupFunction === "function") {
+        cleanupFunction();
+      }
+    }
+    delete effectsStore[key];
+  }
+});
 
 export default useEffect;

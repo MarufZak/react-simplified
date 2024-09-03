@@ -1,6 +1,5 @@
 import eventRegistry from "../dom/eventRegistry";
 import ReactDOM from "../dom/react-dom";
-import type { ReturnValueType } from "../shared/types";
 import componentRegistry from "./componentRegistry";
 import { getCallerStack } from "./utils";
 
@@ -12,19 +11,14 @@ type StateType = {
   }[];
 };
 type StateSubscriberType = () => void;
-
-type UpdaterFunctionType<T> = (
-  newValue:
-    | ReturnValueType<T>
-    | ((currentValue: ReturnValueType<T>) => ReturnValueType<T>),
-) => void;
+type UpdaterFunctionType<T> = (newValue: T | ((currentValue: T) => T)) => void;
 
 const stateSubscribers: StateSubscriberType[] = [];
 const states: Record<string, StateType> = {};
 
 function useState<T>(
-  initialValue?: T | (() => ReturnValueType<T>),
-): readonly [ReturnValueType<T>, UpdaterFunctionType<T>] {
+  initialValue?: T | (() => T),
+): readonly [T, UpdaterFunctionType<T>] {
   const stringCallerStack = getCallerStack().join(".");
 
   // initial render
@@ -84,7 +78,7 @@ function useState<T>(
   return [currentValues[currentCursor].value, performUpdate];
 }
 
-componentRegistry.subscribeToStoreChange(
+componentRegistry?.subscribeToStoreChange(
   (mountedComponents, unmountedComponents) => {
     for (let i = 0; i < unmountedComponents.length; i++) {
       const unmountedComponent = unmountedComponents[i];

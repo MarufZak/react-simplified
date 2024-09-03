@@ -1,6 +1,6 @@
+import componentRegistry from "./componentRegistry";
 import { subscribeToStateChange } from "./useState";
 import { compareArrays, getCallerStack } from "./utils";
-import componentRegistry from "./componentRegistry";
 
 type DependenciesType = any[];
 type CallbackType = () => void | (() => any);
@@ -66,23 +66,21 @@ subscribeToStateChange(() => {
   }
 });
 
-componentRegistry.subscribeToStoreChange(
-  (mountedComponents, unmountedComponents) => {
-    for (const key in layoutEffectsStore) {
-      if (unmountedComponents.includes(key) === false) {
-        continue;
-      }
-
-      for (let i = 0; i < layoutEffectsStore[key].layoutEffects.length; i++) {
-        const cleanupFunction =
-          layoutEffectsStore[key].layoutEffects[i].cleanupFunction;
-        if (typeof cleanupFunction === "function") {
-          cleanupFunction();
-        }
-      }
-      delete layoutEffectsStore[key];
+componentRegistry.subscribeToStoreChange((_, unmountedComponents) => {
+  for (const key in layoutEffectsStore) {
+    if (unmountedComponents.includes(key) === false) {
+      continue;
     }
-  },
-);
+
+    for (let i = 0; i < layoutEffectsStore[key].layoutEffects.length; i++) {
+      const cleanupFunction =
+        layoutEffectsStore[key].layoutEffects[i].cleanupFunction;
+      if (typeof cleanupFunction === "function") {
+        cleanupFunction();
+      }
+    }
+    delete layoutEffectsStore[key];
+  }
+});
 
 export default useLayoutEffect;

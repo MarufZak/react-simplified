@@ -19,5 +19,3 @@ export interface ReactElementType {
   type: HTMLTagElementType | "fragment";
   props: ReactElementPropsType;
 }
-
-export type ReturnValueType<T> = T extends () => infer K ? K : T;

@@ -32,10 +32,6 @@ const Login = ({ onLogin }: Props) => {
     onLogin(username, password);
   };
 
-  console.log({
-    isDialogOpen,
-  });
-
   return (
     <section
       experimental__patching={true}

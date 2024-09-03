@@ -31,8 +31,6 @@ const Marketplace = () => {
     return item.name.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
-  console.log({ filteredItems });
-
   return (
     <div experimental__patching={true}>
       <header className="flex items-center justify-between mb-12">

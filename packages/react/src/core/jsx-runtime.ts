@@ -1,12 +1,10 @@
-import React from "./index";
 import type {
   HTMLTagElementType,
-  ReactElementPropsType,
   ReactElementType,
   VDOMType,
 } from "../shared/types";
-import { cloneFunction, getCallerStack } from "./utils";
 import componentRegistry from "./componentRegistry";
+import { cloneFunction, getCallerStack } from "./utils";
 
 export function createElement(
   type: HTMLTagElementType | Function,
