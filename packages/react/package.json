@@ -30,7 +30,7 @@
     "prop-types": "^15.8.1",
     "rollup": "^4.21.2",
     "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-delete": "^2.1.0",
     "tslib": "^2.7.0"
   },
   "author": {
