@@ -24,13 +24,13 @@
     "@rollup/plugin-typescript": "^12.1.1",
     "autoprefixer": "^10.4.20",
     "clsx": "^2.1.1",
-    "postcss": "^8.4.47",
-    "rollup": "^4.24.3",
+    "postcss": "^8.4.49",
+    "rollup": "^4.28.0",
     "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-serve": "^1.1.1",
-    "tailwind-merge": "^2.5.4",
-    "tailwindcss": "^3.4.14",
+    "tailwind-merge": "^2.5.5",
+    "tailwindcss": "^3.4.15",
     "tslib": "^2.8.1"
   },
   "dependencies": {
