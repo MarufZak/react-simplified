@@ -14,5 +14,8 @@ Now open your browser and navigate to `http://localhost:3000`.
 
 ## Demo
 
-https://github.com/user-attachments/assets/e8e9711f-e709-4007-9349-661849b7ec3e
+
+
+https://github.com/user-attachments/assets/9be8e234-d4fe-434b-848a-3f52bc847c9e
+
 
