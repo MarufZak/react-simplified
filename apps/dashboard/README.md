@@ -14,4 +14,5 @@ Now open your browser and navigate to `http://localhost:3000`.
 
 ## Demo
 
-https://github.com/MarufZak/react-simplified/assets/72617743/299bcd00-d14d-43f3-a5e0-dea00c1478bc
+https://github.com/user-attachments/assets/e8e9711f-e709-4007-9349-661849b7ec3e
+
