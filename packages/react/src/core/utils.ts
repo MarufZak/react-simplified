@@ -11,6 +11,7 @@ export function getCallerStack() {
 
     // this makes the caller stack easier to read and debug,
     // for example ['Sidebar', 'DashboardLayout', 'App', 'render'];
+    // RSComponent - React Simplified Component
     if (item.startsWith("RSComponent-")) {
       result.push(item.replace("RSComponent-", ""));
     } else if (item.startsWith("ReactDOM.")) {
