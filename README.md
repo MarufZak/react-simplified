@@ -46,8 +46,18 @@ npm install
 # build core and strapi-ui packages
 npm run build -w @marufzak/react
 npm run build -w @marufzak/strapi-ui
+```
 
-# run dashboard example
+Packages have been bundled, go to `apps/dashboard`, create `public` folder and `index.html` file inside with boilerplate, and paste the following into the body:
+
+```html
+<div id="root"></div>
+<script src="./script.js"></script>
+```
+
+Now bundle the dashboard by running following script:
+
+```bash
 npm run watch -w dashboard
 ```
 
