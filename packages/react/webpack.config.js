@@ -17,7 +17,7 @@ const config = {
   },
   plugins: [
     new CopyPlugin({
-      patterns: [{ from: "./src/types/index.d.ts", to: "./dist/types" }],
+      patterns: [{ from: "./src/types/index.d.ts", to: "./types" }],
     }),
   ],
   module: {
