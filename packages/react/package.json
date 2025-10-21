@@ -12,8 +12,8 @@
   "main": "./dist/core/index.js",
   "types": "./dist/core/index.d.ts",
   "scripts": {
-    "watch": "NODE_ENV=development rollup -c -w",
-    "build": "webpack"
+    "dev": "NODE_ENV=development webpack --watch",
+    "build": "NODE_ENV=production webpack"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

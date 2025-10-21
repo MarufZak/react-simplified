@@ -1,5 +1,6 @@
 import path from "node:path";
 import CopyPlugin from "copy-webpack-plugin";
+import webpack from "webpack";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -18,6 +19,9 @@ const config = {
   plugins: [
     new CopyPlugin({
       patterns: [{ from: "./src/types/index.d.ts", to: "./types" }],
+    }),
+    new webpack.DefinePlugin({
+      __DEV__: !isProduction,
     }),
   ],
   module: {
