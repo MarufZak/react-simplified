@@ -1,4 +1,3 @@
-import "../globals.css";
 export * from "./breadcrumb";
 export * from "./input";
 export * from "./modal";
