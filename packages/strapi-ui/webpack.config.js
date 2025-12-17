@@ -21,11 +21,14 @@ const config = {
       ),
       // This expands the relative paths to absolute paths, so
       // e.g. src/nested/foo becomes /project/src/nested/foo.js
-      fileURLToPath(new URL(file, import.meta.url)),
+      {
+        import: fileURLToPath(new URL(file, import.meta.url)),
+        dependOn: file.includes("utils") ? undefined : "utils",
+      },
     ]),
   ),
   output: {
-    filename: "[name]/index.js",
+    filename: "[name].js",
     path: path.resolve("dist"),
     clean: true,
     library: {

@@ -22,7 +22,6 @@
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.1",
-    "autoprefixer": "^10.4.20",
     "clsx": "^2.1.1",
     "glob": "^11.0.0",
     "postcss": "^8.5.6",
@@ -41,19 +40,19 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./dist/components/index/index.js",
+      "default": "./dist/components/index.js",
       "types": "./dist/components/index.d.ts"
     },
     "./icons": {
-      "default": "./dist/icons/index/index.js",
+      "default": "./dist/icons/index.js",
       "types": "./dist/icons/index.d.ts"
     },
     "./icons/logos": {
-      "default": "./dist/icons/logos/index/index.js",
-      "types": "./dist/icons/logos/index.d.ts"
+      "default": "./dist/icons/logos/index.js",
+      "types": "./dist/icons/index.d.ts"
     },
     "./utils": {
-      "default": "./dist/utils/index.js",
+      "default": "./dist/utils.js",
       "types": "./dist/utils.d.ts"
     }
   },
