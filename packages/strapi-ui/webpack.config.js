@@ -34,8 +34,9 @@ const config = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve("dist"),
+    path: path.resolve(import.meta.dirname, "dist"),
     clean: true,
+    assetModuleFilename: "assets/[name][ext]",
     library: {
       type: "module",
     },
@@ -64,6 +65,10 @@ const config = {
             loader: "ts-loader",
           },
         ],
+      },
+      {
+        test: /\.png$/i,
+        type: "asset/resource",
       },
     ],
   },
