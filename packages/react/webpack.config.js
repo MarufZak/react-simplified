@@ -1,6 +1,7 @@
 import path from "node:path";
 import CopyPlugin from "copy-webpack-plugin";
 import webpack from "webpack";
+import { WebpackManifestPlugin as ManifestPlugin } from "webpack-manifest-plugin";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -29,6 +30,7 @@ const config = {
     new webpack.DefinePlugin({
       __DEV__: !isProduction,
     }),
+    !isProduction && new ManifestPlugin(),
   ],
   module: {
     rules: [
