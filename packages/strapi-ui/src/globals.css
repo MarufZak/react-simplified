@@ -111,12 +111,12 @@
 
 @layer utilities {
   .icon-check-white {
-    content: url("../assets/check-white.png");
+    content: url("assets/check-white.png");
     top: -2px;
   }
 
   .icon-check-gray {
-    content: url("../assets/check-gray.png");
+    content: url("assets/check-gray.png");
     top: -2px;
   }
 }

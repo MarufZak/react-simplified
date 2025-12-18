@@ -74,6 +74,9 @@ const config = {
   },
   resolve: {
     extensions: [".ts", ".tsx"],
+    alias: {
+      assets: path.resolve(import.meta.dirname, "assets"),
+    },
   },
   // IMPORTANT, because when using strapi-ui,
   // @marufzak/react/dom is expected to be loaded at runtime
