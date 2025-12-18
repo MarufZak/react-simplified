@@ -6,7 +6,7 @@
   "types": "./dist/components/index.d.ts",
   "scripts": {
     "watch": "NODE_ENV=development rollup -c -w",
-    "build": "NODE_ENV=production webpack && rm dist/styles.css.js"
+    "build": "NODE_ENV=production webpack"
   },
   "author": {
     "email": "marufzak04@gmail.com",
@@ -62,7 +62,7 @@
       "default": "./dist/utils.js",
       "types": "./dist/utils.d.ts"
     },
-    "./styles": "./src/globals.css"
+    "./styles": "./dist/styles.css"
   },
   "typesVersions": {
     "*": {

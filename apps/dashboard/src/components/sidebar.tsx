@@ -7,8 +7,8 @@ import {
 } from "@marufzak/strapi-ui/icons";
 import { StrapiIcon } from "@marufzak/strapi-ui/icons/logos";
 import { cn } from "@marufzak/strapi-ui/utils";
-import type { User } from "../App";
 import { generalPages, type GeneralPageType } from "../lib/constants";
+import type { User } from "../types";
 
 export type PathType = GeneralPageType | "Welcome";
 interface SidebarProps {

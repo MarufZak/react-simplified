@@ -2,7 +2,7 @@ import React from "@marufzak/react";
 import { Button, PasswordInput, TextInput } from "@marufzak/strapi-ui";
 import { CheckIcon } from "@marufzak/strapi-ui/icons";
 import Block from "../../components/block";
-import type { User } from "../../App";
+import type { User } from "../../types";
 
 const Profile = () => {
   const formRef = React.useRef<HTMLFormElement | null>(null);

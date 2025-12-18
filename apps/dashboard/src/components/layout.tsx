@@ -1,6 +1,6 @@
 import React from "@marufzak/react";
 import Sidebar, { type PathType } from "./sidebar";
-import type { User } from "../App";
+import type { User } from "../types";
 
 interface Props {
   user: User | null;

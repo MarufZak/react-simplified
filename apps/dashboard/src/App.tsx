@@ -7,14 +7,7 @@ import type { PathType } from "./components/sidebar";
 import Marketplace from "./pages/dashboard/marketplace";
 import Media from "./pages/dashboard/media";
 import Settings from "./pages/dashboard/settings";
-
-export interface User {
-  username: string;
-  password: string;
-  firstName?: string;
-  familyName?: string;
-  email?: string;
-}
+import type { User } from "./types";
 
 const App = () => {
   const [user, setUser] = React.useState<User | null>(() => {

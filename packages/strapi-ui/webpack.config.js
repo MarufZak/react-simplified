@@ -12,7 +12,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const config = {
   mode: isProduction ? "production" : "development",
   entry: {
-    "styles.css": "./src/globals.css",
+    styles: "./src/globals.css",
     ...Object.fromEntries(
       globSync([
         "./src/{components,icons,icons/logos}/*.tsx",
@@ -86,7 +86,7 @@ const config = {
     new MiniCssExtractPlugin({
       filename: "styles.css",
     }),
-    new ManifestPlugin(),
+    !isProduction && new ManifestPlugin(),
   ],
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
