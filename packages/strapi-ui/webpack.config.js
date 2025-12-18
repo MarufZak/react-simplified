@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import packageJson from "./package.json" with { type: "json" };
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import { WebpackManifestPlugin as ManifestPlugin } from "webpack-manifest-plugin";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -85,6 +86,7 @@ const config = {
     new MiniCssExtractPlugin({
       filename: "styles.css",
     }),
+    new ManifestPlugin(),
   ],
   optimization: {
     minimizer: [new CssMinimizerPlugin()],

@@ -38,7 +38,8 @@
     "tailwindcss": "^3.4.15",
     "tslib": "^2.8.1",
     "webpack": "^5.102.1",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^6.0.1",
+    "webpack-manifest-plugin": "^6.0.1"
   },
   "peerDependencies": {
     "@marufzak/react": "1.0.0"
