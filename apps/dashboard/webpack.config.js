@@ -9,6 +9,9 @@ const templateContent = readFileSync("./index.html").toString();
 const config = {
   mode: isProduction ? "production" : "development",
   entry: "./src/index.tsx",
+  devServer: {
+    static: false,
+  },
   output: {
     filename: "script.js",
     path: path.resolve(import.meta.dirname, "public"),
@@ -43,7 +46,7 @@ const config = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".tsx"],
+    extensions: [".js", ".ts", ".tsx"],
   },
 };
 

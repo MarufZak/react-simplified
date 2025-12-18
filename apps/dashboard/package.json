@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development webpack --watch",
+    "dev": "NODE_ENV=development webpack serve --open",
     "build": "NODE_ENV=development webpack"
   },
   "keywords": [],
@@ -36,7 +36,8 @@
     "style-loader": "^4.0.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss": "^3.4.15",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
     "@marufzak/react": "^1.0.0",
