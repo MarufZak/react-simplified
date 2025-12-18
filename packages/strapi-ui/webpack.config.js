@@ -85,6 +85,7 @@ const config = {
   ],
   optimization: {
     minimizer: [new CssMinimizerPlugin()],
+    runtimeChunk: "single",
   },
 };
 
