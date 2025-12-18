@@ -45,9 +45,6 @@ const config = {
   resolve: {
     extensions: [".ts", ".tsx"],
   },
-  stats: {
-    loggingDebug: ["babel-loader"],
-  },
 };
 
 export default config;

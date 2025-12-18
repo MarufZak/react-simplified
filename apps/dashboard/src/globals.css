@@ -1,10 +1,9 @@
-@config "../../../packages/strapi-ui/tailwind.config.js";
+@import "@marufzak/strapi-ui/styles";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* TODO: properly extend dark tokens */
 @layer base {
   .dark {
     --neutral-1000: #ffffff;

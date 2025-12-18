@@ -13,7 +13,7 @@ const config = {
   },
   output: {
     filename: "[name]/index.js",
-    path: path.resolve("dist"),
+    path: path.resolve(import.meta.dirname, "dist"),
     clean: true,
     library: {
       type: "module",
